@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objectifs ABC - LS4YOU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ls-red: #FF4B5C;
+            --ls-yellow: #FFD166;
+            --ls-turquoise: #46e3cf;
+            --ls-dark: #1A1A1A;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+            color: var(--ls-dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .ls-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--ls-red);
+            color: white;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 75, 92, 0.3);
+        }
+
+        .bg-shape {
+            position: absolute;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+        }
+
+        .drop-zone {
+            min-height: 80px;
+            border: 2px dashed #e2e8f0;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        .drop-zone.active-a { border-color: var(--ls-red); background-color: rgba(255, 75, 92, 0.05); }
+        .drop-zone.active-b { border-color: var(--ls-yellow); background-color: rgba(255, 209, 102, 0.05); }
+        .drop-zone.active-c { border-color: var(--ls-turquoise); background-color: rgba(70, 227, 207, 0.05); }
+
+        .animate-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col bg-white shadow-2xl relative overflow-hidden">
+        
+        <!-- Shapes -->
+        <div class="bg-shape w-40 h-40 bg-[#FFD166] -top-10 -right-10"></div>
+        <div class="bg-shape w-40 h-40 bg-[#46e3cf] -bottom-10 -left-10"></div>
+
+        <!-- Header -->
+        <header class="px-6 py-6 flex justify-between items-center bg-white/80 backdrop-blur-md sticky top-0 z-50">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-[#FF4B5C] rounded-full flex items-center justify-center text-white font-bold text-xs">LS</div>
+                <h1 class="text-lg font-800 tracking-tighter uppercase">LS4YOU <span class="text-slate-300 font-normal">| Objectifs</span></h1>
+            </div>
+            <div id="step-indicator" class="text-[10px] font-800 text-slate-400 uppercase tracking-widest">Étape 1/3</div>
+        </header>
+
+        <main id="main-content" class="flex-grow p-6 relative">
+            <!-- Injecté par JS -->
+        </main>
+    </div>
+
+    <script>
+        // --- DONNÉES (30 Objectifs sur 11 Domaines) ---
+        let OBJECTIVES_BANK = [
+            { id: 1, text: "Refaire mon CV", cat: "Emploi" },
+            { id: 2, text: "Envoyer 2 candidatures", cat: "Emploi" },
+            { id: 3, text: "Relancer un employeur", cat: "Emploi" },
+            { id: 4, text: "Appeler un centre de formation", cat: "Formation" },
+            { id: 5, text: "Préparer mon dossier d'inscription", cat: "Formation" },
+            { id: 6, text: "Faire mon dossier CAF", cat: "Logement" },
+            { id: 7, text: "Chercher des annonces logement", cat: "Logement" },
+            { id: 8, text: "Prendre RDV médecin", cat: "Santé" },
+            { id: 9, text: "Mettre à jour ma carte Vitale", cat: "Santé" },
+            { id: 10, text: "Lister mes dépenses du mois", cat: "Budget" },
+            { id: 11, text: "Rembourser une petite dette", cat: "Budget" },
+            { id: 12, text: "Réviser le code de la route", cat: "Mobilité" },
+            { id: 13, text: "Trouver un trajet de bus", cat: "Mobilité" },
+            { id: 14, text: "Demander de l'aide à mon conseiller", cat: "Relations" },
+            { id: 15, text: "Dire non à une sollicitation négative", cat: "Relations" },
+            { id: 16, text: "Demander mon bulletin n°3", cat: "Justice" },
+            { id: 17, text: "Lire mon contrat de travail", cat: "Justice" },
+            { id: 18, text: "Nettoyer mes réseaux sociaux", cat: "Numérique" },
+            { id: 19, text: "Scanner mes papiers d'identité", cat: "Numérique" },
+            { id: 20, text: "Créer une adresse mail pro", cat: "Numérique" },
+            { id: 21, text: "Faire une sortie culturelle", cat: "Loisirs" },
+            { id: 22, text: "S'inscrire à une activité sportive", cat: "Loisirs" },
+            { id: 23, text: "S'inscrire sur les listes électorales", cat: "Citoyenneté" },
+            { id: 24, text: "Participer à un atelier quartier", cat: "Citoyenneté" },
+            { id: 25, text: "Faire une to-do list demain", cat: "Autonomie" },
+            { id: 26, text: "Préparer mes vêtements de RDV", cat: "Emploi" },
+            { id: 27, text: "Identifier 2 entreprises locales", cat: "Emploi" },
+            { id: 28, text: "Se lever à heure fixe (3 jours)", cat: "Santé" },
+            { id: 29, text: "Trier mes mails administratifs", cat: "Numérique" },
+            { id: 30, text: "Économiser 10€ cette semaine", cat: "Budget" }
+        ];
+
+        let state = {
+            step: 1, // 1: Tri, 2: Micro-actions, 3: Plan final
+            selections: { a: [], b: [], c: [] },
+            microActions: {} // id: string
+        };
+
+        const app = {
+            init() { this.render(); },
+
+            render() {
+                const main = document.getElementById('main-content');
+                const indicator = document.getElementById('step-indicator');
+                main.innerHTML = '';
+
+                if (state.step === 1) {
+                    indicator.innerText = "Étape 1/3 : Priorisation";
+                    main.innerHTML = this.viewSorting();
+                } else if (state.step === 2) {
+                    indicator.innerText = "Étape 2/3 : Passage à l'action";
+                    main.innerHTML = this.viewMicroActions();
+                } else {
+                    indicator.innerText = "Étape 3/3 : Mon Plan";
+                    main.innerHTML = this.viewFinalPlan();
+                }
+                lucide.createIcons();
+            },
+
+            // --- VUES ---
+            viewSorting() {
+                const unplaced = OBJECTIVES_BANK.filter(o => 
+                    !state.selections.a.includes(o.id) && 
+                    !state.selections.b.includes(o.id) && 
+                    !state.selections.c.includes(o.id)
+                );
+
+                return `
+                    <div class="animate-fade space-y-6">
+                        <div class="mb-4 flex justify-between items-start">
+                            <div>
+                                <h2 class="text-2xl font-800 leading-tight">Qu'est-ce qui te fait <span class="text-[#FF4B5C]">avancer ?</span></h2>
+                                <p class="text-slate-400 text-sm mt-2">Clique sur un objectif pour le classer.</p>
+                            </div>
+                            <button onclick="app.addCustomObjective()" class="w-10 h-10 bg-[#46e3cf] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform shrink-0">
+                                <i data-lucide="plus" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+
+                        <!-- Bank -->
+                        <div class="ls-card p-4 bg-slate-50 border-2 border-dashed h-48 overflow-y-auto mb-6 flex flex-wrap gap-2 content-start">
+                            ${unplaced.length ? unplaced.map(o => `
+                                <button onclick="app.place(${o.id})" class="px-3 py-2 bg-white rounded-xl border text-[11px] font-bold shadow-sm hover:border-[#FF4B5C] transition-all">
+                                    ${o.text}
+                                </button>
+                            `).join('') : '<p class="text-slate-400 text-xs italic">Tous les objectifs sont classés !</p>'}
+                        </div>
+
+                        <!-- Drop Zones -->
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-800 uppercase tracking-widest text-[#FF4B5C]">🔴 A - Vital & Immédiat (Max 3)</label>
+                                <div class="drop-zone active-a p-2 flex flex-wrap gap-2">
+                                    ${state.selections.a.map(id => this.renderTag(id, 'a')).join('')}
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-800 uppercase tracking-widest text-[#FFD166]">🟡 B - Important</label>
+                                <div class="drop-zone active-b p-2 flex flex-wrap gap-2">
+                                    ${state.selections.b.map(id => this.renderTag(id, 'b')).join('')}
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-800 uppercase tracking-widest text-[#46e3cf]">🟢 C - Confort / Bonus</label>
+                                <div class="drop-zone active-c p-2 flex flex-wrap gap-2">
+                                    ${state.selections.c.map(id => this.renderTag(id, 'c')).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="app.toStep2()" class="btn-primary w-full py-5 font-800 uppercase tracking-widest mt-6 disabled:opacity-50" ${state.selections.a.length === 0 ? 'disabled' : ''}>
+                            Valider mes choix
+                        </button>
+                    </div>
+                `;
+            },
+
+            renderTag(id, cat) {
+                const o = OBJECTIVES_BANK.find(x => x.id === id);
+                return `
+                    <div class="animate-pop bg-white border px-2 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1 shadow-sm">
+                        <span>${o.text}</span>
+                        <button onclick="app.remove(${id}, '${cat}')" class="text-slate-300 hover:text-red-500">
+                            <i data-lucide="x" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                `;
+            },
+
+            viewMicroActions() {
+                const itemsA = state.selections.a.map(id => OBJECTIVES_BANK.find(o => o.id === id));
+                return `
+                    <div class="animate-fade space-y-6">
+                        <div class="mb-4">
+                            <h2 class="text-2xl font-800 leading-tight">La toute <span class="text-[#FF4B5C]">1ère étape</span></h2>
+                            <p class="text-slate-400 text-sm mt-2">Pour chaque objectif A, note une action toute simple à faire cette semaine.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            ${itemsA.map(o => `
+                                <div class="ls-card p-5 border-l-8 border-l-[#FF4B5C]">
+                                    <h4 class="font-800 text-sm mb-3">${o.text}</h4>
+                                    <input type="text" 
+                                           oninput="state.microActions[${o.id}] = this.value"
+                                           placeholder="Ex: Appeler à 14h, acheter un timbre..."
+                                           class="w-full border-b-2 border-slate-100 focus:border-[#46e3cf] outline-none text-sm pb-2 italic"
+                                           value="${state.microActions[o.id] || ''}">
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <button onclick="app.toStep3()" class="btn-primary w-full py-5 font-800 uppercase tracking-widest mt-6">
+                            Générer mon plan
+                        </button>
+                    </div>
+                `;
+            },
+
+            viewFinalPlan() {
+                const itemsA = state.selections.a.map(id => ({
+                    ...OBJECTIVES_BANK.find(o => o.id === id),
+                    micro: state.microActions[id] || "Démarrer l'action"
+                }));
+                const itemsB = state.selections.b.map(id => OBJECTIVES_BANK.find(o => o.id === id));
+
+                return `
+                    <div class="animate-fade space-y-8 pb-10">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-[#FFD166] rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="calendar-check" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h2 class="text-2xl font-800 tracking-tight">Mon Plan de Semaine</h2>
+                            <p class="text-slate-400 text-sm mt-1">C'est parti ! 🚀</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-xs font-800 uppercase tracking-widest text-[#FF4B5C] px-2">🔴 Mes Priorités Vitales</h3>
+                            ${itemsA.map(o => `
+                                <div class="ls-card p-5 flex gap-4 items-start shadow-md">
+                                    <div class="w-10 h-10 bg-[#FF4B5C]/10 text-[#FF4B5C] rounded-full shrink-0 flex items-center justify-center font-800 text-sm">A</div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-800">${o.text}</h4>
+                                        <p class="text-xs text-slate-500 mt-1">Première étape : <span class="text-[#46e3cf] font-bold italic">${o.micro}</span></p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        ${itemsB.length ? `
+                        <div class="space-y-4 opacity-70">
+                            <h3 class="text-xs font-800 uppercase tracking-widest text-[#FFD166] px-2">🟡 À garder en tête (B)</h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${itemsB.map(o => `<span class="px-3 py-1 bg-white border rounded-full text-[10px] font-bold">${o.text}</span>`).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="pt-6 space-y-3">
+                            <button onclick="window.print()" class="w-full py-4 border-2 border-slate-100 rounded-full font-800 text-xs uppercase flex items-center justify-center gap-2">
+                                <i data-lucide="download" class="w-4 h-4"></i> Enregistrer
+                            </button>
+                            <button onclick="location.reload()" class="w-full py-2 text-slate-300 text-[10px] font-bold uppercase tracking-widest">Recommencer</button>
+                        </div>
+                    </div>
+                `;
+            },
+
+            // --- LOGIQUE ---
+            addCustomObjective() {
+                const text = prompt("Quel est ton objectif personnalisé ?");
+                if (text && text.trim() !== "") {
+                    const newId = Date.now(); // ID unique
+                    OBJECTIVES_BANK.push({ 
+                        id: newId, 
+                        text: text.trim(), 
+                        cat: "Perso" 
+                    });
+                    this.render();
+                }
+            },
+
+            place(id) {
+                const cat = prompt("Où placer cet objectif ? (A, B ou C)").toLowerCase();
+                if (['a', 'b', 'c'].includes(cat)) {
+                    if (cat === 'a' && state.selections.a.length >= 3) {
+                        alert("Pas plus de 3 objectifs en catégorie A ! Priorise l'essentiel.");
+                        return;
+                    }
+                    state.selections[cat].push(id);
+                    this.render();
+                }
+            },
+
+            remove(id, cat) {
+                state.selections[cat] = state.selections[cat].filter(x => x !== id);
+                this.render();
+            },
+
+            toStep2() {
+                state.step = 2;
+                this.render();
+            },
+
+            toStep3() {
+                state.step = 3;
+                this.render();
+            }
+        };
+
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>
