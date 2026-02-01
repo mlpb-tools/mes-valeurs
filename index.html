@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objectifs ABC - LS4YOU</title>
+    <title>LS4YOU - Stressomètre Desktop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,323 +17,378 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f9fafb;
+            background-color: #ffffff;
             color: var(--ls-dark);
-            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-        }
+        h1, h2, h3, h4, .font-title { font-family: 'Montserrat', sans-serif; }
 
-        .ls-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary {
-            background-color: var(--ls-red);
-            color: white;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(255, 75, 92, 0.3);
-        }
-
-        .bg-shape {
+        /* Décorations Signature */
+        .halo-turquoise {
             position: absolute;
-            z-index: -1;
+            width: 600px;
+            height: 600px;
+            background: var(--ls-turquoise);
             border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.4;
+            top: -200px;
+            left: -100px;
+            filter: blur(100px);
+            opacity: 0.1;
+            z-index: 0;
         }
 
-        .drop-zone {
-            min-height: 80px;
-            border: 2px dashed #e2e8f0;
-            border-radius: 20px;
-            transition: background 0.3s;
+        /* Cartes de questions */
+        .q-row {
+            transition: all 0.2s;
+            border-bottom: 1px solid #f1f5f9;
         }
+        .q-row:hover { background-color: #f8fafc; }
 
-        .drop-zone.active-a { border-color: var(--ls-red); background-color: rgba(255, 75, 92, 0.05); }
-        .drop-zone.active-b { border-color: var(--ls-yellow); background-color: rgba(255, 209, 102, 0.05); }
-        .drop-zone.active-c { border-color: var(--ls-turquoise); background-color: rgba(70, 227, 207, 0.05); }
+        /* Options de réponse */
+        .opt-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-weight: bold;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+        }
+        .opt-btn.selected[data-val="0"] { background-color: #4ade80; border-color: #4ade80; color: white; }
+        .opt-btn.selected[data-val="1"] { background-color: var(--ls-yellow); border-color: var(--ls-yellow); color: white; }
+        .opt-btn.selected[data-val="2"] { background-color: var(--ls-red); border-color: var(--ls-red); color: white; }
 
-        .animate-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
-        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        /* Progress Bar */
+        .progress-bar-bg { height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ls-turquoise), var(--ls-red)); transition: width 0.4s; }
+
+        /* Layout */
+        .content-container { position: relative; z-index: 10; }
+
+        /* Footer Institutionnel */
+        footer {
+            background-color: #1c1c1c;
+            color: #ffffff;
+            font-size: 11px;
+            padding: 1.5rem 3rem;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col bg-white shadow-2xl relative overflow-hidden">
+    <!-- Header Desktop -->
+    <header class="bg-white border-b px-12 py-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-12 w-auto">
+            <div class="h-8 w-[2px] bg-slate-100 mx-2"></div>
+            <h1 class="text-xl font-800 tracking-tighter uppercase">Stressomètre</h1>
+        </div>
+        <div class="flex items-center gap-6">
+            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="MLPB" class="h-10 w-auto">
+            <button onclick="location.reload()" class="p-2 text-slate-300 hover:text-ls-red transition-colors">
+                <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto w-full p-12 flex-grow">
+        <div class="halo-turquoise"></div>
         
-        <!-- Shapes -->
-        <div class="bg-shape w-40 h-40 bg-[#FFD166] -top-10 -right-10"></div>
-        <div class="bg-shape w-40 h-40 bg-[#46e3cf] -bottom-10 -left-10"></div>
-
-        <!-- Header -->
-        <header class="px-6 py-6 flex justify-between items-center bg-white/80 backdrop-blur-md sticky top-0 z-50">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-[#FF4B5C] rounded-full flex items-center justify-center text-white font-bold text-xs">LS</div>
-                <h1 class="text-lg font-800 tracking-tighter uppercase">LS4YOU <span class="text-slate-300 font-normal">| Objectifs</span></h1>
-            </div>
-            <div id="step-indicator" class="text-[10px] font-800 text-slate-400 uppercase tracking-widest">Étape 1/3</div>
-        </header>
-
-        <main id="main-content" class="flex-grow p-6 relative">
+        <div id="app-container" class="content-container">
             <!-- Injecté par JS -->
-        </main>
-    </div>
+        </div>
+    </main>
+
+    <!-- Footer Desktop -->
+    <footer>
+        <div class="flex justify-between items-center gap-12">
+            <div class="flex items-center gap-4 border border-white p-2 shrink-0">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU Flag" class="w-10">
+                <div class="font-bold leading-none uppercase">
+                    <span class="text-[9px] block opacity-80">Co-funded by</span>
+                    <span class="text-[12px]">the European Union</span>
+                </div>
+            </div>
+            <p class="opacity-60 text-justify max-w-2xl leading-relaxed">
+                Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Agence Erasmus+ France Jeunesse & Sport (Agence du Service Civique).
+            </p>
+            <div class="text-right shrink-0">
+                <span class="block font-bold">© 2026 LS4YOU Project</span>
+                <span class="text-ls-yellow">Data Privacy Statement & Imprint</span>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // --- DONNÉES (30 Objectifs sur 11 Domaines) ---
-        let OBJECTIVES_BANK = [
-            { id: 1, text: "Refaire mon CV", cat: "Emploi" },
-            { id: 2, text: "Envoyer 2 candidatures", cat: "Emploi" },
-            { id: 3, text: "Relancer un employeur", cat: "Emploi" },
-            { id: 4, text: "Appeler un centre de formation", cat: "Formation" },
-            { id: 5, text: "Préparer mon dossier d'inscription", cat: "Formation" },
-            { id: 6, text: "Faire mon dossier CAF", cat: "Logement" },
-            { id: 7, text: "Chercher des annonces logement", cat: "Logement" },
-            { id: 8, text: "Prendre RDV médecin", cat: "Santé" },
-            { id: 9, text: "Mettre à jour ma carte Vitale", cat: "Santé" },
-            { id: 10, text: "Lister mes dépenses du mois", cat: "Budget" },
-            { id: 11, text: "Rembourser une petite dette", cat: "Budget" },
-            { id: 12, text: "Réviser le code de la route", cat: "Mobilité" },
-            { id: 13, text: "Trouver un trajet de bus", cat: "Mobilité" },
-            { id: 14, text: "Demander de l'aide à mon conseiller", cat: "Relations" },
-            { id: 15, text: "Dire non à une sollicitation négative", cat: "Relations" },
-            { id: 16, text: "Demander mon bulletin n°3", cat: "Justice" },
-            { id: 17, text: "Lire mon contrat de travail", cat: "Justice" },
-            { id: 18, text: "Nettoyer mes réseaux sociaux", cat: "Numérique" },
-            { id: 19, text: "Scanner mes papiers d'identité", cat: "Numérique" },
-            { id: 20, text: "Créer une adresse mail pro", cat: "Numérique" },
-            { id: 21, text: "Faire une sortie culturelle", cat: "Loisirs" },
-            { id: 22, text: "S'inscrire à une activité sportive", cat: "Loisirs" },
-            { id: 23, text: "S'inscrire sur les listes électorales", cat: "Citoyenneté" },
-            { id: 24, text: "Participer à un atelier quartier", cat: "Citoyenneté" },
-            { id: 25, text: "Faire une to-do list demain", cat: "Autonomie" },
-            { id: 26, text: "Préparer mes vêtements de RDV", cat: "Emploi" },
-            { id: 27, text: "Identifier 2 entreprises locales", cat: "Emploi" },
-            { id: 28, text: "Se lever à heure fixe (3 jours)", cat: "Santé" },
-            { id: 29, text: "Trier mes mails administratifs", cat: "Numérique" },
-            { id: 30, text: "Économiser 10€ cette semaine", cat: "Budget" }
+        const SECTIONS = [
+            { id: 'phys', label: 'Signaux Physiques', icon: 'zap' },
+            { id: 'emo', label: 'Signaux Émotionnels', icon: 'heart' },
+            { id: 'cog', label: 'Signaux Cognitifs', icon: 'brain' },
+            { id: 'beh', label: 'Comportements', icon: 'user' },
+            { id: 'amp', label: 'Pression & Pensées', icon: 'alert-circle' }
+        ];
+
+        const QUESTIONS = [
+            // PHYSIQUE
+            { id: "q1", cat: "phys", text: "Douleurs à l’estomac / nausées sans raison évidente ?" },
+            { id: "q2", cat: "phys", text: "Ton cœur s’emballe même sans effort ?" },
+            { id: "q3", cat: "phys", text: "Mal à respirer / souffle court sans effort ?" },
+            { id: "q4", cat: "phys", text: "Tu transpires plus que d’habitude, même sans bouger ?" },
+            { id: "q5", cat: "phys", text: "Tu manges trop… ou pas assez ?" },
+            { id: "q6", cat: "phys", text: "Souvent crevé(e), même après avoir dormi ?" },
+            // EMOTIONS
+            { id: "q7", cat: "emo", text: "Stress / inquiétude sans trop savoir pourquoi ?" },
+            { id: "q8", cat: "emo", text: "Tu t’énerves plus facilement ?" },
+            { id: "q9", cat: "emo", text: "Un gros coup de blues qui revient ?" },
+            { id: "q10", cat: "emo", text: "Trop de choses à gérer : “c’est trop” ?" },
+            { id: "q11", cat: "emo", text: "Humeur “yo-yo” dans la journée ?" },
+            { id: "q12", cat: "emo", text: "Hyper tendu(e) / agité(e) sans raison claire ?" },
+            { id: "q13", cat: "emo", text: "Tu pleures plus facilement ?" },
+            { id: "q14", cat: "emo", text: "Sensation d’être “déconnecté(e)” de tes émotions ?" },
+            // COGNITIF
+            { id: "q15", cat: "cog", text: "Difficile de te concentrer ?" },
+            { id: "q16", cat: "cog", text: "Tu oublies des choses importantes / simples ?" },
+            { id: "q17", cat: "cog", text: "Pensées qui tournent en boucle ?" },
+            { id: "q18", cat: "cog", text: "Difficile de décider, même pour des petits trucs ?" },
+            { id: "q19", cat: "cog", text: "Tu penses souvent négativement sur toi ?" },
+            { id: "q20", cat: "cog", text: "Tu as du mal à organiser tes idées / rester clair(e) ?" },
+            { id: "q21", cat: "cog", text: "Tu revis des situations stressantes dans ta tête ?" },
+            // COMPORTEMENT
+            { id: "q22", cat: "beh", text: "Tu évites certaines personnes / situations ?" },
+            { id: "q23", cat: "beh", text: "Tu procrastines même quand tu sais que tu dois le faire ?" },
+            { id: "q24", cat: "beh", text: "Tu utilises alcool / cigarettes / autre pour te sentir mieux ?" },
+            { id: "q25", cat: "beh", text: "Petits gestes nerveux (ongles, jambes, etc.) ?" },
+            { id: "q26", cat: "beh", text: "Tu t’énerves facilement / tu es dur(e) sans le vouloir ?" },
+            { id: "q27", cat: "beh", text: "Tu as arrêté des activités que tu aimais ?" },
+            { id: "q28", cat: "beh", text: "Tu te jettes à fond dans une activité pour ne pas penser ?" },
+            { id: "q29", cat: "beh", text: "Difficile de te poser / te détendre ?" },
+            // PRESSION
+            { id: "q30", cat: "amp", text: "Tu imagines souvent le pire scénario ?" },
+            { id: "q31", cat: "amp", text: "Besoin de tout contrôler pour éviter que ça déraille ?" },
+            { id: "q32", cat: "amp", text: "L’imprévu / changement de plan te stresse facilement ?" },
+            { id: "q33", cat: "amp", text: "“Si je rate, c’est un échec total” ?" },
+            { id: "q34", cat: "amp", text: "Tu te critiques souvent / “pas assez bien” ?" },
+            { id: "q35", cat: "amp", text: "“Les autres sont meilleurs que moi” ?" },
+            { id: "q36", cat: "amp", text: "“Je ne mérite pas de réussir / d’être heureux(se)” ?" },
+            { id: "q37", cat: "amp", text: "“Tout est de ma faute quand ça va mal” ?" },
+            { id: "q38", cat: "amp", text: "Impression de courir après le temps ?" },
+            { id: "q39", cat: "amp", text: "“Toujours à la bourre / en retard dans ma vie” ?" }
         ];
 
         let state = {
-            step: 1, // 1: Tri, 2: Micro-actions, 3: Plan final
-            selections: { a: [], b: [], c: [] },
-            microActions: {} // id: string
+            currentSectionIdx: 0,
+            answers: {} // id: value
         };
 
         const app = {
             init() { this.render(); },
 
             render() {
-                const main = document.getElementById('main-content');
-                const indicator = document.getElementById('step-indicator');
-                main.innerHTML = '';
+                const container = document.getElementById('app-container');
+                container.innerHTML = '';
 
-                if (state.step === 1) {
-                    indicator.innerText = "Étape 1/3 : Priorisation";
-                    main.innerHTML = this.viewSorting();
-                } else if (state.step === 2) {
-                    indicator.innerText = "Étape 2/3 : Passage à l'action";
-                    main.innerHTML = this.viewMicroActions();
+                if (state.currentSectionIdx < SECTIONS.length) {
+                    container.innerHTML = this.viewQuestionnaire();
                 } else {
-                    indicator.innerText = "Étape 3/3 : Mon Plan";
-                    main.innerHTML = this.viewFinalPlan();
+                    container.innerHTML = this.viewResults();
                 }
                 lucide.createIcons();
             },
 
-            // --- VUES ---
-            viewSorting() {
-                const unplaced = OBJECTIVES_BANK.filter(o => 
-                    !state.selections.a.includes(o.id) && 
-                    !state.selections.b.includes(o.id) && 
-                    !state.selections.c.includes(o.id)
-                );
+            viewQuestionnaire() {
+                const section = SECTIONS[state.currentSectionIdx];
+                const questions = QUESTIONS.filter(q => q.cat === section.id);
+                const progress = ((state.currentSectionIdx + 1) / SECTIONS.length) * 100;
 
                 return `
-                    <div class="animate-fade space-y-6">
-                        <div class="mb-4 flex justify-between items-start">
+                    <div class="animate-fade">
+                        <div class="flex justify-between items-end mb-8">
                             <div>
-                                <h2 class="text-2xl font-800 leading-tight">Qu'est-ce qui te fait <span class="text-[#FF4B5C]">avancer ?</span></h2>
-                                <p class="text-slate-400 text-sm mt-2">Clique sur un objectif pour le classer.</p>
+                                <span class="bg-ls-turquoise text-white px-3 py-1 rounded-full text-[10px] font-800 uppercase tracking-widest mb-4 inline-block">Séquence ${state.currentSectionIdx + 1}/5</span>
+                                <h2 class="text-4xl font-800 uppercase tracking-tighter">${section.label}</h2>
                             </div>
-                            <button onclick="app.addCustomObjective()" class="w-10 h-10 bg-[#46e3cf] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform shrink-0">
-                                <i data-lucide="plus" class="w-6 h-6"></i>
-                            </button>
+                            <div class="text-right w-64">
+                                <div class="flex justify-between text-[10px] font-bold uppercase text-slate-400 mb-2">
+                                    <span>Progression</span>
+                                    <span>${Math.round(progress)}%</span>
+                                </div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${progress}%"></div></div>
+                            </div>
                         </div>
 
-                        <!-- Bank -->
-                        <div class="ls-card p-4 bg-slate-50 border-2 border-dashed h-48 overflow-y-auto mb-6 flex flex-wrap gap-2 content-start">
-                            ${unplaced.length ? unplaced.map(o => `
-                                <button onclick="app.place(${o.id})" class="px-3 py-2 bg-white rounded-xl border text-[11px] font-bold shadow-sm hover:border-[#FF4B5C] transition-all">
-                                    ${o.text}
-                                </button>
-                            `).join('') : '<p class="text-slate-400 text-xs italic">Tous les objectifs sont classés !</p>'}
-                        </div>
-
-                        <!-- Drop Zones -->
-                        <div class="space-y-4">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-800 uppercase tracking-widest text-[#FF4B5C]">🔴 A - Vital & Immédiat (Max 3)</label>
-                                <div class="drop-zone active-a p-2 flex flex-wrap gap-2">
-                                    ${state.selections.a.map(id => this.renderTag(id, 'a')).join('')}
+                        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden mb-12">
+                            <div class="grid grid-cols-12 bg-slate-50 p-4 text-[10px] font-800 uppercase tracking-widest text-slate-400 border-b">
+                                <div class="col-span-8 px-4">Question</div>
+                                <div class="col-span-4 flex justify-between px-8 text-center">
+                                    <span class="w-12">Jamais</span>
+                                    <span class="w-12">Parfois</span>
+                                    <span class="w-12">Souvent</span>
                                 </div>
                             </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-800 uppercase tracking-widest text-[#FFD166]">🟡 B - Important</label>
-                                <div class="drop-zone active-b p-2 flex flex-wrap gap-2">
-                                    ${state.selections.b.map(id => this.renderTag(id, 'b')).join('')}
-                                </div>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-800 uppercase tracking-widest text-[#46e3cf]">🟢 C - Confort / Bonus</label>
-                                <div class="drop-zone active-c p-2 flex flex-wrap gap-2">
-                                    ${state.selections.c.map(id => this.renderTag(id, 'c')).join('')}
-                                </div>
-                            </div>
-                        </div>
 
-                        <button onclick="app.toStep2()" class="btn-primary w-full py-5 font-800 uppercase tracking-widest mt-6 disabled:opacity-50" ${state.selections.a.length === 0 ? 'disabled' : ''}>
-                            Valider mes choix
-                        </button>
-                    </div>
-                `;
-            },
-
-            renderTag(id, cat) {
-                const o = OBJECTIVES_BANK.find(x => x.id === id);
-                return `
-                    <div class="animate-pop bg-white border px-2 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1 shadow-sm">
-                        <span>${o.text}</span>
-                        <button onclick="app.remove(${id}, '${cat}')" class="text-slate-300 hover:text-red-500">
-                            <i data-lucide="x" class="w-3 h-3"></i>
-                        </button>
-                    </div>
-                `;
-            },
-
-            viewMicroActions() {
-                const itemsA = state.selections.a.map(id => OBJECTIVES_BANK.find(o => o.id === id));
-                return `
-                    <div class="animate-fade space-y-6">
-                        <div class="mb-4">
-                            <h2 class="text-2xl font-800 leading-tight">La toute <span class="text-[#FF4B5C]">1ère étape</span></h2>
-                            <p class="text-slate-400 text-sm mt-2">Pour chaque objectif A, note une action toute simple à faire cette semaine.</p>
-                        </div>
-
-                        <div class="space-y-6">
-                            ${itemsA.map(o => `
-                                <div class="ls-card p-5 border-l-8 border-l-[#FF4B5C]">
-                                    <h4 class="font-800 text-sm mb-3">${o.text}</h4>
-                                    <input type="text" 
-                                           oninput="state.microActions[${o.id}] = this.value"
-                                           placeholder="Ex: Appeler à 14h, acheter un timbre..."
-                                           class="w-full border-b-2 border-slate-100 focus:border-[#46e3cf] outline-none text-sm pb-2 italic"
-                                           value="${state.microActions[o.id] || ''}">
-                                </div>
-                            `).join('')}
-                        </div>
-
-                        <button onclick="app.toStep3()" class="btn-primary w-full py-5 font-800 uppercase tracking-widest mt-6">
-                            Générer mon plan
-                        </button>
-                    </div>
-                `;
-            },
-
-            viewFinalPlan() {
-                const itemsA = state.selections.a.map(id => ({
-                    ...OBJECTIVES_BANK.find(o => o.id === id),
-                    micro: state.microActions[id] || "Démarrer l'action"
-                }));
-                const itemsB = state.selections.b.map(id => OBJECTIVES_BANK.find(o => o.id === id));
-
-                return `
-                    <div class="animate-fade space-y-8 pb-10">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-[#FFD166] rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i data-lucide="calendar-check" class="w-8 h-8 text-white"></i>
-                            </div>
-                            <h2 class="text-2xl font-800 tracking-tight">Mon Plan de Semaine</h2>
-                            <p class="text-slate-400 text-sm mt-1">C'est parti ! 🚀</p>
-                        </div>
-
-                        <div class="space-y-4">
-                            <h3 class="text-xs font-800 uppercase tracking-widest text-[#FF4B5C] px-2">🔴 Mes Priorités Vitales</h3>
-                            ${itemsA.map(o => `
-                                <div class="ls-card p-5 flex gap-4 items-start shadow-md">
-                                    <div class="w-10 h-10 bg-[#FF4B5C]/10 text-[#FF4B5C] rounded-full shrink-0 flex items-center justify-center font-800 text-sm">A</div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800">${o.text}</h4>
-                                        <p class="text-xs text-slate-500 mt-1">Première étape : <span class="text-[#46e3cf] font-bold italic">${o.micro}</span></p>
+                            ${questions.map((q, idx) => `
+                                <div class="grid grid-cols-12 p-6 q-row items-center">
+                                    <div class="col-span-8 px-4 font-semibold text-slate-700">${q.text}</div>
+                                    <div class="col-span-4 flex justify-between px-8">
+                                        <button onclick="app.setAnswer('${q.id}', 0)" class="opt-btn ${state.answers[q.id] === 0 ? 'selected' : ''}" data-val="0">0</button>
+                                        <button onclick="app.setAnswer('${q.id}', 1)" class="opt-btn ${state.answers[q.id] === 1 ? 'selected' : ''}" data-val="1">1</button>
+                                        <button onclick="app.setAnswer('${q.id}', 2)" class="opt-btn ${state.answers[q.id] === 2 ? 'selected' : ''}" data-val="2">2</button>
                                     </div>
                                 </div>
                             `).join('')}
                         </div>
 
-                        ${itemsB.length ? `
-                        <div class="space-y-4 opacity-70">
-                            <h3 class="text-xs font-800 uppercase tracking-widest text-[#FFD166] px-2">🟡 À garder en tête (B)</h3>
-                            <div class="flex flex-wrap gap-2">
-                                ${itemsB.map(o => `<span class="px-3 py-1 bg-white border rounded-full text-[10px] font-bold">${o.text}</span>`).join('')}
-                            </div>
-                        </div>
-                        ` : ''}
-
-                        <div class="pt-6 space-y-3">
-                            <button onclick="window.print()" class="w-full py-4 border-2 border-slate-100 rounded-full font-800 text-xs uppercase flex items-center justify-center gap-2">
-                                <i data-lucide="download" class="w-4 h-4"></i> Enregistrer
+                        <div class="flex justify-between items-center">
+                            <button onclick="app.prev()" class="px-8 py-4 border-2 border-slate-100 rounded-full font-bold uppercase text-xs hover:bg-slate-50 transition-all ${state.currentSectionIdx === 0 ? 'invisible' : ''}">Retour</button>
+                            <button onclick="app.next()" class="px-12 py-5 btn-primary font-800 uppercase tracking-widest disabled:opacity-50 disabled:grayscale" ${this.isSectionComplete() ? '' : 'disabled'}>
+                                ${state.currentSectionIdx === SECTIONS.length - 1 ? 'Voir mes résultats' : 'Séquence suivante'}
                             </button>
-                            <button onclick="location.reload()" class="w-full py-2 text-slate-300 text-[10px] font-bold uppercase tracking-widest">Recommencer</button>
                         </div>
                     </div>
                 `;
             },
 
-            // --- LOGIQUE ---
-            addCustomObjective() {
-                const text = prompt("Quel est ton objectif personnalisé ?");
-                if (text && text.trim() !== "") {
-                    const newId = Date.now(); // ID unique
-                    OBJECTIVES_BANK.push({ 
-                        id: newId, 
-                        text: text.trim(), 
-                        cat: "Perso" 
-                    });
+            setAnswer(id, val) {
+                state.answers[id] = val;
+                this.render();
+            },
+
+            isSectionComplete() {
+                const section = SECTIONS[state.currentSectionIdx];
+                const sectionQs = QUESTIONS.filter(q => q.cat === section.id);
+                return sectionQs.every(q => state.answers.hasOwnProperty(q.id));
+            },
+
+            next() {
+                if (this.isSectionComplete()) {
+                    state.currentSectionIdx++;
                     this.render();
                 }
             },
 
-            place(id) {
-                const cat = prompt("Où placer cet objectif ? (A, B ou C)").toLowerCase();
-                if (['a', 'b', 'c'].includes(cat)) {
-                    if (cat === 'a' && state.selections.a.length >= 3) {
-                        alert("Pas plus de 3 objectifs en catégorie A ! Priorise l'essentiel.");
-                        return;
-                    }
-                    state.selections[cat].push(id);
+            prev() {
+                if (state.currentSectionIdx > 0) {
+                    state.currentSectionIdx--;
                     this.render();
                 }
             },
 
-            remove(id, cat) {
-                state.selections[cat] = state.selections[cat].filter(x => x !== id);
-                this.render();
+            viewResults() {
+                const scores = this.calculateScores();
+                const globalPct = scores.global;
+                
+                let profileTitle = "🧘 Mode Tranquille";
+                let profileDesc = "Tu sembles plutôt stable. Ton stress est sous contrôle.";
+                let accentColor = "#4ade80";
+
+                if (globalPct > 25) { 
+                    profileTitle = "🎛️ Mode Ajustement"; 
+                    profileDesc = "Quelques réglages sont nécessaires pour rester à l'équilibre."; 
+                    accentColor = "#FFD166"; // LS Yellow
+                }
+                if (globalPct > 50) { 
+                    profileTitle = "⚡ Mode Surcharge"; 
+                    profileDesc = "Le stress prend trop de place. Il est temps de ralentir."; 
+                    accentColor = "#FF4B5C"; // LS Red
+                }
+                if (globalPct > 75) { 
+                    profileTitle = "🚨 Mode Alerte"; 
+                    profileDesc = "Niveau critique. Demande de l'aide et délègue tes priorités."; 
+                    accentColor = "#b91c1c"; 
+                }
+
+                return `
+                    <div class="animate-fade text-center">
+                        <div class="mb-16">
+                            <h2 class="text-6xl font-800 tracking-tighter uppercase mb-4">Ton <span class="text-[#FF4B5C]">Baromètre</span></h2>
+                            <p class="text-slate-500 text-lg">Voici l'analyse de tes signaux de stress actuels.</p>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-12 items-start mb-16">
+                            <!-- Gauge -->
+                            <div class="col-span-4 bg-white p-10 rounded-[40px] border border-slate-100 shadow-xl relative overflow-hidden">
+                                <div class="relative z-10">
+                                    <div class="text-xs font-800 text-slate-400 uppercase mb-4 tracking-widest">Score Global</div>
+                                    <div class="text-7xl font-800 mb-2" style="color: ${accentColor}">${globalPct}%</div>
+                                    <div class="font-bold text-lg mb-6">${profileTitle}</div>
+                                    <p class="text-sm text-slate-400 leading-relaxed">${profileDesc}</p>
+                                </div>
+                                <div class="absolute bottom-0 left-0 w-full h-2" style="background-color: ${accentColor}"></div>
+                            </div>
+
+                            <!-- Dimension Details -->
+                            <div class="col-span-8 space-y-6 text-left">
+                                ${SECTIONS.map(s => {
+                                    const val = scores.dims[s.id];
+                                    return `
+                                        <div class="space-y-2">
+                                            <div class="flex justify-between items-end">
+                                                <span class="font-bold text-sm uppercase tracking-wider text-slate-700">${s.label}</span>
+                                                <span class="font-800 text-slate-400 text-xs">${val}%</span>
+                                            </div>
+                                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${val}%"></div></div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Action Plan -->
+                        <div class="bg-slate-50 p-12 rounded-[50px] border border-slate-100 mb-12 text-left">
+                            <h3 class="text-2xl font-800 uppercase mb-8 flex items-center gap-3">
+                                <i data-lucide="check-circle" class="text-ls-turquoise"></i>
+                                Ton Plan de Régulation Rapide
+                            </h3>
+                            <div class="grid grid-cols-3 gap-8">
+                                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                    <h4 class="font-bold text-ls-red mb-2 uppercase text-xs tracking-widest">Action n°1</h4>
+                                    <p class="text-sm text-slate-600 italic">"Teste la respiration 4-4-6 (inspire 4s, bloque 4s, expire 6s) trois fois par jour."</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                    <h4 class="font-bold text-ls-yellow mb-2 uppercase text-xs tracking-widest">Action n°2</h4>
+                                    <p class="text-sm text-slate-600 italic">"Découpe ta tâche prioritaire en 3 mini-étapes de 10 minutes maximum."</p>
+                                </div>
+                                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                    <h4 class="font-bold text-ls-turquoise mb-2 uppercase text-xs tracking-widest">Action n°3</h4>
+                                    <p class="text-sm text-slate-600 italic">"Identifie une personne 'ressource' à qui parler si la jauge dépasse 60%."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center gap-4 no-print">
+                            <button onclick="window.print()" class="px-12 py-5 border-2 border-slate-200 rounded-full font-bold uppercase text-xs flex items-center gap-3 hover:bg-slate-50 transition-all text-slate-400">
+                                <i data-lucide="download" class="w-5 h-5"></i> Exporter mes résultats
+                            </button>
+                            <button onclick="location.reload()" class="px-12 py-5 btn-primary font-800 uppercase tracking-widest">Recommencer l'atelier</button>
+                        </div>
+                    </div>
+                `;
             },
 
-            toStep2() {
-                state.step = 2;
-                this.render();
-            },
+            calculateScores() {
+                const res = { global: 0, dims: {} };
+                let totalPoints = 0;
+                let maxPoints = QUESTIONS.length * 2;
 
-            toStep3() {
-                state.step = 3;
-                this.render();
+                SECTIONS.forEach(s => {
+                    const sectionQs = QUESTIONS.filter(q => q.cat === s.id);
+                    let sectionPoints = 0;
+                    sectionQs.forEach(q => sectionPoints += (state.answers[q.id] || 0));
+                    res.dims[s.id] = Math.round((sectionPoints / (sectionQs.length * 2)) * 100);
+                    totalPoints += sectionPoints;
+                });
+
+                res.global = Math.round((totalPoints / maxPoints) * 100);
+                return res;
             }
         };
 
