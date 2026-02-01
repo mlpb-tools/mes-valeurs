@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LS4YOU - Stressomètre Desktop</title>
+    <title>LS4YOU - Atelier Mes Valeurs (Desktop)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,369 +26,395 @@
 
         h1, h2, h3, h4, .font-title { font-family: 'Montserrat', sans-serif; }
 
-        /* Décorations Signature */
-        .halo-turquoise {
+        /* Décorations de fond signature */
+        .halo-yellow {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--ls-turquoise);
+            width: 700px;
+            height: 700px;
+            background: var(--ls-yellow);
             border-radius: 50%;
-            top: -200px;
-            left: -100px;
-            filter: blur(100px);
-            opacity: 0.1;
+            top: -250px;
+            right: -150px;
+            filter: blur(120px);
+            opacity: 0.12;
             z-index: 0;
+            pointer-events: none;
         }
 
-        /* Cartes de questions */
-        .q-row {
-            transition: all 0.2s;
-            border-bottom: 1px solid #f1f5f9;
+        .puzzle-element {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            width: 180px;
+            height: 180px;
+            color: var(--ls-turquoise);
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+            transform: rotate(-15deg);
         }
-        .q-row:hover { background-color: #f8fafc; }
 
-        /* Options de réponse */
-        .opt-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            font-weight: bold;
-            font-size: 14px;
-            background: white;
+        /* Cartes de valeurs stylisées */
+        .value-card {
             cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #f1f5f9;
+            background: white;
+            z-index: 10;
         }
-        .opt-btn.selected[data-val="0"] { background-color: #4ade80; border-color: #4ade80; color: white; }
-        .opt-btn.selected[data-val="1"] { background-color: var(--ls-yellow); border-color: var(--ls-yellow); color: white; }
-        .opt-btn.selected[data-val="2"] { background-color: var(--ls-red); border-color: var(--ls-red); color: white; }
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--ls-turquoise);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+        .value-card.selected {
+            background-color: #fcfdfe;
+            border-color: var(--ls-red);
+            box-shadow: 0 15px 35px rgba(255, 75, 92, 0.12);
+        }
 
-        /* Progress Bar */
-        .progress-bar-bg { height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
-        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--ls-turquoise), var(--ls-red)); transition: width 0.4s; }
+        /* Boutons premium */
+        .btn-primary {
+            background-color: var(--ls-red);
+            color: white;
+            border-radius: 50px;
+            padding: 1.25rem 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 75, 92, 0.25);
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 75, 92, 0.35);
+        }
+        .btn-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
 
-        /* Layout */
-        .content-container { position: relative; z-index: 10; }
+        .btn-outline {
+            border: 2px solid var(--ls-turquoise);
+            color: var(--ls-dark);
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover { background-color: var(--ls-turquoise); color: white; }
+
+        /* Indicateur d'étape */
+        .step-indicator {
+            height: 8px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            transition: all 0.6s ease;
+        }
+        .step-indicator.active { background: var(--ls-turquoise); width: 60px; }
+        .step-indicator.completed { background: var(--ls-turquoise); opacity: 0.5; }
+
+        /* Animation d'entrée */
+        .animate-in { animation: slideUpFade 0.5s ease-out forwards; }
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Footer Institutionnel */
         footer {
-            background-color: #1c1c1c;
+            background-color: #1a1a1a;
             color: #ffffff;
             font-size: 11px;
-            padding: 1.5rem 3rem;
+            padding: 2rem 4rem;
             margin-top: auto;
+            border-top: 4px solid var(--ls-red);
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            .ls-card { box-shadow: none !important; border: 1px solid #eee !important; }
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header Desktop -->
-    <header class="bg-white border-b px-12 py-6 flex justify-between items-center sticky top-0 z-50">
-        <div class="flex items-center gap-4">
-            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-12 w-auto">
-            <div class="h-8 w-[2px] bg-slate-100 mx-2"></div>
-            <h1 class="text-xl font-800 tracking-tighter uppercase">Stressomètre</h1>
-        </div>
+    <!-- Header Desktop Institutionnel -->
+    <header class="bg-white border-b px-16 py-8 flex justify-between items-center sticky top-0 z-50 no-print">
         <div class="flex items-center gap-6">
-            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="MLPB" class="h-10 w-auto">
-            <button onclick="location.reload()" class="p-2 text-slate-300 hover:text-ls-red transition-colors">
-                <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-14 w-auto">
+            <div class="h-10 w-[2px] bg-slate-100"></div>
+            <div>
+                <h1 class="text-2xl font-800 tracking-tighter uppercase leading-none">MES VALEURS</h1>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Séquence 2 • Les Piliers du Travail</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-8">
+            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="MLPB" class="h-12 w-auto">
+            <button onclick="location.reload()" class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 hover:text-ls-red hover:bg-red-50 transition-all">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i>
             </button>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto w-full p-12 flex-grow">
-        <div class="halo-turquoise"></div>
+    <main class="max-w-7xl mx-auto w-full px-16 py-12 relative flex-grow">
+        <div class="halo-yellow"></div>
         
-        <div id="app-container" class="content-container">
-            <!-- Injecté par JS -->
+        <!-- Puzzle Element Decoratif -->
+        <div class="puzzle-element no-print">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20,12a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2H16a2,2,0,0,1-2-2,2,2,0,0,0-4,0,2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V14a2,2,0,0,1,2-2,2,2,0,0,0,0-4,2,2,0,0,1-2-2V4A2,2,0,0,1,4,2H8A2,2,0,0,1,10,4a2,2,0,0,0,4,0,2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2,2,2,0,0,0,0,4Z"/></svg>
+        </div>
+
+        <!-- Stepper Horizontal -->
+        <div class="flex gap-4 mb-16 justify-center no-print" id="app-stepper">
+            <div class="step-indicator active" data-step="1"></div>
+            <div class="step-indicator" data-step="2"></div>
+            <div class="step-indicator" data-step="3"></div>
+            <div class="step-indicator" data-step="4"></div>
+        </div>
+
+        <!-- Zone de contenu principale -->
+        <div id="activity-content" class="min-h-[600px] relative">
+            <!-- Injecté via JavaScript -->
         </div>
     </main>
 
-    <!-- Footer Desktop -->
-    <footer>
-        <div class="flex justify-between items-center gap-12">
-            <div class="flex items-center gap-4 border border-white p-2 shrink-0">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU Flag" class="w-10">
-                <div class="font-bold leading-none uppercase">
-                    <span class="text-[9px] block opacity-80">Co-funded by</span>
-                    <span class="text-[12px]">the European Union</span>
+    <!-- Footer Desktop Institutionnel -->
+    <footer class="no-print">
+        <div class="flex justify-between items-center gap-16">
+            <div class="flex items-center gap-6 border-l-2 border-white/20 pl-6 py-2 shrink-0">
+                <div class="border border-white p-2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU Flag" class="w-12">
+                </div>
+                <div class="font-bold leading-tight uppercase">
+                    <span class="text-[9px] block opacity-70">Co-funded by</span>
+                    <span class="text-[14px]">the European Union</span>
                 </div>
             </div>
-            <p class="opacity-60 text-justify max-w-2xl leading-relaxed">
-                Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Agence Erasmus+ France Jeunesse & Sport (Agence du Service Civique).
+            <p class="opacity-50 text-justify max-w-3xl leading-relaxed italic">
+                Ce projet a été financé avec le soutien de la Commission européenne. Cette publication n'engage que son auteur et la Commission n'est pas responsable de l'usage qui pourrait être fait des informations qui y sont contenues.
             </p>
             <div class="text-right shrink-0">
-                <span class="block font-bold">© 2026 LS4YOU Project</span>
-                <span class="text-ls-yellow">Data Privacy Statement & Imprint</span>
+                <span class="block font-bold text-base mb-1">© 2026 LS4YOU Project</span>
+                <a href="#" class="text-ls-yellow hover:underline">Data Privacy Statement & Imprint</a>
             </div>
         </div>
     </footer>
 
     <script>
-        const SECTIONS = [
-            { id: 'phys', label: 'Signaux Physiques', icon: 'zap' },
-            { id: 'emo', label: 'Signaux Émotionnels', icon: 'heart' },
-            { id: 'cog', label: 'Signaux Cognitifs', icon: 'brain' },
-            { id: 'beh', label: 'Comportements', icon: 'user' },
-            { id: 'amp', label: 'Pression & Pensées', icon: 'alert-circle' }
-        ];
-
-        const QUESTIONS = [
-            // PHYSIQUE
-            { id: "q1", cat: "phys", text: "Douleurs à l’estomac / nausées sans raison évidente ?" },
-            { id: "q2", cat: "phys", text: "Ton cœur s’emballe même sans effort ?" },
-            { id: "q3", cat: "phys", text: "Mal à respirer / souffle court sans effort ?" },
-            { id: "q4", cat: "phys", text: "Tu transpires plus que d’habitude, même sans bouger ?" },
-            { id: "q5", cat: "phys", text: "Tu manges trop… ou pas assez ?" },
-            { id: "q6", cat: "phys", text: "Souvent crevé(e), même après avoir dormi ?" },
-            // EMOTIONS
-            { id: "q7", cat: "emo", text: "Stress / inquiétude sans trop savoir pourquoi ?" },
-            { id: "q8", cat: "emo", text: "Tu t’énerves plus facilement ?" },
-            { id: "q9", cat: "emo", text: "Un gros coup de blues qui revient ?" },
-            { id: "q10", cat: "emo", text: "Trop de choses à gérer : “c’est trop” ?" },
-            { id: "q11", cat: "emo", text: "Humeur “yo-yo” dans la journée ?" },
-            { id: "q12", cat: "emo", text: "Hyper tendu(e) / agité(e) sans raison claire ?" },
-            { id: "q13", cat: "emo", text: "Tu pleures plus facilement ?" },
-            { id: "q14", cat: "emo", text: "Sensation d’être “déconnecté(e)” de tes émotions ?" },
-            // COGNITIF
-            { id: "q15", cat: "cog", text: "Difficile de te concentrer ?" },
-            { id: "q16", cat: "cog", text: "Tu oublies des choses importantes / simples ?" },
-            { id: "q17", cat: "cog", text: "Pensées qui tournent en boucle ?" },
-            { id: "q18", cat: "cog", text: "Difficile de décider, même pour des petits trucs ?" },
-            { id: "q19", cat: "cog", text: "Tu penses souvent négativement sur toi ?" },
-            { id: "q20", cat: "cog", text: "Tu as du mal à organiser tes idées / rester clair(e) ?" },
-            { id: "q21", cat: "cog", text: "Tu revis des situations stressantes dans ta tête ?" },
-            // COMPORTEMENT
-            { id: "q22", cat: "beh", text: "Tu évites certaines personnes / situations ?" },
-            { id: "q23", cat: "beh", text: "Tu procrastines même quand tu sais que tu dois le faire ?" },
-            { id: "q24", cat: "beh", text: "Tu utilises alcool / cigarettes / autre pour te sentir mieux ?" },
-            { id: "q25", cat: "beh", text: "Petits gestes nerveux (ongles, jambes, etc.) ?" },
-            { id: "q26", cat: "beh", text: "Tu t’énerves facilement / tu es dur(e) sans le vouloir ?" },
-            { id: "q27", cat: "beh", text: "Tu as arrêté des activités que tu aimais ?" },
-            { id: "q28", cat: "beh", text: "Tu te jettes à fond dans une activité pour ne pas penser ?" },
-            { id: "q29", cat: "beh", text: "Difficile de te poser / te détendre ?" },
-            // PRESSION
-            { id: "q30", cat: "amp", text: "Tu imagines souvent le pire scénario ?" },
-            { id: "q31", cat: "amp", text: "Besoin de tout contrôler pour éviter que ça déraille ?" },
-            { id: "q32", cat: "amp", text: "L’imprévu / changement de plan te stresse facilement ?" },
-            { id: "q33", cat: "amp", text: "“Si je rate, c’est un échec total” ?" },
-            { id: "q34", cat: "amp", text: "Tu te critiques souvent / “pas assez bien” ?" },
-            { id: "q35", cat: "amp", text: "“Les autres sont meilleurs que moi” ?" },
-            { id: "q36", cat: "amp", text: "“Je ne mérite pas de réussir / d’être heureux(se)” ?" },
-            { id: "q37", cat: "amp", text: "“Tout est de ma faute quand ça va mal” ?" },
-            { id: "q38", cat: "amp", text: "Impression de courir après le temps ?" },
-            { id: "q39", cat: "amp", text: "“Toujours à la bourre / en retard dans ma vie” ?" }
+        // --- DONNÉES DES VALEURS ---
+        const VALUES_BANK = [
+            { id: 'money', label: 'Argent', icon: 'banknote', desc: 'Avoir un salaire confortable.' },
+            { id: 'respect', label: 'Respect', icon: 'heart', desc: 'Être traité avec considération.' },
+            { id: 'autonomy', label: 'Autonomie', icon: 'unplug', desc: 'Prendre mes propres décisions.' },
+            { id: 'vibe', label: 'Ambiance', icon: 'users', desc: 'Travailler dans la bonne humeur.' },
+            { id: 'stability', label: 'Stabilité', icon: 'anchor', desc: 'Avoir un contrat qui dure.' },
+            { id: 'growth', label: 'Évolution', icon: 'trending-up', desc: 'Monter en responsabilités.' },
+            { id: 'utility', label: 'Utilité', icon: 'lightbulb', desc: 'Me sentir utile aux autres.' },
+            { id: 'freedom', label: 'Liberté', icon: 'wind', desc: 'Pouvoir organiser mes horaires.' },
+            { id: 'security', label: 'Sécurité', icon: 'shield-check', desc: 'Travailler sans risques.' },
+            { id: 'variety', label: 'Variété', icon: 'shuffle', desc: 'Changer souvent de tâches.' },
+            { id: 'justice', label: 'Justice', icon: 'scale', desc: 'Être jugé sur mon travail.' },
+            { id: 'learn', label: 'Apprendre', icon: 'graduation-cap', desc: 'Se former continuellement.' }
         ];
 
         let state = {
-            currentSectionIdx: 0,
-            answers: {} // id: value
+            step: 1,
+            selected: [] // IDs sélectionnés
         };
 
         const app = {
-            init() { this.render(); },
+            init() {
+                this.render();
+            },
 
             render() {
-                const container = document.getElementById('app-container');
+                const container = document.getElementById('activity-content');
                 container.innerHTML = '';
+                
+                // Update Stepper
+                document.querySelectorAll('.step-indicator').forEach(pill => {
+                    const step = parseInt(pill.dataset.step);
+                    if (step === state.step) pill.className = 'step-indicator active';
+                    else if (step < state.step) pill.className = 'step-indicator completed';
+                    else pill.className = 'step-indicator';
+                });
 
-                if (state.currentSectionIdx < SECTIONS.length) {
-                    container.innerHTML = this.viewQuestionnaire();
-                } else {
-                    container.innerHTML = this.viewResults();
+                switch(state.step) {
+                    case 1: container.innerHTML = this.viewSelection(); break;
+                    case 2: container.innerHTML = this.viewDilemma(); break;
+                    case 3: container.innerHTML = this.viewRealityCheck(); break;
+                    case 4: container.innerHTML = this.viewSummary(); break;
                 }
+                
                 lucide.createIcons();
             },
 
-            viewQuestionnaire() {
-                const section = SECTIONS[state.currentSectionIdx];
-                const questions = QUESTIONS.filter(q => q.cat === section.id);
-                const progress = ((state.currentSectionIdx + 1) / SECTIONS.length) * 100;
-
+            // --- ÉTAPE 1 : SÉLECTION DES 5 ---
+            viewSelection() {
                 return `
-                    <div class="animate-fade">
-                        <div class="flex justify-between items-end mb-8">
-                            <div>
-                                <span class="bg-ls-turquoise text-white px-3 py-1 rounded-full text-[10px] font-800 uppercase tracking-widest mb-4 inline-block">Séquence ${state.currentSectionIdx + 1}/5</span>
-                                <h2 class="text-4xl font-800 uppercase tracking-tighter">${section.label}</h2>
-                            </div>
-                            <div class="text-right w-64">
-                                <div class="flex justify-between text-[10px] font-bold uppercase text-slate-400 mb-2">
-                                    <span>Progression</span>
-                                    <span>${Math.round(progress)}%</span>
+                    <div class="animate-in">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <h2 class="text-6xl font-800 mb-6 tracking-tighter uppercase leading-none">Étape 1 : <span class="text-ls-red">Tes Priorités</span></h2>
+                            <p class="text-slate-500 text-xl font-medium">Pour bien choisir ton travail, tu dois savoir ce qui est important. Choisis <b>5 cartes</b> qui te parlent le plus.</p>
+                        </div>
+                        <div class="grid grid-cols-4 gap-8">
+                            ${VALUES_BANK.map(v => {
+                                const isSelected = state.selected.includes(v.id);
+                                return `
+                                    <div onclick="app.toggleVal('${v.id}')" class="value-card p-10 rounded-[40px] ls-card text-center flex flex-col items-center gap-6 ${isSelected ? 'selected' : ''}">
+                                        <div class="w-20 h-20 rounded-full flex items-center justify-center ${isSelected ? 'bg-ls-red text-white' : 'bg-slate-50 text-slate-400'} transition-all shadow-inner">
+                                            <i data-lucide="${v.icon}" class="w-10 h-10"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-2xl uppercase tracking-tighter">${v.label}</h3>
+                                            <p class="text-sm text-slate-400 font-medium leading-relaxed mt-3">${v.desc}</p>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        <div class="mt-20 flex justify-center">
+                            <button onclick="state.step = 2; app.render();" class="btn-primary" ${state.selected.length < 5 ? 'disabled' : ''}>
+                                Étape Suivante (${state.selected.length}/5)
+                            </button>
+                        </div>
+                    </div>
+                `;
+            },
+
+            toggleVal(id) {
+                if (state.selected.includes(id)) {
+                    state.selected = state.selected.filter(x => x !== id);
+                } else if (state.selected.length < 5) {
+                    state.selected.push(id);
+                }
+                this.render();
+            },
+
+            // --- ÉTAPE 2 : LE DILEMME (RÉDUCTION À 3) ---
+            viewDilemma() {
+                const currentSelection = state.selected.map(id => VALUES_BANK.find(v => v.id === id));
+                return `
+                    <div class="animate-in">
+                        <div class="text-center max-w-3xl mx-auto mb-16">
+                            <h2 class="text-6xl font-800 mb-6 tracking-tighter uppercase leading-none">Le <span class="text-ls-red">Dilemme</span></h2>
+                            <p class="text-slate-500 text-xl font-medium">Parmi ces 5 valeurs, lesquelles sont tes vrais <b>piliers</b> ? Retire-en 2 pour ne garder que les <b>3 indispensables</b>.</p>
+                        </div>
+                        <div class="flex justify-center gap-10 flex-wrap">
+                            ${currentSelection.map(v => `
+                                <div onclick="app.toggleDilemma('${v.id}')" class="value-card p-12 w-80 rounded-[50px] ls-card text-center flex flex-col items-center gap-6 ${state.selected.length <= 3 && state.selected.includes(v.id) ? 'selected border-ls-turquoise ring-8 ring-ls-turquoise/5' : ''}">
+                                    <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
+                                        <i data-lucide="${v.icon}" class="w-12 h-12"></i>
+                                    </div>
+                                    <h3 class="font-bold text-2xl uppercase tracking-tighter">${v.label}</h3>
+                                    <span class="text-[10px] font-800 uppercase tracking-widest ${state.selected.includes(v.id) && state.selected.length <= 3 ? 'text-ls-turquoise' : 'text-slate-200'}">Garder ce pilier ?</span>
                                 </div>
-                                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${progress}%"></div></div>
+                            `).join('')}
+                        </div>
+                        <div class="mt-20 flex justify-center gap-6">
+                            <button onclick="state.step = 1; app.render();" class="btn-outline">Retour</button>
+                            <button onclick="state.step = 3; app.render();" class="btn-primary" ${state.selected.length !== 3 ? 'disabled' : ''}>
+                                Valider mon Top 3
+                            </button>
+                        </div>
+                    </div>
+                `;
+            },
+
+            toggleDilemma(id) {
+                if (state.selected.length > 3 && state.selected.includes(id)) {
+                    state.selected = state.selected.filter(x => x !== id);
+                } else if (state.selected.length < 3 && !state.selected.includes(id)) {
+                    state.selected.push(id);
+                } else if (state.selected.length === 3 && state.selected.includes(id)) {
+                    // Optionnel: permettre de dé-sélectionner pour en choisir une autre des 5
+                    state.selected = state.selected.filter(x => x !== id);
+                }
+                this.render();
+            },
+
+            // --- ÉTAPE 3 : RÉALITÉ CHECK ---
+            viewRealityCheck() {
+                const firstVal = VALUES_BANK.find(v => v.id === state.selected[0]);
+                return `
+                    <div class="animate-in max-w-5xl mx-auto pt-10">
+                        <div class="bg-white p-20 rounded-[60px] ls-card border-t-[16px] border-ls-turquoise relative overflow-hidden text-center">
+                            <div class="absolute -top-10 -right-10 text-ls-turquoise opacity-10"><i data-lucide="help-circle" class="w-64 h-64"></i></div>
+                            
+                            <h3 class="text-4xl font-800 mb-10 uppercase tracking-tight">On te propose un job demain...</h3>
+                            
+                            <div class="bg-slate-50 p-12 rounded-[40px] mb-12 border border-slate-100 shadow-inner">
+                                <p class="text-2xl leading-relaxed text-slate-600">
+                                    "Le poste correspond parfaitement à ta valeur <b>« ${firstVal.label} »</b>. Le salaire est incroyable, le contrat est stable. Cependant, le chef est méprisant, l'ambiance est détestable et tu travailles seul dans un bureau fermé."
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-10">
+                                <button onclick="state.step = 4; app.render();" class="p-10 border-4 border-slate-100 rounded-[40px] hover:border-ls-red text-left group transition-all bg-white hover:scale-[1.02]">
+                                    <div class="w-12 h-12 bg-red-50 text-ls-red rounded-full flex items-center justify-center mb-6"><i data-lucide="x"></i></div>
+                                    <h4 class="font-800 text-ls-red text-2xl uppercase mb-3">Je refuse le job</h4>
+                                    <p class="text-slate-400 font-medium italic text-lg leading-snug">"Si mes valeurs fondamentales ne sont pas respectées, je ne tiendrai pas deux semaines."</p>
+                                </button>
+                                
+                                <button onclick="state.step = 4; app.render();" class="p-10 border-4 border-slate-100 rounded-[40px] hover:border-ls-turquoise text-left group transition-all bg-white hover:scale-[1.02]">
+                                    <div class="w-12 h-12 bg-emerald-50 text-ls-turquoise rounded-full flex items-center justify-center mb-6"><i data-lucide="check"></i></div>
+                                    <h4 class="font-800 text-ls-turquoise text-2xl uppercase mb-3">J'accepte le job</h4>
+                                    <p class="text-slate-400 font-medium italic text-lg leading-snug">"La sécurité matérielle prime pour le moment, je ferai des compromis sur le reste."</p>
+                                </button>
                             </div>
                         </div>
+                    </div>
+                `;
+            },
 
-                        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden mb-12">
-                            <div class="grid grid-cols-12 bg-slate-50 p-4 text-[10px] font-800 uppercase tracking-widest text-slate-400 border-b">
-                                <div class="col-span-8 px-4">Question</div>
-                                <div class="col-span-4 flex justify-between px-8 text-center">
-                                    <span class="w-12">Jamais</span>
-                                    <span class="w-12">Parfois</span>
-                                    <span class="w-12">Souvent</span>
-                                </div>
+            // --- ÉTAPE 4 : SYNTHÈSE FINALE ---
+            viewSummary() {
+                const finalPillars = state.selected.map(id => VALUES_BANK.find(v => v.id === id));
+                return `
+                    <div class="animate-in text-center">
+                        <div class="mb-16">
+                            <div class="w-40 h-40 bg-ls-turquoise rounded-full flex items-center justify-center mx-auto mb-10 text-white shadow-2xl animate-pop">
+                                <i data-lucide="award" class="w-20 h-20"></i>
                             </div>
+                            <h2 class="text-7xl font-800 tracking-tighter uppercase mb-6 leading-none">Ton Profil <span class="text-ls-red">Valeurs</span></h2>
+                            <p class="text-slate-500 text-2xl font-medium">Voici tes 3 boussoles pour ton parcours professionnel.</p>
+                        </div>
 
-                            ${questions.map((q, idx) => `
-                                <div class="grid grid-cols-12 p-6 q-row items-center">
-                                    <div class="col-span-8 px-4 font-semibold text-slate-700">${q.text}</div>
-                                    <div class="col-span-4 flex justify-between px-8">
-                                        <button onclick="app.setAnswer('${q.id}', 0)" class="opt-btn ${state.answers[q.id] === 0 ? 'selected' : ''}" data-val="0">0</button>
-                                        <button onclick="app.setAnswer('${q.id}', 1)" class="opt-btn ${state.answers[q.id] === 1 ? 'selected' : ''}" data-val="1">1</button>
-                                        <button onclick="app.setAnswer('${q.id}', 2)" class="opt-btn ${state.answers[q.id] === 2 ? 'selected' : ''}" data-val="2">2</button>
-                                    </div>
+                        <div class="flex justify-center gap-10 mb-20">
+                            ${finalPillars.map((v, i) => `
+                                <div class="ls-card p-14 w-80 border-b-[12px] border-ls-red transition-all hover:-translate-y-4">
+                                    <div class="text-slate-100 font-800 text-6xl mb-6 text-left">0${i+1}</div>
+                                    <i data-lucide="${v.icon}" class="w-16 h-16 text-ls-red mx-auto mb-8"></i>
+                                    <h3 class="font-bold text-3xl uppercase tracking-tighter text-slate-800">${v.label}</h3>
+                                    <p class="text-slate-400 font-medium mt-6 text-sm leading-relaxed px-4">${v.desc}</p>
                                 </div>
                             `).join('')}
                         </div>
 
-                        <div class="flex justify-between items-center">
-                            <button onclick="app.prev()" class="px-8 py-4 border-2 border-slate-100 rounded-full font-bold uppercase text-xs hover:bg-slate-50 transition-all ${state.currentSectionIdx === 0 ? 'invisible' : ''}">Retour</button>
-                            <button onclick="app.next()" class="px-12 py-5 btn-primary font-800 uppercase tracking-widest disabled:opacity-50 disabled:grayscale" ${this.isSectionComplete() ? '' : 'disabled'}>
-                                ${state.currentSectionIdx === SECTIONS.length - 1 ? 'Voir mes résultats' : 'Séquence suivante'}
+                        <div class="bg-slate-50 p-16 rounded-[60px] max-w-5xl mx-auto mb-16 text-left border border-slate-100 shadow-inner flex gap-12 items-center">
+                            <div class="w-24 h-24 shrink-0 bg-white rounded-3xl flex items-center justify-center text-ls-turquoise shadow-sm">
+                                <i data-lucide="messages-square" class="w-12 h-12"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-800 text-ls-turquoise uppercase tracking-widest text-sm mb-4">L'argument de choc pour ton entretien</h4>
+                                <p class="text-2xl text-slate-600 italic font-medium leading-relaxed">
+                                    "En entretien, je peux expliquer que je fonctionne très bien quand on me garantit le <b>${finalPillars[0].label}</b> et le <b>${finalPillars[1].label}</b>. Ce sont mes moteurs pour être motivé(e) et stable dans mon poste."
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center gap-8 no-print pb-20">
+                            <button onclick="window.print()" class="btn-outline py-5 px-12 flex items-center gap-4 group">
+                                <i data-lucide="file-down" class="w-6 h-6 group-hover:animate-bounce"></i> Télécharger ma fiche (PDF)
                             </button>
+                            <button onclick="location.reload()" class="btn-primary">Recommencer l'Atelier</button>
                         </div>
                     </div>
                 `;
-            },
-
-            setAnswer(id, val) {
-                state.answers[id] = val;
-                this.render();
-            },
-
-            isSectionComplete() {
-                const section = SECTIONS[state.currentSectionIdx];
-                const sectionQs = QUESTIONS.filter(q => q.cat === section.id);
-                return sectionQs.every(q => state.answers.hasOwnProperty(q.id));
-            },
-
-            next() {
-                if (this.isSectionComplete()) {
-                    state.currentSectionIdx++;
-                    this.render();
-                }
-            },
-
-            prev() {
-                if (state.currentSectionIdx > 0) {
-                    state.currentSectionIdx--;
-                    this.render();
-                }
-            },
-
-            viewResults() {
-                const scores = this.calculateScores();
-                const globalPct = scores.global;
-                
-                let profileTitle = "🧘 Mode Tranquille";
-                let profileDesc = "Tu sembles plutôt stable. Ton stress est sous contrôle.";
-                let accentColor = "#4ade80";
-
-                if (globalPct > 25) { 
-                    profileTitle = "🎛️ Mode Ajustement"; 
-                    profileDesc = "Quelques réglages sont nécessaires pour rester à l'équilibre."; 
-                    accentColor = "#FFD166"; // LS Yellow
-                }
-                if (globalPct > 50) { 
-                    profileTitle = "⚡ Mode Surcharge"; 
-                    profileDesc = "Le stress prend trop de place. Il est temps de ralentir."; 
-                    accentColor = "#FF4B5C"; // LS Red
-                }
-                if (globalPct > 75) { 
-                    profileTitle = "🚨 Mode Alerte"; 
-                    profileDesc = "Niveau critique. Demande de l'aide et délègue tes priorités."; 
-                    accentColor = "#b91c1c"; 
-                }
-
-                return `
-                    <div class="animate-fade text-center">
-                        <div class="mb-16">
-                            <h2 class="text-6xl font-800 tracking-tighter uppercase mb-4">Ton <span class="text-[#FF4B5C]">Baromètre</span></h2>
-                            <p class="text-slate-500 text-lg">Voici l'analyse de tes signaux de stress actuels.</p>
-                        </div>
-
-                        <div class="grid grid-cols-12 gap-12 items-start mb-16">
-                            <!-- Gauge -->
-                            <div class="col-span-4 bg-white p-10 rounded-[40px] border border-slate-100 shadow-xl relative overflow-hidden">
-                                <div class="relative z-10">
-                                    <div class="text-xs font-800 text-slate-400 uppercase mb-4 tracking-widest">Score Global</div>
-                                    <div class="text-7xl font-800 mb-2" style="color: ${accentColor}">${globalPct}%</div>
-                                    <div class="font-bold text-lg mb-6">${profileTitle}</div>
-                                    <p class="text-sm text-slate-400 leading-relaxed">${profileDesc}</p>
-                                </div>
-                                <div class="absolute bottom-0 left-0 w-full h-2" style="background-color: ${accentColor}"></div>
-                            </div>
-
-                            <!-- Dimension Details -->
-                            <div class="col-span-8 space-y-6 text-left">
-                                ${SECTIONS.map(s => {
-                                    const val = scores.dims[s.id];
-                                    return `
-                                        <div class="space-y-2">
-                                            <div class="flex justify-between items-end">
-                                                <span class="font-bold text-sm uppercase tracking-wider text-slate-700">${s.label}</span>
-                                                <span class="font-800 text-slate-400 text-xs">${val}%</span>
-                                            </div>
-                                            <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${val}%"></div></div>
-                                        </div>
-                                    `;
-                                }).join('')}
-                            </div>
-                        </div>
-
-                        <!-- Action Plan -->
-                        <div class="bg-slate-50 p-12 rounded-[50px] border border-slate-100 mb-12 text-left">
-                            <h3 class="text-2xl font-800 uppercase mb-8 flex items-center gap-3">
-                                <i data-lucide="check-circle" class="text-ls-turquoise"></i>
-                                Ton Plan de Régulation Rapide
-                            </h3>
-                            <div class="grid grid-cols-3 gap-8">
-                                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                    <h4 class="font-bold text-ls-red mb-2 uppercase text-xs tracking-widest">Action n°1</h4>
-                                    <p class="text-sm text-slate-600 italic">"Teste la respiration 4-4-6 (inspire 4s, bloque 4s, expire 6s) trois fois par jour."</p>
-                                </div>
-                                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                    <h4 class="font-bold text-ls-yellow mb-2 uppercase text-xs tracking-widest">Action n°2</h4>
-                                    <p class="text-sm text-slate-600 italic">"Découpe ta tâche prioritaire en 3 mini-étapes de 10 minutes maximum."</p>
-                                </div>
-                                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                                    <h4 class="font-bold text-ls-turquoise mb-2 uppercase text-xs tracking-widest">Action n°3</h4>
-                                    <p class="text-sm text-slate-600 italic">"Identifie une personne 'ressource' à qui parler si la jauge dépasse 60%."</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center gap-4 no-print">
-                            <button onclick="window.print()" class="px-12 py-5 border-2 border-slate-200 rounded-full font-bold uppercase text-xs flex items-center gap-3 hover:bg-slate-50 transition-all text-slate-400">
-                                <i data-lucide="download" class="w-5 h-5"></i> Exporter mes résultats
-                            </button>
-                            <button onclick="location.reload()" class="px-12 py-5 btn-primary font-800 uppercase tracking-widest">Recommencer l'atelier</button>
-                        </div>
-                    </div>
-                `;
-            },
-
-            calculateScores() {
-                const res = { global: 0, dims: {} };
-                let totalPoints = 0;
-                let maxPoints = QUESTIONS.length * 2;
-
-                SECTIONS.forEach(s => {
-                    const sectionQs = QUESTIONS.filter(q => q.cat === s.id);
-                    let sectionPoints = 0;
-                    sectionQs.forEach(q => sectionPoints += (state.answers[q.id] || 0));
-                    res.dims[s.id] = Math.round((sectionPoints / (sectionQs.length * 2)) * 100);
-                    totalPoints += sectionPoints;
-                });
-
-                res.global = Math.round((totalPoints / maxPoints) * 100);
-                return res;
             }
         };
 
