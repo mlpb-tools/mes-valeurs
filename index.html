@@ -47,7 +47,7 @@
         .value-card.dragging { opacity: 0.5; transform: scale(0.9); }
 
         .drop-zone {
-            min-height: 500px;
+            height: 100%; /* S'adapte au conteneur parent */
             border-radius: 32px;
             background: rgba(255, 255, 255, 0.5);
             border: 2px dashed #e2e8f0;
@@ -60,7 +60,7 @@
         .drop-zone.over {
             border-color: var(--ls-turquoise);
             background: rgba(70, 227, 207, 0.05);
-            transform: scale(1.02);
+            transform: scale(1.01);
         }
 
         .zone-ignore { border-color: #cbd5e1; }
@@ -81,9 +81,23 @@
         .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(255, 75, 92, 0.3); }
         .btn-primary:disabled { opacity: 0.2; cursor: not-allowed; }
 
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        /* Style de la petite réglette (scrollbar personnalisée) */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--ls-turquoise);
+            border-radius: 10px;
+            opacity: 0.5;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: var(--ls-red);
+        }
 
         footer { background: #1a1a1a; color: white; padding: 1.5rem 4rem; font-size: 11px; z-index: 50; }
 
@@ -118,31 +132,31 @@
             <div id="sorting-view" class="grid grid-cols-12 gap-8 h-full">
                 
                 <!-- Colonne 1 : La Banque (32 Valeurs) -->
-                <div class="col-span-3 flex flex-col h-[calc(100vh-220px)]">
+                <div class="col-span-3 flex flex-col h-[calc(100vh-250px)]">
                     <h3 class="text-sm font-800 uppercase mb-4 flex items-center gap-2">
-                        <i data-lucide="layers" class="w-4 h-4 text-ls-red"></i> Ma Banque de Valeurs
+                        <i data-lucide="layers" class="w-4 h-4 text-ls-red"></i> Banque
                     </h3>
-                    <div id="bank" class="flex-grow overflow-y-auto pr-4 space-y-3 custom-scrollbar" ondrop="app.onDrop(event, 'bank')" ondragover="app.onDragOver(event)">
+                    <div id="bank" class="flex-grow overflow-y-auto pr-2 space-y-3 custom-scrollbar" ondrop="app.onDrop(event, 'bank')" ondragover="app.onDragOver(event)">
                         <!-- Valeurs injectées ici -->
                     </div>
                 </div>
 
                 <!-- Les 3 zones de dépôt -->
-                <div class="col-span-9 grid grid-cols-3 gap-6 h-[calc(100vh-220px)]">
+                <div class="col-span-9 grid grid-cols-3 gap-6 h-[calc(100vh-250px)]">
                     
-                    <div class="flex flex-col">
+                    <div class="flex flex-col h-full overflow-hidden">
                         <h3 class="text-xs font-800 uppercase mb-4 text-slate-400 px-4">⚪ Pas pour moi</h3>
-                        <div id="zone-ignore" class="drop-zone zone-ignore overflow-y-auto" ondrop="app.onDrop(event, 'ignore')" ondragover="app.onDragOver(event)"></div>
+                        <div id="zone-ignore" class="drop-zone zone-ignore overflow-y-auto custom-scrollbar" ondrop="app.onDrop(event, 'ignore')" ondragover="app.onDragOver(event)"></div>
                     </div>
 
-                    <div class="flex flex-col">
+                    <div class="flex flex-col h-full overflow-hidden">
                         <h3 class="text-xs font-800 uppercase mb-4 text-ls-yellow px-4">🟡 Important</h3>
-                        <div id="zone-important" class="drop-zone zone-important overflow-y-auto" ondrop="app.onDrop(event, 'important')" ondragover="app.onDragOver(event)"></div>
+                        <div id="zone-important" class="drop-zone zone-important overflow-y-auto custom-scrollbar" ondrop="app.onDrop(event, 'important')" ondragover="app.onDragOver(event)"></div>
                     </div>
 
-                    <div class="flex flex-col">
+                    <div class="flex flex-col h-full overflow-hidden">
                         <h3 class="text-xs font-800 uppercase mb-4 text-ls-red px-4">🔴 Essentiel (Top 3)</h3>
-                        <div id="zone-essential" class="drop-zone zone-essential overflow-y-auto" ondrop="app.onDrop(event, 'essential')" ondragover="app.onDragOver(event)"></div>
+                        <div id="zone-essential" class="drop-zone zone-essential overflow-y-auto custom-scrollbar" ondrop="app.onDrop(event, 'essential')" ondragover="app.onDragOver(event)"></div>
                     </div>
 
                 </div>
@@ -150,7 +164,10 @@
         </div>
 
         <div class="bg-white border-t p-6 flex justify-between items-center no-print">
-            <p class="text-xs text-slate-400 font-medium italic">Glissez-déposez les cartes. Placez vos <b>3 piliers non-négociables</b> dans la zone rouge.</p>
+            <div class="flex flex-col">
+                <p class="text-xs text-slate-800 font-bold uppercase tracking-tight">Utilise les réglettes pour faire défiler tes choix</p>
+                <p class="text-[10px] text-slate-400 font-medium italic">Place tes 3 piliers non-négociables dans la zone rouge.</p>
+            </div>
             <button id="btn-next" onclick="app.finishSorting()" class="btn-primary" disabled>Finaliser mon profil</button>
         </div>
     </main>
@@ -163,9 +180,9 @@
         <div class="flex justify-between items-center opacity-70">
             <div class="flex items-center gap-4 border border-white/20 p-2 rounded">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU" class="w-8">
-                <span class="font-bold">Co-financé par l'Union Européenne</span>
+                <span class="font-bold text-[9px]">Co-financé par l'Union Européenne</span>
             </div>
-            <div class="text-right">© 2026 Projet LS4YOU • Life Skills For Youth</div>
+            <div class="text-right text-[9px]">© 2026 Projet LS4YOU • Life Skills For Youth</div>
         </div>
     </footer>
 
@@ -228,7 +245,7 @@
                     <div id="card-${v.label}" class="value-card p-4 rounded-2xl shadow-sm border border-slate-100" 
                          draggable="true" ondragstart="app.onDragStart(event, '${v.label}')">
                         <div class="font-bold text-sm text-slate-800 mb-1">${v.label}</div>
-                        <div class="text-[11px] text-slate-400 leading-tight font-medium">${v.desc}</div>
+                        <div class="text-[10px] text-slate-400 leading-tight font-medium">${v.desc}</div>
                     </div>
                 `;
             },
