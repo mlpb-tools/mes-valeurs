@@ -3,1701 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Aventure Emploi - LS4YOU</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>LS4YOU - La Boussole des Valeurs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --color-primary-red: #E63946;
-            --color-primary-yellow: #FFD166;
-            --color-primary-turquoise: #06D6A0;
-            --color-accent-coral: #FF6B9D;
-            --color-white: #FFFFFF;
-            --color-bg-light: #F8F9FA;
-            --color-text-dark: #1D3557;
-            --color-text-medium: #457B9D;
-            --color-text-light: #6C757D;
-            
-            --radius-small: 12px;
-            --radius-medium: 20px;
-            --radius-large: 30px;
-            --radius-xl: 50px;
-            
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --ls-red: #E63946;
+            --ls-yellow: #FFB703;
+            --ls-turquoise: #2EC4B6;
+            --ls-pink: #FF99AC;
+            --ls-dark: #1D3557;
+            --ls-white: #FFFFFF;
         }
 
         body {
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--color-white);
-            color: var(--color-text-dark);
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Background Decoration */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -10%;
-            right: -5%;
-            width: 600px;
-            height: 600px;
-            background: var(--color-primary-yellow);
-            opacity: 0.15;
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(80px);
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            bottom: -15%;
-            left: -10%;
-            width: 700px;
-            height: 700px;
-            background: var(--color-primary-turquoise);
-            opacity: 0.12;
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(90px);
-        }
-
-        .app-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--ls-white);
+            color: var(--ls-dark);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Top Navigation */
-        .top-nav {
-            background: white;
-            border-radius: var(--radius-medium);
-            padding: 20px 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-soft);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; }
+
+        .dot-grid {
+            background-image: radial-gradient(var(--ls-dark) 1px, transparent 1px);
+            background-size: 16px 16px;
+            opacity: 0.08;
         }
 
-        .logo-mlpb {
-            height: 50px;
-        }
-
-        .logo-ls4you {
-            height: 35px;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: var(--color-white);
-            border-radius: var(--radius-large);
-            padding: 50px 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            margin-bottom: 30px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: var(--color-primary-yellow);
-            opacity: 0.3;
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-emoji {
-            font-size: 5em;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .hero-title {
-            font-size: 2.5em;
-            font-weight: 800;
-            color: var(--color-text-dark);
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.15em;
-            color: var(--color-text-medium);
-            font-weight: 500;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Progress Bar */
-        .progress-section {
-            background: var(--color-white);
-            border-radius: var(--radius-medium);
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .progress-badge {
-            background: linear-gradient(135deg, var(--color-primary-turquoise), #04B88A);
-            color: white;
-            padding: 10px 20px;
-            border-radius: var(--radius-xl);
-            font-weight: 700;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
-        }
-
-        .progress-score {
-            font-size: 1.5em;
-            font-weight: 800;
-            color: var(--color-primary-red);
-        }
-
-        .progress-bar-track {
-            background: #F0F0F0;
-            height: 12px;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar-fill {
-            background: linear-gradient(90deg, var(--color-primary-turquoise), var(--color-primary-yellow));
-            height: 100%;
-            transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-            border-radius: 6px;
-        }
-
-        /* Card Components */
-        .card {
-            background: var(--color-white);
-            border-radius: var(--radius-medium);
-            padding: 40px;
-            box-shadow: var(--shadow-soft);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            bottom: -30px;
-            left: -30px;
-            width: 100px;
-            height: 100px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%2306D6A0" opacity="0.1"/></svg>');
-            opacity: 0.5;
-        }
-
-        .card-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .card-chapter {
-            display: inline-block;
-            background: var(--color-bg-light);
-            color: var(--color-primary-turquoise);
-            padding: 8px 20px;
-            border-radius: var(--radius-xl);
-            font-weight: 700;
-            font-size: 0.85em;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .card-emoji {
-            font-size: 4em;
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 2em;
-            font-weight: 800;
-            color: var(--color-text-dark);
-            margin-bottom: 15px;
-            line-height: 1.3;
-        }
-
-        .card-description {
-            background: linear-gradient(135deg, #F8F9FA, #E8F4F8);
-            padding: 25px;
-            border-radius: var(--radius-medium);
-            border-left: 4px solid var(--color-primary-turquoise);
-            margin-bottom: 20px;
-            font-size: 1.05em;
-            line-height: 1.7;
-            color: var(--color-text-dark);
-        }
-
-        .context-callout {
-            background: #FFF8E6;
-            border-left: 4px solid var(--color-primary-yellow);
-            padding: 20px;
-            border-radius: var(--radius-medium);
-            margin-bottom: 25px;
-            font-size: 0.95em;
-        }
-
-        .context-callout strong {
-            color: var(--color-primary-red);
-            font-weight: 700;
-        }
-
-        /* Choice Cards */
-        .choices-grid {
-            display: grid;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
+        /* Style Carte "Compétences" */
         .choice-card {
-            background: var(--color-white);
-            border: 3px solid #E8E8E8;
-            border-radius: var(--radius-medium);
-            padding: 25px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            border: 3px solid var(--ls-dark);
+            background: white;
             position: relative;
+            box-shadow: 4px 4px 0px var(--ls-dark);
         }
-
-        .choice-card:hover {
-            border-color: var(--color-primary-turquoise);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .choice-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--color-primary-turquoise) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: var(--radius-medium);
-            pointer-events: none;
-        }
-
-        .choice-card:hover::after {
-            opacity: 0.05;
-        }
-
-        .choice-icon {
-            font-size: 3em;
-            flex-shrink: 0;
-            width: 70px;
-            text-align: center;
-        }
-
-        .choice-text {
-            flex: 1;
-            font-weight: 600;
-            font-size: 1.05em;
-            color: var(--color-text-dark);
-            line-height: 1.5;
+        
+        .choice-card:hover { 
+            transform: translate(-2px, -2px); 
+            box-shadow: 8px 8px 0px var(--ls-red);
+            border-color: var(--ls-red);
         }
 
         .choice-card.selected {
-            background: linear-gradient(135deg, var(--color-primary-turquoise), #04B88A);
-            border-color: var(--color-primary-turquoise);
+            background-color: var(--ls-red);
             color: white;
-        }
-
-        .choice-card.selected .choice-text {
-            color: white;
-        }
-
-        .choice-card.correct {
-            background: linear-gradient(135deg, #06D6A0, #04B88A);
-            border-color: #06D6A0;
-            color: white;
-            animation: successBounce 0.6s ease;
-        }
-
-        .choice-card.correct .choice-text {
-            color: white;
-        }
-
-        .choice-card.incorrect {
-            background: linear-gradient(135deg, var(--color-primary-red), #D62839);
-            border-color: var(--color-primary-red);
-            color: white;
-            animation: shake 0.5s ease;
-        }
-
-        .choice-card.incorrect .choice-text {
-            color: white;
-        }
-
-        @keyframes successBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
-        .choice-card.disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        /* Feedback Box */
-        .feedback-box {
-            margin-top: 25px;
-            padding: 30px;
-            border-radius: var(--radius-medium);
-            display: none;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feedback-box.visible {
-            display: block;
-        }
-
-        .feedback-box.success {
-            background: linear-gradient(135deg, #D3F9E8, #B2F2D8);
-            border-left: 5px solid var(--color-primary-turquoise);
-        }
-
-        .feedback-box.error {
-            background: linear-gradient(135deg, #FFE8E8, #FFDADA);
-            border-left: 5px solid var(--color-primary-red);
-        }
-
-        .feedback-title {
-            font-weight: 800;
-            font-size: 1.3em;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .feedback-text {
-            line-height: 1.7;
-            font-size: 1.05em;
-        }
-
-        /* Buttons */
-        .btn {
-            border: none;
-            border-radius: var(--radius-xl);
-            font-size: 1.1em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 0.3px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:active::before {
-            width: 300px;
-            height: 300px;
+            border-color: var(--ls-dark);
+            box-shadow: 4px 4px 0px var(--ls-dark);
+            transform: translate(2px, 2px);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--color-primary-red), #D62839);
+            background-color: var(--ls-red);
             color: white;
-            padding: 18px 45px;
-            width: 100%;
-            margin-top: 25px;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+            border: 3px solid var(--ls-dark);
+            padding: 1rem 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 4px 4px 0px var(--ls-dark);
+            transition: all 0.2s;
+        }
+        .btn-primary:hover:not(:disabled) { 
+            transform: translate(-2px, -2px); 
+            box-shadow: 6px 6px 0px var(--ls-dark);
+        }
+        .btn-primary:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px var(--ls-dark);
+        }
+        .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* Progress Bar */
+        .progress-container {
+            height: 12px;
+            background: #F1F5F9;
+            border: 2px solid var(--ls-dark);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        /* Formes Géométriques Résultats */
+        .shape-yellow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: var(--ls-yellow);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
         }
 
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: white;
-            border: 3px solid var(--color-primary-turquoise);
-            color: var(--color-primary-turquoise);
-            padding: 15px 35px;
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-primary-turquoise);
-            color: white;
-        }
-
-        .btn-large {
-            padding: 25px 60px;
-            font-size: 1.3em;
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* Input */
-        .input-group {
-            margin: 30px 0;
-        }
-
-        .input-field {
-            width: 100%;
-            max-width: 500px;
-            padding: 18px 25px;
-            font-size: 1.2em;
-            border: 3px solid #E8E8E8;
-            border-radius: var(--radius-medium);
-            text-align: center;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: var(--color-text-dark);
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--color-primary-turquoise);
-            box-shadow: 0 0 0 4px rgba(6, 214, 160, 0.1);
-        }
-
-        /* Values Grid */
-        .values-counter {
-            background: linear-gradient(135deg, #F8F9FA, #E8F4F8);
-            padding: 20px;
-            border-radius: var(--radius-medium);
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
-            font-size: 1.1em;
-            color: var(--color-primary-turquoise);
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .value-card {
-            background: var(--color-white);
-            border: 3px solid #E8E8E8;
-            border-radius: var(--radius-medium);
-            padding: 20px;
-            cursor: move;
-            transition: all 0.3s ease;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
-            border-color: var(--color-primary-turquoise);
-        }
-
-        .value-card.dragging {
-            opacity: 0.5;
-            transform: rotate(5deg);
-        }
-
-        .value-icon {
-            font-size: 3em;
-            margin-bottom: 12px;
-        }
-
-        .value-name {
-            font-weight: 700;
-            font-size: 1.1em;
-            color: var(--color-text-dark);
-            margin-bottom: 10px;
-        }
-
-        .value-example {
-            font-size: 0.85em;
-            color: var(--color-text-light);
-            line-height: 1.5;
-            font-style: italic;
-        }
-
-        /* Drop Zones */
-        .drop-zone {
-            border: 3px dashed #D0D0D0;
-            border-radius: var(--radius-medium);
-            padding: 30px;
-            min-height: 200px;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-            background: var(--color-bg-light);
-        }
-
-        .drop-zone.drag-over {
-            border-color: var(--color-primary-turquoise);
-            background: #E8F4F8;
-            border-style: solid;
-        }
-
-        .zone-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-weight: 800;
-            font-size: 1.3em;
-        }
-
-        .zone-hint {
-            color: var(--color-text-medium);
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .zone-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .zone-essential {
-            border-color: var(--color-primary-red);
-            background: linear-gradient(135deg, #FFF5F5, #FFE8E8);
-        }
-
-        .zone-essential .zone-header {
-            color: var(--color-primary-red);
-        }
-
-        .zone-important {
-            border-color: var(--color-primary-yellow);
-            background: linear-gradient(135deg, #FFFDF0, #FFF8E6);
-        }
-
-        .zone-important .zone-header {
-            color: #E6A700;
-        }
-
-        .zone-secondary {
-            border-color: var(--color-primary-turquoise);
-            background: linear-gradient(135deg, #F0FFFC, #E8F9F5);
-        }
-
-        .zone-secondary .zone-header {
-            color: var(--color-primary-turquoise);
-        }
-
-        /* Results */
-        .results-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .results-emoji {
-            font-size: 5em;
-            margin-bottom: 20px;
-        }
-
-        .results-title {
-            font-size: 2.5em;
-            font-weight: 800;
-            color: var(--color-text-dark);
-            margin-bottom: 10px;
-        }
-
-        .results-subtitle {
-            font-size: 1.2em;
-            color: var(--color-text-medium);
-            font-weight: 500;
-        }
-
-        .score-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .score-card {
-            background: linear-gradient(135deg, #F8F9FA, #E8F4F8);
-            padding: 30px;
-            border-radius: var(--radius-medium);
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .score-value {
-            font-size: 3.5em;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--color-primary-turquoise), var(--color-primary-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .score-label {
-            font-size: 1em;
-            color: var(--color-text-medium);
-            font-weight: 600;
-        }
-
-        .message-box {
-            background: linear-gradient(135deg, #FFF8E6, #FFE69C);
-            padding: 30px;
-            border-radius: var(--radius-medium);
-            margin: 30px 0;
-            border-left: 5px solid var(--color-primary-yellow);
-        }
-
-        .message-title {
-            font-size: 1.5em;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--color-text-dark);
-        }
-
-        .tips-box {
-            background: white;
-            border: 3px solid var(--color-primary-turquoise);
-            padding: 30px;
-            border-radius: var(--radius-medium);
-            margin-top: 30px;
-        }
-
-        .tips-title {
-            font-size: 1.4em;
-            font-weight: 800;
-            color: var(--color-primary-turquoise);
-            margin-bottom: 20px;
-        }
-
-        .tip-item {
-            padding: 20px;
-            margin-bottom: 15px;
-            background: var(--color-bg-light);
-            border-radius: var(--radius-medium);
-            display: flex;
-            gap: 20px;
-            align-items: start;
-        }
-
-        .tip-icon {
-            font-size: 2em;
-            flex-shrink: 0;
-        }
-
-        .tip-text {
-            flex: 1;
-            line-height: 1.6;
-        }
-
-        .tip-text strong {
-            color: var(--color-primary-red);
-            font-weight: 700;
-        }
-
-        /* Value Results Cards */
-        .value-result-card {
-            background: white;
-            border-radius: var(--radius-medium);
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .value-result-header {
-            font-weight: 700;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .value-result-example {
-            font-size: 0.9em;
-            color: var(--color-text-light);
-            font-style: italic;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        .footer {
-            background: white;
-            border-radius: var(--radius-medium);
-            padding: 25px;
-            margin-top: 40px;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .footer-content {
+        .shape-red-circle {
+            width: 300px;
+            height: 300px;
+            background: var(--ls-red);
+            border: 4px solid var(--ls-dark);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            color: var(--color-text-medium);
-            font-size: 0.9em;
+            position: relative;
+            z-index: 10;
+            box-shadow: 15px 15px 0px var(--ls-turquoise);
         }
 
-        .eu-flag {
-            width: 50px;
-            height: auto;
-        }
-
-        /* Utility Classes */
-        .hidden {
-            display: none !important;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .app-container {
-                padding: 15px;
-            }
-
-            .hero {
-                padding: 40px 25px;
-            }
-
-            .hero-title {
-                font-size: 2em;
-            }
-
-            .card {
-                padding: 30px 20px;
-            }
-
-            .card-title {
-                font-size: 1.6em;
-            }
-
-            .choice-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .choice-icon {
-                width: auto;
-            }
-
-            .values-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 15px;
-            }
-
-            .zone-content {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            }
-
-            .score-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-large {
-                padding: 20px 40px;
-                font-size: 1.1em;
-            }
-        }
-
-        /* Puzzle Decoration */
-        .puzzle-decoration {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            opacity: 0.15;
-        }
-
-        /* Confetti Decoration */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
+        .portrait-img {
+            width: 270px;
+            height: 270px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
         }
 
-        .confetti-1 {
-            background: var(--color-primary-red);
-            top: 10%;
-            right: 15%;
-            animation: float 4s ease-in-out infinite;
+        @media print { 
+            .no-print { display: none !important; }
+            body { background: white !important; }
+            #results-view { padding: 40px !important; }
         }
 
-        .confetti-2 {
-            background: var(--color-primary-yellow);
-            top: 30%;
-            right: 8%;
-            animation: float 5s ease-in-out infinite 1s;
-        }
-
-        .confetti-3 {
-            background: var(--color-primary-turquoise);
-            top: 50%;
-            right: 12%;
-            animation: float 6s ease-in-out infinite 2s;
-        }
+        .animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
-<body>
-    <div class="app-container">
-        <!-- Top Navigation -->
-        <nav class="top-nav">
-            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="Mission Locale Pays Basque" class="logo-mlpb">
-            <img src="https://www.lifeskills4you.eu/wp-content/uploads/2024/07/LS4YOU_Logo.png" alt="LS4YOU" class="logo-ls4you">
-        </nav>
+<body class="antialiased flex flex-col min-h-screen">
 
-        <!-- Progress Section -->
-        <div class="progress-section hidden" id="progressSection">
-            <div class="progress-header">
-                <div class="progress-badge" id="progressBadge">Chapitre 1/8</div>
-                <div class="progress-score">⭐ <span id="scoreDisplay">0</span></div>
+    <!-- Header -->
+    <header class="bg-white px-8 py-5 flex justify-between items-center border-b-4 border-ls-dark no-print sticky top-0 z-50">
+        <div class="flex items-center gap-6">
+            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-10">
+            <div class="hidden md:block h-8 w-[2px] bg-slate-200"></div>
+            <h1 class="hidden md:block text-xs font-900 uppercase tracking-widest text-slate-400">Atelier : La Boussole des Valeurs</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="text-[10px] font-900 text-right leading-none uppercase">Cofinancé par<br>l'Union européenne</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="UE" class="h-6 border border-slate-100">
+        </div>
+    </header>
+
+    <!-- Quiz View -->
+    <main id="game-view" class="flex-grow flex flex-col no-print p-6 lg:p-16 relative">
+        <div class="dot-grid absolute inset-0 pointer-events-none"></div>
+        
+        <div class="max-w-6xl mx-auto w-full relative z-10">
+            <!-- Title & Progress -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
+                <div>
+                    <h2 class="text-5xl lg:text-7xl leading-[0.85] text-ls-dark uppercase mb-6">
+                        Ma boussole<br><span class="text-ls-red">PRO</span>
+                    </h2>
+                    <div class="flex gap-3">
+                        <div class="w-24 h-3 bg-ls-turquoise border-2 border-ls-dark"></div>
+                        <div class="w-10 h-3 bg-ls-yellow border-2 border-ls-dark"></div>
+                        <div class="w-6 h-3 bg-ls-pink border-2 border-ls-dark"></div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-80">
+                    <div class="flex justify-between text-xs font-900 uppercase mb-3">
+                        <span id="step-label" class="bg-ls-dark text-white px-3 py-1">Étape 1 / 10</span>
+                        <span id="step-percent" class="text-ls-dark">0%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div id="progress-fill" class="h-full bg-ls-turquoise" style="width: 10%"></div>
+                    </div>
+                </div>
             </div>
-            <div class="progress-bar-track">
-                <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+
+            <!-- Quiz Content -->
+            <div id="quiz-container" class="min-h-[400px]">
+                <!-- Injecté par JS -->
+            </div>
+
+            <div class="mt-12 flex justify-end">
+                <button id="btn-next" onclick="nextStep()" class="btn-primary" disabled>Continuer</button>
             </div>
         </div>
+    </main>
 
-        <!-- Name Input Screen -->
-        <div class="hero active" id="nameScreen">
-            <div class="hero-content">
-                <div class="hero-emoji">👋</div>
-                <h1 class="hero-title">Commençons<br>par faire connaissance !</h1>
-                <p class="hero-subtitle">
-                    Pour personnaliser ton aventure vers l'emploi,<br>
-                    dis-nous comment tu t'appelles
+    <!-- Results View -->
+    <div id="results-view" class="hidden relative min-h-screen bg-white overflow-hidden p-10 lg:p-24 flex flex-col lg:flex-row items-center justify-between gap-16">
+        <div class="shape-yellow"></div>
+        <div class="dot-grid absolute inset-0 opacity-10"></div>
+        
+        <!-- Left Column -->
+        <div class="relative z-20 max-w-2xl animate-pop">
+            <div class="mb-12">
+                <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-12 mb-10 no-print">
+                <h2 class="text-6xl lg:text-8xl leading-[0.8] text-ls-dark uppercase mb-8">
+                    MA BOUSSOLE<br><span class="text-ls-red">DÉCRYPTÉE</span>
+                </h2>
+                <div class="flex gap-3 mb-10">
+                    <div class="w-32 h-5 bg-ls-turquoise border-3 border-ls-dark"></div>
+                    <div class="w-12 h-5 bg-ls-yellow border-3 border-ls-dark"></div>
+                </div>
+                <p class="text-2xl font-bold text-slate-700 uppercase tracking-tighter leading-tight max-w-lg">
+                    Voici les 3 piliers qui guident mon épanouissement au travail.
                 </p>
-                <div class="input-group">
-                    <input 
-                        type="text" 
-                        id="nameInput" 
-                        class="input-field" 
-                        placeholder="Entre ton prénom ici..."
-                        maxlength="20"
-                        autocomplete="given-name"
-                    >
-                </div>
-                <button class="btn btn-primary btn-large" id="nameSubmitBtn" onclick="submitName()" disabled>
-                    C'est parti ! 🚀
-                </button>
             </div>
-        </div>
 
-        <!-- Intro Screen -->
-        <div class="hero hidden" id="introScreen">
-            <div class="hero-content">
-                <div class="hero-emoji">🎯</div>
-                <h1 class="hero-title">Bienvenue<br><span id="userName"></span> !</h1>
-                <p class="hero-subtitle" style="text-align: left; max-width: 600px; margin: 20px auto;">
-                    Tu vas vivre une <strong>aventure en 2 parties</strong> :
+            <div id="top3-results" class="space-y-8 mb-16">
+                <!-- Injecté par JS -->
+            </div>
+
+            <div class="bg-white border-4 border-ls-dark p-8 shadow-[10px_10px_0px_var(--ls-turquoise)]">
+                <p id="pitch-text" class="text-xl font-medium text-slate-800 leading-relaxed italic">
+                    <!-- Texte de pitch -->
                 </p>
-                <div style="background: linear-gradient(135deg, #F8F9FA, #E8F4F8); padding: 30px; border-radius: var(--radius-medium); margin: 25px auto; max-width: 600px; text-align: left;">
-                    <p style="margin-bottom: 20px; line-height: 1.7;">
-                        <strong style="color: var(--color-primary-red);">🎮 Partie 1 : L'Aventure Emploi</strong><br>
-                        8 situations concrètes pour apprendre les bons réflexes (15 min)
-                    </p>
-                    <p style="line-height: 1.7;">
-                        <strong style="color: var(--color-primary-turquoise);">🧭 Partie 2 : Ma Boussole</strong><br>
-                        Identifie tes valeurs essentielles pour faire les bons choix (10 min)
-                    </p>
-                </div>
-                <button class="btn btn-primary btn-large" onclick="startGame()">
-                    Commencer l'aventure →
-                </button>
             </div>
-            <div class="confetti confetti-1"></div>
-            <div class="confetti confetti-2"></div>
-            <div class="confetti confetti-3"></div>
-        </div>
 
-        <!-- Game Scenes Container -->
-        <div id="gameScenes"></div>
-
-        <!-- Transition Screen -->
-        <div class="hero hidden" id="transitionScreen">
-            <div class="hero-content">
-                <div class="hero-emoji">🎯</div>
-                <h1 class="hero-title">Bravo<br><span id="transitionUserName"></span> !</h1>
-                <p class="hero-subtitle">
-                    Tu as terminé la partie Aventure avec<br>
-                    <strong style="color: var(--color-primary-red); font-size: 1.5em;" id="transitionScore"></strong> points
-                </p>
-                <div style="background: linear-gradient(135deg, #FFF8E6, #FFE69C); padding: 30px; border-radius: var(--radius-medium); margin: 30px auto; max-width: 600px; text-align: left; border-left: 5px solid var(--color-primary-yellow);">
-                    <h3 style="color: var(--color-text-dark); margin-bottom: 15px; font-weight: 800;">🧭 Maintenant, identifie tes valeurs</h3>
-                    <p style="line-height: 1.7; color: var(--color-text-dark);">
-                        Pour faire les <strong>bons choix</strong> et trouver un job où tu vas <strong>tenir sur la durée</strong>, 
-                        il faut connaître tes valeurs essentielles.
-                    </p>
-                    <p style="margin-top: 15px; font-weight: 700; color: var(--color-primary-red);">
-                        Ces valeurs vont devenir ta boussole pour dire OUI ou NON.
-                    </p>
-                </div>
-                <button class="btn btn-primary btn-large" onclick="startValuesActivity()">
-                    Identifier mes valeurs →
-                </button>
+            <div class="mt-16 flex flex-wrap gap-6 no-print">
+                <button onclick="window.print()" class="btn-primary">Télécharger le bilan</button>
+                <button onclick="location.reload()" class="text-xs font-900 uppercase tracking-widest text-slate-400 hover:text-ls-dark transition-colors">Recommencer l'atelier</button>
             </div>
         </div>
 
-        <!-- Values Activity Container -->
-        <div id="valuesContainer" class="hidden">
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="card-title">🧭 Ma Boussole de Valeurs</h1>
-                    <p class="hero-subtitle">Identifie tes 3 piliers non-négociables pour le travail</p>
-                </div>
-
-                <div class="values-counter" id="valuesCounter">
-                    Cartes triées : 0 / 24
-                </div>
-
-                <div class="values-grid" id="valueBank"></div>
-
-                <div class="drop-zone zone-essential" id="essentialZone" data-zone="essential">
-                    <div class="zone-header">
-                        🔴 Essentiel (exactement 3)
-                    </div>
-                    <div class="zone-hint">
-                        Tes 3 piliers non-négociables - ce qui est OBLIGATOIRE pour toi
-                    </div>
-                    <div class="zone-content" id="essentialContent"></div>
-                </div>
-
-                <div class="drop-zone zone-important" id="importantZone" data-zone="important">
-                    <div class="zone-header">
-                        🟡 Important
-                    </div>
-                    <div class="zone-hint">
-                        Ce qui améliore vraiment ta vie au travail - un gros plus
-                    </div>
-                    <div class="zone-content" id="importantContent"></div>
-                </div>
-
-                <div class="drop-zone zone-secondary" id="secondaryZone" data-zone="secondary">
-                    <div class="zone-header">
-                        ⚪ Pas pour moi
-                    </div>
-                    <div class="zone-hint">
-                        Secondaire ou pas important dans ton cas
-                    </div>
-                    <div class="zone-content" id="secondaryContent"></div>
-                </div>
-
-                <button class="btn btn-primary" id="valuesFinishBtn" onclick="finishValues()" disabled>
-                    Finaliser mon profil et voir mes résultats →
-                </button>
-
-                <svg class="puzzle-decoration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="#06D6A0"/>
-                </svg>
+        <!-- Right Column (Geometric) -->
+        <div class="relative z-20 flex items-center justify-center animate-pop" style="animation-delay: 0.2s">
+            <div class="shape-red-circle">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80" alt="Profil" class="portrait-img">
             </div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-ls-turquoise border-4 border-ls-dark -rotate-12 z-0"></div>
+            <div class="absolute -bottom-10 -left-10 w-24 h-24 dot-grid border-4 border-ls-dark z-0 opacity-40"></div>
+            
+            <svg class="puzzle-icon" style="position:absolute; bottom:-40px; right:-20px; width:120px; fill:var(--ls-yellow); filter: drop-shadow(4px 4px 0px var(--ls-dark));" viewBox="0 0 24 24">
+                <path d="M18.88 12.17c.56 0 1.12-.13 1.62-.4.43-.22.8-.52 1.1-.9.3-.37.52-.8.65-1.27.13-.47.15-.96.06-1.44-.1-.48-.3-.93-.6-1.33-.3-.4-.68-.72-1.13-.95-.45-.23-.94-.35-1.44-.35-.5 0-.99.12-1.44.35-.45.23-.83.55-1.13.95s-.5 0.85-.6 1.33c-0.09 0.48-0.07 0.97 0.06 1.44s0.35 0.9 0.65 1.27c0.3 0.38 0.67 0.68 1.1 0.9s1.06 0.4 1.62 0.4zM5 14h2v2h2v2h2v2h2v-2h2v-2h2v-2h2v-2h-2v-2h-2V8h-2V6h-2V4h-2v2H9v2H7v2H5v2H3v2h2z" />
+            </svg>
         </div>
 
-        <!-- End Screen Container -->
-        <div id="endScreen" class="hidden"></div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="footer-content">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="UE" class="eu-flag">
-                <span>Co-financé par l'Union Européenne</span>
-                <span>© 2026 Projet LS4YOU</span>
+        <!-- Footer Info -->
+        <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end border-t-2 border-slate-100 pt-8 no-print">
+            <div class="text-[10px] font-900 text-slate-300 uppercase tracking-[0.3em]">LS4YOU • Mission Locale Pays Basque • 2026</div>
+            <div class="flex gap-4">
+                <div class="w-10 h-3 bg-ls-red border-2 border-ls-dark"></div>
+                <div class="w-10 h-3 bg-ls-yellow border-2 border-ls-dark"></div>
+                <div class="w-10 h-3 bg-ls-turquoise border-2 border-ls-dark"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // DATA
-        const valuesData = [
-            { id: 1, name: 'Bon salaire', icon: '💰', example: 'Ex: Gagner assez pour être autonome et me faire plaisir' },
-            { id: 2, name: 'Horaires fixes', icon: '🕐', example: 'Ex: Finir à 17h tous les jours, pas de variables' },
-            { id: 3, name: 'Ambiance cool', icon: '😊', example: 'Ex: Pouvoir rigoler avec les collègues, pas de pression' },
-            { id: 4, name: 'Proche de chez moi', icon: '🏠', example: 'Ex: Max 20 min de trajet, pas 2h de bus' },
-            { id: 5, name: 'Être utile', icon: '💫', example: 'Ex: Aider les gens, sentir que mon job a du sens' },
-            { id: 6, name: 'Respect', icon: '🤝', example: 'Ex: Pas de mépris, être traité comme un adulte' },
-            { id: 7, name: 'CDI sécurisé', icon: '🛡️', example: 'Ex: Pas de CDD qui s\'enchaînent, de la stabilité' },
-            { id: 8, name: 'Temps libre', icon: '⏰', example: 'Ex: Pas d\'heures sup, garder du temps pour ma vie perso' },
-            { id: 9, name: 'Apprendre', icon: '📚', example: 'Ex: Développer des compétences, évoluer' },
-            { id: 10, name: 'Être autonome', icon: '🚀', example: 'Ex: Pas de micro-management, me débrouiller seul·e' },
-            { id: 11, name: 'Travailler en équipe', icon: '👥', example: 'Ex: Pas être isolé·e, avoir des collègues' },
-            { id: 12, name: 'Pas de stress', icon: '☮️', example: 'Ex: Pas de pression énorme, job tranquille' },
-            { id: 13, name: 'Me dépasser', icon: '🎯', example: 'Ex: Des challenges, des objectifs ambitieux' },
-            { id: 14, name: 'Horaires flexibles', icon: '🔄', example: 'Ex: Pouvoir adapter mes horaires selon mes besoins' },
-            { id: 15, name: 'Être reconnu·e', icon: '🏆', example: 'Ex: Qu\'on remarque mon travail, des encouragements' },
-            { id: 16, name: 'Aider la planète', icon: '🌱', example: 'Ex: Job écolo, entreprise responsable' },
-            { id: 17, name: 'Créer/innover', icon: '💡', example: 'Ex: Proposer mes idées, pas juste exécuter' },
-            { id: 18, name: 'Bon patron', icon: '👨‍💼', example: 'Ex: Un chef qui écoute, pas un tyran' },
-            { id: 19, name: 'Pas physique', icon: '🪑', example: 'Ex: Pas porter de lourdes charges, ménager mon corps' },
-            { id: 20, name: 'Contact clients', icon: '🗣️', example: 'Ex: Parler avec les gens, pas être dans un bureau' },
-            { id: 21, name: 'Avantages', icon: '🎁', example: 'Ex: Tickets resto, primes, mutuelle top' },
-            { id: 22, name: 'Variété', icon: '🎨', example: 'Ex: Pas la même chose tous les jours, du changement' },
-            { id: 23, name: 'Évolution possible', icon: '📈', example: 'Ex: Possibilité de monter en grade, pas bloqué·e' },
-            { id: 24, name: 'Pas de routine', icon: '🧭', example: 'Ex: Imprevu, aventure, pas du 9h-17h répétitif' }
-        ];
+        const VALS = {
+            respect: { label: "Respect", icon: "user-check", desc: "Être traité avec dignité par tous les membres de l'organisation." },
+            ambiance: { label: "Ambiance", icon: "smile", desc: "Le plaisir partagé et la convivialité au quotidien." },
+            securite: { label: "Sécurité", icon: "shield-check", desc: "Stabilité d'emploi et sérénité face à l'avenir financier." },
+            liberte: { label: "Liberté", icon: "wind", desc: "L'indépendance dans la gestion de ses propres missions." },
+            utilite: { label: "Utilité", icon: "heart", desc: "La conviction que mon travail apporte une valeur réelle à la société." },
+            justice: { label: "Justice", icon: "scale", desc: "Équité de traitement et respect strict des engagements." },
+            creativite: { label: "Créativité", icon: "palette", desc: "Liberté d'innover et d'apporter des solutions originales." },
+            evolution: { label: "Évolution", icon: "trending-up", desc: "Perspectives de montée en grade et en responsabilités." },
+            reconnaissance: { label: "Reconnaissance", icon: "award", desc: "Valorisation claire de l'investissement et des résultats." },
+            equilibre: { label: "Équilibre", icon: "life-buoy", desc: "Préservation stricte du temps de vie personnelle." },
+            solidarite: { label: "Solidarité", icon: "users", desc: "Entraide mutuelle et soutien inconditionnel de l'équipe." },
+            challenge: { label: "Challenge", icon: "trophy", desc: "Objectifs ambitieux qui poussent à se surpasser." },
+            autonomie: { label: "Autonomie", icon: "zap", desc: "Capacité à décider et agir sans supervision constante." },
+            apprentissage: { label: "Apprentissage", icon: "graduation-cap", desc: "Développement continu des savoir-faire." },
+            argent: { label: "Argent", icon: "banknote", desc: "Rémunération permettant un confort de vie satisfaisant." }
+        };
 
-        const gameData = [
+        const SCENARIOS = [
             {
-                chapter: "Chapitre 1 : Élaborer ma stratégie",
-                emoji: "🎯",
-                title: "Le plan de bataille",
-                description: "Tu décides de te lancer sérieusement dans la recherche d'emploi. Tu as 3 semaines devant toi avant que tes allocations se terminent.",
-                context: "💡 Conseil : Une bonne stratégie vaut mieux que 100 candidatures hasardeuses.",
+                context: "C'est ton premier jour. Ton nouveau bureau est prêt.",
+                question: "Qu'est-ce qui te fait le plus plaisir ?",
                 choices: [
-                    {
-                        icon: "🗺️",
-                        title: "Faire un état des lieux d'abord : mes compétences, mes valeurs, puis cibler",
-                        feedback: "🎯 EXCELLENT ! C'est la base. Définir ton projet avant de foncer = candidatures pertinentes + motivation durable + meilleur taux de réponses. Un projet clair, c'est 50% du travail.",
-                        correct: true,
-                        points: 20
-                    },
-                    {
-                        icon: "📱",
-                        title: "Postuler partout tout de suite, au moins 50 CV cette semaine",
-                        feedback: "❌ Piège classique ! Envoyer en masse sans ciblage = 0 impact. Les recruteurs le sentent. Mieux vaut 10 candidatures ciblées que 100 génériques. Résultat : démotivation + perte de temps.",
-                        correct: false,
-                        points: 5
-                    },
-                    {
-                        icon: "👥",
-                        title: "Activer mon réseau immédiatement pour dire que je cherche",
-                        feedback: "⚠️ PAS MAL mais prématuré. Contacter ton réseau sans savoir CE QUE tu cherches = tu parais perdu·e. D'abord définis ton projet, PUIS active ton réseau avec un message précis.",
-                        correct: false,
-                        points: 10
-                    }
+                    { text: "L'équipe t'accueille avec un déjeuner de bienvenue", values: ['ambiance', 'solidarite'], icon: "users" },
+                    { text: "On te confie les clés d'un projet dès la première heure", values: ['autonomie', 'creativite'], icon: "key" },
+                    { text: "Ton contrat est déjà signé et ton bureau est stable", values: ['securite', 'justice'], icon: "file-check" }
                 ]
             },
             {
-                chapter: "Chapitre 2 : La lettre de motivation",
-                emoji: "✉️",
-                title: "L'offre idéale",
-                description: "Tu trouves THE annonce : assistant·e commercial·e dans une PME locale. Salaire correct, mission intéressante. Il faut CV + lettre de motivation.",
-                context: "📌 L'annonce précise : 'Dynamisme, autonomie et esprit d'équipe recherchés'. La boîte vend du matériel de sport.",
+                context: "Il y a une erreur dans un projet important.",
+                question: "Comment souhaites-tu que ce soit géré ?",
                 choices: [
-                    {
-                        icon: "🎨",
-                        title: "Raconter mon parcours dans l'ordre chronologique depuis le collège",
-                        feedback: "❌ Erreur fréquente ! Le recruteur n'a pas le temps pour ton autobiographie. Il veut savoir POURQUOI tu postules et CE QUE TU APPORTES. Ta vie = pas son problème.",
-                        correct: false,
-                        points: 7
-                    },
-                    {
-                        icon: "💡",
-                        title: "Montrer que je connais l'entreprise et expliquer ce que j'apporte concrètement",
-                        feedback: "🎯 PARFAIT ! Structure gagnante : Vous (l'entreprise) + Moi (mes compétences) + Nous (ce qu'on fera ensemble). Bonus : cite un projet récent de l'entreprise pour montrer ton intérêt réel.",
-                        correct: true,
-                        points: 20
-                    },
-                    {
-                        icon: "📋",
-                        title: "Prendre un modèle internet et changer juste le nom de l'entreprise",
-                        feedback: "❌ GAME OVER ! Les recruteurs repèrent les lettres génériques en 3 secondes. Direction : poubelle. Personnalise ou n'envoie rien. 30 minutes d'effort = se démarquer de 90% des candidats.",
-                        correct: false,
-                        points: 3
-                    }
+                    { text: "On cherche une solution ensemble sans blâmer personne", values: ['solidarite', 'respect'], icon: "help-circle" },
+                    { text: "Le manager est juste : chacun assume sa part d'erreur", values: ['justice', 'respect'], icon: "scale" },
+                    { text: "C'est un challenge pour apprendre de nouvelles méthodes", values: ['apprentissage', 'challenge'], icon: "lightbulb" }
                 ]
             },
             {
-                chapter: "Chapitre 3 : Me présenter spontanément",
-                emoji: "🚪",
-                title: "Tenter le tout pour le tout",
-                description: "En passant devant un magasin de déco qui te plaît, tu remarques qu'il y a du monde mais pas de rush. Pas d'annonce visible. Et si tu tentais une candidature spontanée ?",
-                context: "⏰ C'est un mardi après-midi, 15h. L'heure creuse.",
+                context: "On te propose une promotion exceptionnelle.",
+                question: "Qu'est-ce qui t'attire le plus ?",
                 choices: [
-                    {
-                        icon: "🚶",
-                        title: "Entrer direct, me présenter et demander s'ils recrutent",
-                        feedback: "⚠️ AUDACIEUX mais risqué ! Sans préparation, tu peux déranger. Mieux vaut : observer le moment calme, te présenter brièvement, laisser ton CV et demander le nom du responsable. Respect du temps des autres = pro.",
-                        correct: false,
-                        points: 12
-                    },
-                    {
-                        icon: "📞",
-                        title: "Appeler d'abord pour cibler la bonne personne et savoir s'ils recrutent",
-                        feedback: "🎯 TOP STRATÉGIE ! Tu montres organisation + professionnalisme. En appelant : tu obtiens le nom du responsable + tu poses des questions sur leurs besoins + ta candidature aura du poids. Ensuite, mail personnalisé OU visite en personne.",
-                        correct: true,
-                        points: 20
-                    },
-                    {
-                        icon: "📧",
-                        title: "Envoyer un mail avec mon CV à l'adresse générique sur leur site",
-                        feedback: "❌ Pas terrible. Les candidatures spontanées par mail se perdent dans la masse. Pour marquer les esprits en spontané : privilégie le contact humain (appel ou visite) après avoir repéré la bonne personne.",
-                        correct: false,
-                        points: 8
-                    }
+                    { text: "Le nouveau salaire qui va avec", values: ['argent', 'securite'], icon: "banknote" },
+                    { text: "Le titre et le prestige de la fonction", values: ['reconnaissance', 'evolution'], icon: "award" },
+                    { text: "Le pouvoir de changer les choses en toute liberté", values: ['liberte', 'autonomie'], icon: "wind" }
                 ]
             },
             {
-                chapter: "Chapitre 4 : Participer à un forum emploi",
-                emoji: "🎪",
-                title: "L'événement networking",
-                description: "Le forum emploi de ta ville : 40 stands d'entreprises, des ateliers CV, des speed-meetings. Tu as 3 heures sur place. Comment t'organises-tu ?",
-                context: "🎯 Objectif : maximiser ton impact, pas distribuer du papier.",
+                context: "Ton entreprise change ses horaires de travail.",
+                question: "Quelle option te conviendrait le mieux ?",
                 choices: [
-                    {
-                        icon: "🎓",
-                        title: "Assister d'abord aux ateliers pour me préparer (CV, pitch, etc.)",
-                        feedback: "⚠️ PAS MAL si c'est ta première fois, mais attention ! L'intérêt principal = rencontrer les recruteurs EN DIRECT. Solution : arrive tôt, fais MAX 1 atelier, puis file sur les stands ciblés. Priorités !",
-                        correct: false,
-                        points: 12
-                    },
-                    {
-                        icon: "🏃",
-                        title: "Faire le tour de tous les stands et déposer mon CV partout",
-                        feedback: "❌ PIRE STRATÉGIE ! Distribuer ton CV en masse = 0 impact. Les recruteurs ne se souviendront pas de toi. Règle d'or : Qualité > Quantité. 5 vraies conversations > 40 CV jetés.",
-                        correct: false,
-                        points: 5
-                    },
-                    {
-                        icon: "🎯",
-                        title: "Cibler 3-4 entreprises et préparer des questions précises pour chacune",
-                        feedback: "🎯 EXCELLENT ! Tu montres organisation + motivation. En préparant des questions, tu crées un vrai dialogue. Les recruteurs se souviendront de toi. Astuce : demande leur carte et fais un follow-up mail dans les 48h.",
-                        correct: true,
-                        points: 20
-                    }
+                    { text: "Horaires libres, tu gères ton temps comme tu veux", values: ['liberte', 'equilibre'], icon: "clock" },
+                    { text: "Horaires fixes et stables pour s'organiser sereinement", values: ['securite', 'equilibre'], icon: "calendar" },
+                    { text: "Horaires flexibles pour aider les collègues si besoin", values: ['solidarite', 'ambiance'], icon: "shuffle" }
                 ]
             },
             {
-                chapter: "Chapitre 5 : Rechercher une PMSMP",
-                emoji: "🔍",
-                title: "L'immersion professionnelle",
-                description: "Ton conseiller Mission Locale te propose une PMSMP (immersion) d'une semaine dans une entreprise qui t'intéresse. C'est l'occasion de tester le métier ET de te faire remarquer.",
-                context: "💼 Contexte : Beaucoup de PMSMP débouchent sur des embauches si tu joues bien.",
+                context: "Une tâche urgente arrive un vendredi soir à 16h30.",
+                question: "Que fais-tu ?",
                 choices: [
-                    {
-                        icon: "⚡",
-                        title: "Proposer plein d'idées dès le 1er jour pour améliorer leur organisation",
-                        feedback: "❌ DANGER ! Arriver et vouloir tout changer en 2 jours = braquer tout le monde. Règle : d'abord OBSERVE et APPRENDS. Ensuite, si tu as des idées, partage-les humblement : 'J'ai remarqué que... Avez-vous déjà essayé... ?'",
-                        correct: false,
-                        points: 8
-                    },
-                    {
-                        icon: "🤝",
-                        title: "Être curieux·se, poser des questions et demander des responsabilités",
-                        feedback: "🎯 PARFAIT ! Attitude gagnante : motivation sans prétention. Montre que tu veux APPRENDRE. À la fin, demande un retour sur ton immersion + exprime clairement ton intérêt pour un poste. C'est comme ça qu'on transforme une PMSMP en CDI.",
-                        correct: true,
-                        points: 20
-                    },
-                    {
-                        icon: "👀",
-                        title: "Rester discret·e, observer et faire uniquement ce qu'on me demande",
-                        feedback: "❌ TROP PASSIF ! Une PMSMP ≠ stage d'observation. C'est ta chance de PROUVER ta motivation. Sois proactif·ve : pose des questions, propose ton aide, montre de l'intérêt. Objectif : qu'ils veuillent te recruter après.",
-                        correct: false,
-                        points: 10
-                    }
+                    { text: "Tu pars : ton week-end est sacré", values: ['equilibre', 'liberte'], icon: "home" },
+                    { text: "Tu restes pour boucler ça et montrer ton sérieux", values: ['reconnaissance', 'challenge'], icon: "check-circle" },
+                    { text: "Tu restes si les autres restent : on est une équipe", values: ['solidarite', 'respect'], icon: "users" }
                 ]
             },
             {
-                chapter: "Chapitre 6 : L'entretien d'embauche",
-                emoji: "💼",
-                title: "Le jour J",
-                description: "Ça y est ! Tu as décroché un entretien pour le poste d'assistant·e commercial·e. Le recruteur démarre avec : 'Alors, parlez-moi de vous.'",
-                context: "🎤 Question PIÈGE classique. Comment réponds-tu ?",
+                context: "Tu as fini tes tâches habituelles en avance.",
+                question: "Comment occupes-tu ton temps ?",
                 choices: [
-                    {
-                        icon: "🏠",
-                        title: "Je parle de mes hobbies, ma famille, mes passions personnelles",
-                        feedback: "❌ HORS SUJET ! Le recruteur se fiche de ta vie perso (sauf si lien direct avec le job). Il veut savoir qui tu es PROFESSIONNELLEMENT. Garde tes hobbies pour la fin si on te pose la question.",
-                        correct: false,
-                        points: 6
-                    },
-                    {
-                        icon: "💬",
-                        title: "Je dis que je cherche un job depuis longtemps et que j'ai vraiment besoin",
-                        feedback: "❌ ERREUR ! Parler de tes difficultés + ton besoin = position de faiblesse. Le recruteur veut savoir CE QUE TU APPORTES, pas ce que tu attends. Montre ta valeur, pas ta galère.",
-                        correct: false,
-                        points: 5
-                    },
-                    {
-                        icon: "🎯",
-                        title: "Je résume mon parcours en lien avec le poste (formation + compétences + motivation)",
-                        feedback: "🎯 PARFAIT ! Structure gagnante : Qui je suis pro + Ce que j'ai fait + Pourquoi ce poste m'intéresse. Court (2-3 min max), pertinent, orienté VALEUR. C'est ton elevator pitch. Entraîne-toi avant !",
-                        correct: true,
-                        points: 20
-                    }
+                    { text: "Tu lances un projet créatif de ton côté", values: ['creativite', 'autonomie'], icon: "palette" },
+                    { text: "Tu vas aider un collègue qui est débordé", values: ['solidarite', 'ambiance'], icon: "heart" },
+                    { text: "Tu demandes une formation pour monter en compétence", values: ['apprentissage', 'evolution'], icon: "graduation-cap" }
                 ]
             },
             {
-                chapter: "Chapitre 7 : Gérer l'imprévu",
-                emoji: "⏰",
-                title: "Le retard",
-                description: "Catastrophe ! Le bus a eu 20 minutes de retard. Tu arrives à l'entretien avec 15 minutes de retard. Le recruteur t'attend dans la salle.",
-                context: "😰 Stress maximum. Comment gérer la situation ?",
+                context: "Une entreprise concurrente te propose un job.",
+                question: "Qu'est-ce qui te ferait rester chez toi ?",
                 choices: [
-                    {
-                        icon: "🏃",
-                        title: "J'entre sans rien dire, c'est pas ma faute, c'est les transports",
-                        feedback: "❌ CATASTROPHE ! Ignorer ton retard = impolitesse + immaturité. Même si c'est pas ta faute, c'est TA responsabilité de gérer. Prendre la responsabilité = maturité professionnelle. Là, tu viens de perdre le job.",
-                        correct: false,
-                        points: 0
-                    },
-                    {
-                        icon: "🙏",
-                        title: "Je m'excuse poliment, j'explique brièvement et je passe à l'entretien",
-                        feedback: "🎯 PARFAIT ! Excuse sincère + explication courte (pas de roman) + tu remercies pour la patience = tu montres du professionnalisme. Astuce : anticipe en appelant 10 min avant si tu vois que tu seras en retard.",
-                        correct: true,
-                        points: 20
-                    },
-                    {
-                        icon: "📖",
-                        title: "Je raconte toute mon histoire de transport en détail pour me justifier",
-                        feedback: "❌ MAUVAISE IDÉE ! Trop d'explications = tu te justifies comme un enfant. Sois adulte : excuse brève + reconnaissance de ton retard + focus sur l'entretien. Le recruteur n'a pas besoin de connaître ton trajet complet.",
-                        correct: false,
-                        points: 8
-                    }
+                    { text: "La peur de perdre ta stabilité actuelle", values: ['securite', 'justice'], icon: "shield" },
+                    { text: "Le lien fort que tu as avec tes collègues", values: ['ambiance', 'solidarite'], icon: "smile" },
+                    { text: "Le sentiment d'être indispensable à la mission", values: ['utilite', 'reconnaissance'], icon: "star" }
                 ]
             },
             {
-                chapter: "Chapitre 8 : La période d'essai",
-                emoji: "🎊",
-                title: "Les premiers jours",
-                description: "BRAVO ! Tu as le job ! Période d'essai de 2 mois. C'est tes 3 premières semaines. L'entreprise peut encore rompre sans préavis. Comment assurer ?",
-                context: "⚠️ La période d'essai = test permanent. Fais tes preuves !",
+                context: "Ton bureau est réorganisé.",
+                question: "Quelle configuration préfères-tu ?",
                 choices: [
-                    {
-                        icon: "🦸",
-                        title: "Montrer que je sais tout faire seul·e, ne jamais poser de questions",
-                        feedback: "❌ GROSSE ERREUR ! Ne pas poser de questions = faire des erreurs évitables. Les employeurs PRÉFÈRENT quelqu'un qui pose des questions intelligentes qu'un·e solo cowboy·girl. Poser des questions = intelligence + humilité.",
-                        correct: false,
-                        points: 5
-                    },
-                    {
-                        icon: "🎯",
-                        title: "Être à l'écoute, poser des questions et proposer mon aide à l'équipe",
-                        feedback: "🎯 EXACTEMENT ! Attitude gagnante : apprendre + s'intégrer + montrer sa motivation. Observe les codes, demande des conseils, propose ton aide. En fin de période d'essai, demande un retour constructif. C'est comme ça qu'on valide !",
-                        correct: true,
-                        points: 20
-                    },
-                    {
-                        icon: "📝",
-                        title: "Arriver 30 min avant, partir 30 min après, dire oui à tout",
-                        feedback: "⚠️ ATTENTION BURN-OUT ! Vouloir trop en faire = te fatiguer + fausser l'image. Mieux vaut être EFFICACE, ponctuel·le et disponible, sans te cramer. L'équilibre = tenir sur la durée. Marathon, pas sprint.",
-                        correct: false,
-                        points: 12
-                    }
+                    { text: "Un bureau individuel fermé pour être au calme", values: ['autonomie', 'liberte'], icon: "user" },
+                    { text: "Un open-space dynamique pour échanger", values: ['ambiance', 'solidarite'], icon: "messages-square" },
+                    { text: "Un espace partagé où l'on gère ses projets librement", values: ['creativite', 'liberte'], icon: "layout" }
+                ]
+            },
+            {
+                context: "Le bilan annuel arrive.",
+                question: "Quel retour de ton patron te ferait le plus plaisir ?",
+                choices: [
+                    { text: "\"On te confie plus de responsabilités l'an prochain\"", values: ['evolution', 'challenge'], icon: "trending-up" },
+                    { text: "\"Ta présence fait du bien à l'ambiance du groupe\"", values: ['ambiance', 'respect'], icon: "sun" },
+                    { text: "\"Ton travail a vraiment un impact sur nos clients\"", values: ['utilite', 'reconnaissance'], icon: "target" }
+                ]
+            },
+            {
+                context: "Demain, c'est ta journée de rêve au travail.",
+                question: "À quoi ressemble-t-elle ?",
+                choices: [
+                    { text: "Une journée où tu as appris plein de trucs", values: ['apprentissage', 'creativite'], icon: "book-open" },
+                    { text: "Une journée productive et bien payée", values: ['argent', 'securite'], icon: "dollar-sign" },
+                    { text: "Une journée où tu as été utile et respecté", values: ['utilite', 'respect'], icon: "shield-check" }
                 ]
             }
         ];
 
-        // STATE
-        let userName = '';
-        let currentScene = 0;
-        let totalScore = 0;
-        let correctCount = 0;
-        let choiceDisabled = false;
-        let userValues = { essential: [], important: [], secondary: [] };
-        let draggedElement = null;
+        let currentStep = 0;
+        let scores = {};
+        Object.keys(VALS).forEach(k => scores[k] = 0);
+        let selectedChoice = null;
 
-        // Continue with JavaScript implementation...
-        // (Due to length limits, I'll include the key functions)
-
-        document.getElementById('nameInput').addEventListener('input', function(e) {
-            document.getElementById('nameSubmitBtn').disabled = e.target.value.trim().length === 0;
-        });
-
-        document.getElementById('nameInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && e.target.value.trim().length > 0) {
-                submitName();
-            }
-        });
-
-        function submitName() {
-            const input = document.getElementById('nameInput').value.trim();
-            if (!input) return;
+        function renderQuiz() {
+            const scenario = SCENARIOS[currentStep];
+            const container = document.getElementById('quiz-container');
             
-            userName = input;
-            document.getElementById('userName').textContent = userName;
-            document.getElementById('transitionUserName').textContent = userName;
+            // Progress
+            const progress = ((currentStep + 1) / SCENARIOS.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+            document.getElementById('step-label').innerText = `Étape ${currentStep + 1} / ${SCENARIOS.length}`;
+            document.getElementById('step-percent').innerText = `${Math.round(progress)}%`;
             
-            document.getElementById('nameScreen').classList.add('hidden');
-            document.getElementById('introScreen').classList.remove('hidden');
-        }
-
-        function startGame() {
-            document.getElementById('introScreen').classList.add('hidden');
-            document.getElementById('progressSection').classList.remove('hidden');
-            loadScene(0);
-        }
-
-        function loadScene(sceneIndex) {
-            currentScene = sceneIndex;
-            const scene = gameData[sceneIndex];
-            
-            document.getElementById('progressBadge').textContent = `Partie 1/2 : Chapitre ${sceneIndex + 1}/8`;
-            const progress = ((sceneIndex + 1) / 8) * 50;
-            document.getElementById('progressBarFill').style.width = progress + '%';
-            
-            const sceneHTML = `
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-chapter">${scene.chapter}</div>
-                        <div class="card-emoji">${scene.emoji}</div>
-                        <h2 class="card-title">${scene.title}</h2>
+            container.innerHTML = `
+                <div class="animate-pop">
+                    <div class="mb-12">
+                        <p class="text-ls-turquoise font-900 uppercase tracking-widest text-xs mb-4">Situation #${currentStep + 1}</p>
+                        <h3 class="text-2xl lg:text-4xl text-ls-dark mb-6 leading-tight max-w-4xl">${scenario.context}</h3>
+                        <div class="h-2 w-32 bg-ls-yellow border-2 border-ls-dark"></div>
                     </div>
-                    <div class="card-description">${scene.description}</div>
-                    ${scene.context ? `<div class="context-callout"><strong>⚠️ Contexte :</strong> ${scene.context}</div>` : ''}
-                    <div class="choices-grid">
-                        ${scene.choices.map((choice, i) => `
-                            <div class="choice-card" onclick="selectChoice(${i})">
-                                <div class="choice-icon">${choice.icon}</div>
-                                <div class="choice-text">${choice.title}</div>
+
+                    <p class="font-900 text-slate-300 uppercase text-[11px] tracking-[0.3em] mb-10">Quelle est ta réaction ?</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        ${scenario.choices.map((c, i) => `
+                            <div class="choice-card p-10 flex flex-col items-center text-center gap-8 ${selectedChoice === i ? 'selected' : ''}" onclick="selectOption(${i})">
+                                <i data-lucide="${c.icon}" class="w-14 h-14 ${selectedChoice === i ? 'text-white' : 'text-ls-dark'}"></i>
+                                <p class="text-base font-900 leading-tight uppercase">${c.text}</p>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="feedback-box" id="feedbackBox"></div>
-                    <button class="btn btn-primary" id="continueBtn" style="display: none;" onclick="nextScene()">
-                        ${sceneIndex < 7 ? 'Chapitre suivant →' : 'Terminer la partie 1 🎯'}
-                    </button>
-                    <svg class="puzzle-decoration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="#06D6A0"/>
-                    </svg>
                 </div>
             `;
             
-            document.getElementById('gameScenes').innerHTML = sceneHTML;
-            choiceDisabled = false;
+            lucide.createIcons();
+            document.getElementById('btn-next').disabled = selectedChoice === null;
         }
 
-        function selectChoice(choiceIndex) {
-            if (choiceDisabled) return;
-            choiceDisabled = true;
-            
-            const scene = gameData[currentScene];
-            const choice = scene.choices[choiceIndex];
-            
-            const choices = document.querySelectorAll('.choice-card');
-            choices.forEach((el, idx) => {
-                el.classList.add('disabled');
-                if (idx === choiceIndex) {
-                    el.classList.add('selected');
-                    setTimeout(() => {
-                        el.classList.remove('selected');
-                        el.classList.add(choice.correct ? 'correct' : 'incorrect');
-                        if (choice.correct) {
-                            totalScore += choice.points;
-                            correctCount++;
-                        } else {
-                            totalScore += choice.points;
-                        }
-                        document.getElementById('scoreDisplay').textContent = totalScore;
-                        showFeedback(choice);
-                    }, 300);
-                }
-            });
+        function selectOption(index) {
+            selectedChoice = index;
+            renderQuiz();
         }
 
-        function showFeedback(choice) {
-            const feedbackBox = document.getElementById('feedbackBox');
-            feedbackBox.className = 'feedback-box visible ' + (choice.correct ? 'success' : 'error');
-            feedbackBox.innerHTML = `
-                <div class="feedback-title">
-                    ${choice.correct ? '✅ Bonne décision !' : '❌ Pas optimal...'}
-                    <span>+${choice.points} pts</span>
-                </div>
-                <div class="feedback-text">${choice.feedback}</div>
-            `;
-            document.getElementById('continueBtn').style.display = 'block';
-        }
+        function nextStep() {
+            const choice = SCENARIOS[currentStep].choices[selectedChoice];
+            choice.values.forEach(v => scores[v]++);
 
-        function nextScene() {
-            if (currentScene < 7) {
-                loadScene(currentScene + 1);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (currentStep < SCENARIOS.length - 1) {
+                currentStep++;
+                selectedChoice = null;
+                renderQuiz();
             } else {
-                showTransitionScreen();
+                showResults();
             }
         }
 
-        function showTransitionScreen() {
-            document.getElementById('gameScenes').innerHTML = '';
-            document.getElementById('progressSection').classList.add('hidden');
-            document.getElementById('transitionScore').textContent = totalScore;
-            document.getElementById('transitionScreen').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function showResults() {
+            document.getElementById('game-view').classList.add('hidden');
+            document.getElementById('results-view').classList.remove('hidden');
 
-        function startValuesActivity() {
-            document.getElementById('transitionScreen').classList.add('hidden');
-            document.getElementById('progressSection').classList.remove('hidden');
-            document.getElementById('valuesContainer').classList.remove('hidden');
-            document.getElementById('progressBadge').textContent = 'Partie 2/2 : Mes Valeurs';
-            document.getElementById('progressBarFill').style.width = '75%';
-            initializeValues();
-        }
+            const sorted = Object.entries(scores)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 3)
+                .map(([id]) => VALS[id]);
 
-        function initializeValues() {
-            const bank = document.getElementById('valueBank');
-            bank.innerHTML = '';
-            valuesData.forEach(value => {
-                const card = document.createElement('div');
-                card.className = 'value-card';
-                card.draggable = true;
-                card.dataset.valueId = value.id;
-                card.innerHTML = `
-                    <div class="value-icon">${value.icon}</div>
-                    <div class="value-name">${value.name}</div>
-                    <div class="value-example">${value.example}</div>
-                `;
-                bank.appendChild(card);
-            });
-            setupDragAndDrop();
-        }
-
-        function setupDragAndDrop() {
-            const cards = document.querySelectorAll('.value-card');
-            const zones = document.querySelectorAll('.drop-zone');
-            
-            cards.forEach(card => {
-                card.addEventListener('dragstart', e => {
-                    draggedElement = e.target;
-                    e.target.classList.add('dragging');
-                });
-                card.addEventListener('dragend', e => {
-                    e.target.classList.remove('dragging');
-                });
-            });
-            
-            zones.forEach(zone => {
-                zone.addEventListener('dragover', e => {
-                    e.preventDefault();
-                    zone.classList.add('drag-over');
-                });
-                zone.addEventListener('dragleave', e => {
-                    if (e.currentTarget === e.target) {
-                        zone.classList.remove('drag-over');
-                    }
-                });
-                zone.addEventListener('drop', e => {
-                    e.preventDefault();
-                    zone.classList.remove('drag-over');
-                    if (!draggedElement) return;
-                    
-                    const content = zone.querySelector('.zone-content');
-                    const zoneType = zone.dataset.zone;
-                    
-                    if (zoneType === 'essential' && content.children.length >= 3) {
-                        alert('⚠️ Tu ne peux placer que 3 valeurs maximum dans la zone Essentiel !');
-                        return;
-                    }
-                    
-                    content.appendChild(draggedElement);
-                    updateCounter();
-                    checkCompletion();
-                });
-            });
-        }
-
-        function updateCounter() {
-            const total = document.getElementById('essentialContent').children.length +
-                         document.getElementById('importantContent').children.length +
-                         document.getElementById('secondaryContent').children.length;
-            document.getElementById('valuesCounter').textContent = `Cartes triées : ${total} / 24`;
-        }
-
-        function checkCompletion() {
-            const essential = document.getElementById('essentialContent').children.length;
-            const total = document.getElementById('essentialContent').children.length +
-                         document.getElementById('importantContent').children.length +
-                         document.getElementById('secondaryContent').children.length;
-            
-            document.getElementById('valuesFinishBtn').disabled = !(total === 24 && essential === 3);
-        }
-
-        function finishValues() {
-            const essentialEl = document.getElementById('essentialContent').children;
-            const importantEl = document.getElementById('importantContent').children;
-            
-            userValues.essential = Array.from(essentialEl).map(el => {
-                const id = parseInt(el.dataset.valueId);
-                return valuesData.find(v => v.id === id);
-            });
-            
-            userValues.important = Array.from(importantEl).map(el => {
-                const id = parseInt(el.dataset.valueId);
-                return valuesData.find(v => v.id === id);
-            });
-            
-            showEndScreen();
-        }
-
-        function showEndScreen() {
-            document.getElementById('valuesContainer').classList.add('hidden');
-            document.getElementById('progressSection').classList.add('hidden');
-            
-            const percentage = Math.round((correctCount / 8) * 100);
-            
-            let performanceMsg = '';
-            let tips = '';
-            
-            if (percentage >= 75) {
-                performanceMsg = `<div class="message-title">🌟 Excellent ${userName} ! Tu es prêt·e !</div>
-                    <p>Tu maîtrises les techniques de recherche d'emploi ET tu connais tes valeurs. Combinaison gagnante !</p>`;
-                tips = `
-                    <div class="tip-item">
-                        <div class="tip-icon">🎯</div>
-                        <div class="tip-text"><strong>Prochaine étape :</strong> Utilise tes 3 piliers pour filtrer les offres.</div>
+            const container = document.getElementById('top3-results');
+            container.innerHTML = sorted.map((v, i) => `
+                <div class="flex items-start gap-8 group">
+                    <span class="text-5xl lg:text-7xl font-900 text-slate-100 leading-none">0${i+1}</span>
+                    <div class="pt-2">
+                        <h4 class="text-3xl font-900 uppercase text-ls-dark flex items-center gap-4 mb-2">
+                            <span class="w-10 h-10 bg-ls-red text-white flex items-center justify-center border-2 border-ls-dark shadow-[4px_4px_0px_var(--ls-dark)]">
+                                <i data-lucide="${v.icon}" class="w-5 h-5"></i>
+                            </span>
+                            ${v.label}
+                        </h4>
+                        <p class="text-sm text-slate-500 font-bold uppercase tracking-tight max-w-md">${v.desc}</p>
                     </div>
-                `;
-            } else if (percentage >= 50) {
-                performanceMsg = `<div class="message-title">👍 Bien ${userName} !</div>
-                    <p>Tu as compris l'essentiel. Maintenant, utilise tes valeurs pour affiner tes choix.</p>`;
-                tips = `
-                    <div class="tip-item">
-                        <div class="tip-icon">🤝</div>
-                        <div class="tip-text"><strong>Avec ton conseiller :</strong> Montre-lui tes 3 valeurs essentielles.</div>
-                    </div>
-                `;
-            } else {
-                performanceMsg = `<div class="message-title">💪 ${userName}, prends le temps !</div>
-                    <p>La bonne nouvelle : tu connais maintenant tes valeurs !</p>`;
-                tips = `
-                    <div class="tip-item">
-                        <div class="tip-icon">👨‍🏫</div>
-                        <div class="tip-text"><strong>Mission Locale :</strong> Prends RDV pour travailler les techniques.</div>
-                    </div>
-                `;
-            }
-
-            const valuesHTML = userValues.essential.map(v => `
-                <div class="value-result-card">
-                    <div class="value-result-header">${v.icon} ${v.name}</div>
-                    <div class="value-result-example">${v.example}</div>
                 </div>
             `).join('');
-            
-            document.getElementById('endScreen').innerHTML = `
-                <div class="card">
-                    <div class="results-header">
-                        <div class="results-emoji">🏆</div>
-                        <h1 class="results-title">Félicitations ${userName} !</h1>
-                        <p class="results-subtitle">Tu as terminé ton parcours emploi complet</p>
-                    </div>
 
-                    <div class="score-grid">
-                        <div class="score-card">
-                            <div class="score-value">${totalScore}</div>
-                            <div class="score-label">Points totaux</div>
-                        </div>
-                        <div class="score-card">
-                            <div class="score-value">${correctCount}/8</div>
-                            <div class="score-label">Bonnes décisions</div>
-                        </div>
-                        <div class="score-card">
-                            <div class="score-value">${percentage}%</div>
-                            <div class="score-label">Taux de réussite</div>
-                        </div>
-                    </div>
-
-                    <div class="message-box">${performanceMsg}</div>
-
-                    <div style="background: linear-gradient(135deg, #FFE8E8, #FFDADA); padding: 30px; border-radius: var(--radius-medium); margin: 30px 0; border-left: 5px solid var(--color-primary-red);">
-                        <h3 style="font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                            <span>🔴</span> Tes 3 Piliers NON-NÉGOCIABLES
-                        </h3>
-                        ${valuesHTML}
-                        <p style="margin-top: 20px; font-weight: 700; color: var(--color-primary-red);">
-                            ⚠️ Si un job ne respecte pas ces 3 valeurs, REFUSE-LE.
-                        </p>
-                    </div>
-
-                    <div class="tips-box">
-                        <div class="tips-title">💡 Tes Actions</div>
-                        ${tips}
-                    </div>
-
-                    <button class="btn btn-primary" onclick="window.print()">
-                        📄 Imprimer mon profil
-                    </button>
-                    <button class="btn btn-secondary" onclick="location.reload()" style="width: 100%; margin-top: 15px;">
-                        🔄 Recommencer
-                    </button>
-                </div>
+            document.getElementById('pitch-text').innerHTML = `
+                "Mon profil professionnel est guidé par des valeurs de <b>${sorted[0].label.toLowerCase()}</b> et de <b>${sorted[1].label.toLowerCase()}</b>. Pour m'épanouir, j'ai besoin d'un environnement qui respecte ces leviers de motivation."
             `;
             
-            document.getElementById('endScreen').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
+            window.scrollTo(0, 0);
         }
+
+        window.onload = renderQuiz;
     </script>
 </body>
 </html>
