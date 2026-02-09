@@ -985,10 +985,131 @@
             margin-top: 1rem;
             font-weight: 600;
         }
+
+        /* Modal de sélection de catégorie */
+        .category-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-modal.active {
+            display: flex;
+        }
+
+        .category-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .category-modal-header h3 {
+            color: var(--gris-fonce);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-modal-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .category-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-modal-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category-modal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--turquoise);
+        }
+
+        .category-modal-card.selected {
+            border-color: var(--turquoise);
+            background: linear-gradient(135deg, rgba(93, 217, 193, 0.1), rgba(93, 217, 193, 0.15));
+            box-shadow: 0 4px 15px rgba(93, 217, 193, 0.3);
+        }
+
+        .category-modal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .category-modal-name {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            font-size: 0.9rem;
+        }
+
+        .category-modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .category-modal-buttons .btn {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
     <div class="background-decoration"></div>
+
+    <!-- Modal de sélection de catégorie -->
+    <div class="category-modal" id="categoryModal">
+        <div class="category-modal-content">
+            <div class="category-modal-header">
+                <h3>Choisir une catégorie</h3>
+                <p>Sélectionnez la catégorie qui correspond le mieux à votre objectif</p>
+            </div>
+            <div class="category-modal-grid" id="categoryModalGrid"></div>
+            <div class="category-modal-buttons">
+                <button class="btn btn-secondary" onclick="closeCategoryModal()">Annuler</button>
+                <button class="btn btn-primary" onclick="confirmCategorySelection()">Valider</button>
+            </div>
+        </div>
+    </div>
     
     <div class="container">
         <header>
@@ -1038,8 +1159,8 @@
             <div id="validationMsg" class="validation-message" style="display: none;"></div>
 
             <div class="btn-container">
-                <button class="btn btn-primary" onclick="goToStep2()" id="btnStep1">
-                    Continuer → Prioriser mes objectifs
+                <button class="btn btn-primary" onclick="goToStep2a()" id="btnStep1">
+                    Continuer → Définir mes objectifs
                 </button>
             </div>
         </div>
@@ -1129,8 +1250,8 @@
             <div id="actionPlanContainer"></div>
 
             <div class="btn-container">
-                <button class="btn btn-secondary" onclick="goToStep2()">
-                    ← Retour aux objectifs
+                <button class="btn btn-secondary" onclick="goToStep2b()">
+                    ← Retour à la priorisation
                 </button>
                 <button class="btn btn-primary" onclick="goToStep4()" id="btnStep3">
                     Voir ma synthèse →
@@ -1404,26 +1525,58 @@
         }
 
         // Ouvrir le sélecteur de catégorie
+        // Sélection de catégorie avec modal
+        let selectedCategoryTemp = null;
+        let currentObjectiveIdForCategory = null;
+
         function openCategorySelector(objectiveId) {
             const obj = state.objectives.find(o => o.id === objectiveId);
+            currentObjectiveIdForCategory = objectiveId;
+            selectedCategoryTemp = obj.category;
+
+            // Remplir le modal
+            const grid = document.getElementById('categoryModalGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-modal-card ${obj.category === cat.id ? 'selected' : ''}" 
+                     data-category="${cat.id}"
+                     onclick="selectCategoryInModal('${cat.id}')">
+                    <span class="category-modal-icon">${cat.icon}</span>
+                    <div class="category-modal-name">${cat.nom}</div>
+                </div>
+            `).join('');
+
+            // Afficher le modal
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function selectCategoryInModal(categoryId) {
+            selectedCategoryTemp = categoryId;
             
-            const categoryOptions = categories.map(cat => 
-                `<option value="${cat.id}" ${obj.category === cat.id ? 'selected' : ''}>${cat.icon} ${cat.nom}</option>`
-            ).join('');
-
-            const selected = prompt(
-                `Choisissez une catégorie pour cet objectif:\n\n${categories.map((c, i) => `${i + 1}. ${c.icon} ${c.nom}`).join('\n')}\n\nEntrez le numéro (ou 0 pour aucune):`
-            );
-
-            if (selected !== null) {
-                const index = parseInt(selected) - 1;
-                if (index >= 0 && index < categories.length) {
-                    obj.category = categories[index].id;
-                } else if (selected === '0') {
-                    obj.category = null;
+            // Mettre à jour la sélection visuelle
+            document.querySelectorAll('.category-modal-card').forEach(card => {
+                if (card.dataset.category === categoryId) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
                 }
-                renderObjectivesSmartForm();
+            });
+        }
+
+        function confirmCategorySelection() {
+            if (currentObjectiveIdForCategory !== null) {
+                const obj = state.objectives.find(o => o.id === currentObjectiveIdForCategory);
+                if (obj) {
+                    obj.category = selectedCategoryTemp;
+                    renderObjectivesSmartForm();
+                }
             }
+            closeCategoryModal();
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            selectedCategoryTemp = null;
+            currentObjectiveIdForCategory = null;
         }
 
         // Mettre à jour un champ SMART
