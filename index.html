@@ -3,345 +3,1701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LS4YOU - Le Jeu des Valeurs</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>L'Aventure Emploi - LS4YOU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --ls-red: #FF4B5C;
-            --ls-yellow: #FFD166;
-            --ls-turquoise: #46e3cf;
-            --ls-dark: #1A1A1A;
+            --color-primary-red: #E63946;
+            --color-primary-yellow: #FFD166;
+            --color-primary-turquoise: #06D6A0;
+            --color-accent-coral: #FF6B9D;
+            --color-white: #FFFFFF;
+            --color-bg-light: #F8F9FA;
+            --color-text-dark: #1D3557;
+            --color-text-medium: #457B9D;
+            --color-text-light: #6C757D;
+            
+            --radius-small: 12px;
+            --radius-medium: 20px;
+            --radius-large: 30px;
+            --radius-xl: 50px;
+            
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-            color: var(--ls-dark);
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--color-white);
+            color: var(--color-text-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Decoration */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            right: -5%;
+            width: 600px;
+            height: 600px;
+            background: var(--color-primary-yellow);
+            opacity: 0.15;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -15%;
+            left: -10%;
+            width: 700px;
+            height: 700px;
+            background: var(--color-primary-turquoise);
+            opacity: 0.12;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(90px);
+        }
+
+        .app-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
             min-height: 100vh;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: white;
+            border-radius: var(--radius-medium);
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-mlpb {
+            height: 50px;
+        }
+
+        .logo-ls4you {
+            height: 35px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--color-white);
+            border-radius: var(--radius-large);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: var(--color-primary-yellow);
+            opacity: 0.3;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--color-text-dark);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15em;
+            color: var(--color-text-medium);
+            font-weight: 500;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: var(--color-white);
+            border-radius: var(--radius-medium);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .progress-badge {
+            background: linear-gradient(135deg, var(--color-primary-turquoise), #04B88A);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--radius-xl);
+            font-weight: 700;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-score {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--color-primary-red);
+        }
+
+        .progress-bar-track {
+            background: #F0F0F0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--color-primary-turquoise), var(--color-primary-yellow));
+            height: 100%;
+            transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+            border-radius: 6px;
+        }
+
+        /* Card Components */
+        .card {
+            background: var(--color-white);
+            border-radius: var(--radius-medium);
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+            position: relative;
             overflow: hidden;
         }
 
-        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
-
-        .halo {
+        .card::before {
+            content: '';
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.12;
-            z-index: -1;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%2306D6A0" opacity="0.1"/></svg>');
+            opacity: 0.5;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card-chapter {
+            display: inline-block;
+            background: var(--color-bg-light);
+            color: var(--color-primary-turquoise);
+            padding: 8px 20px;
+            border-radius: var(--radius-xl);
+            font-weight: 700;
+            font-size: 0.85em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .card-emoji {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--color-text-dark);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            background: linear-gradient(135deg, #F8F9FA, #E8F4F8);
+            padding: 25px;
+            border-radius: var(--radius-medium);
+            border-left: 4px solid var(--color-primary-turquoise);
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: var(--color-text-dark);
+        }
+
+        .context-callout {
+            background: #FFF8E6;
+            border-left: 4px solid var(--color-primary-yellow);
+            padding: 20px;
+            border-radius: var(--radius-medium);
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        .context-callout strong {
+            color: var(--color-primary-red);
+            font-weight: 700;
+        }
+
+        /* Choice Cards */
+        .choices-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .choice-card {
+            background: var(--color-white);
+            border: 3px solid #E8E8E8;
+            border-radius: var(--radius-medium);
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .choice-card:hover {
+            border-color: var(--color-primary-turquoise);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .choice-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-primary-turquoise) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: var(--radius-medium);
             pointer-events: none;
         }
 
-        .value-card {
-            cursor: grab;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-            background: white;
-            border: 2px solid #f1f5f9;
-            user-select: none;
+        .choice-card:hover::after {
+            opacity: 0.05;
         }
-        .value-card:active { cursor: grabbing; transform: scale(0.95); }
-        .value-card.dragging { opacity: 0.5; transform: scale(0.9); }
 
-        .drop-zone {
-            height: 100%; /* S'adapte au conteneur parent */
-            border-radius: 32px;
-            background: rgba(255, 255, 255, 0.5);
-            border: 2px dashed #e2e8f0;
-            transition: all 0.3s;
+        .choice-icon {
+            font-size: 3em;
+            flex-shrink: 0;
+            width: 70px;
+            text-align: center;
+        }
+
+        .choice-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 1.05em;
+            color: var(--color-text-dark);
+            line-height: 1.5;
+        }
+
+        .choice-card.selected {
+            background: linear-gradient(135deg, var(--color-primary-turquoise), #04B88A);
+            border-color: var(--color-primary-turquoise);
+            color: white;
+        }
+
+        .choice-card.selected .choice-text {
+            color: white;
+        }
+
+        .choice-card.correct {
+            background: linear-gradient(135deg, #06D6A0, #04B88A);
+            border-color: #06D6A0;
+            color: white;
+            animation: successBounce 0.6s ease;
+        }
+
+        .choice-card.correct .choice-text {
+            color: white;
+        }
+
+        .choice-card.incorrect {
+            background: linear-gradient(135deg, var(--color-primary-red), #D62839);
+            border-color: var(--color-primary-red);
+            color: white;
+            animation: shake 0.5s ease;
+        }
+
+        .choice-card.incorrect .choice-text {
+            color: white;
+        }
+
+        @keyframes successBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .choice-card.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Feedback Box */
+        .feedback-box {
+            margin-top: 25px;
+            padding: 30px;
+            border-radius: var(--radius-medium);
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-box.visible {
+            display: block;
+        }
+
+        .feedback-box.success {
+            background: linear-gradient(135deg, #D3F9E8, #B2F2D8);
+            border-left: 5px solid var(--color-primary-turquoise);
+        }
+
+        .feedback-box.error {
+            background: linear-gradient(135deg, #FFE8E8, #FFDADA);
+            border-left: 5px solid var(--color-primary-red);
+        }
+
+        .feedback-title {
+            font-weight: 800;
+            font-size: 1.3em;
+            margin-bottom: 12px;
             display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            padding: 1.5rem;
-        }
-        .drop-zone.over {
-            border-color: var(--ls-turquoise);
-            background: rgba(70, 227, 207, 0.05);
-            transform: scale(1.01);
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .zone-ignore { border-color: #cbd5e1; }
-        .zone-important { border-color: var(--ls-yellow); }
-        .zone-essential { border-color: var(--ls-red); }
+        .feedback-text {
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        /* Buttons */
+        .btn {
+            border: none;
+            border-radius: var(--radius-xl);
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
 
         .btn-primary {
-            background-color: var(--ls-red);
+            background: linear-gradient(135deg, var(--color-primary-red), #D62839);
             color: white;
-            border-radius: 50px;
-            padding: 1.25rem 3.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            box-shadow: 0 10px 25px rgba(255, 75, 92, 0.2);
+            padding: 18px 45px;
+            width: 100%;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
         }
-        .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(255, 75, 92, 0.3); }
-        .btn-primary:disabled { opacity: 0.2; cursor: not-allowed; }
 
-        /* Style de la petite réglette (scrollbar personnalisée) */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.02);
-            border-radius: 10px;
-            margin: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: var(--ls-turquoise);
-            border-radius: 10px;
+
+        .btn-primary:disabled {
             opacity: 0.5;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: var(--ls-red);
+            cursor: not-allowed;
+            transform: none;
         }
 
-        footer { background: #1a1a1a; color: white; padding: 1.5rem 4rem; font-size: 11px; z-index: 50; }
+        .btn-secondary {
+            background: white;
+            border: 3px solid var(--color-primary-turquoise);
+            color: var(--color-primary-turquoise);
+            padding: 15px 35px;
+        }
 
-        @media print { .no-print { display: none !important; } }
+        .btn-secondary:hover {
+            background: var(--color-primary-turquoise);
+            color: white;
+        }
+
+        .btn-large {
+            padding: 25px 60px;
+            font-size: 1.3em;
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Input */
+        .input-group {
+            margin: 30px 0;
+        }
+
+        .input-field {
+            width: 100%;
+            max-width: 500px;
+            padding: 18px 25px;
+            font-size: 1.2em;
+            border: 3px solid #E8E8E8;
+            border-radius: var(--radius-medium);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--color-text-dark);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--color-primary-turquoise);
+            box-shadow: 0 0 0 4px rgba(6, 214, 160, 0.1);
+        }
+
+        /* Values Grid */
+        .values-counter {
+            background: linear-gradient(135deg, #F8F9FA, #E8F4F8);
+            padding: 20px;
+            border-radius: var(--radius-medium);
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 1.1em;
+            color: var(--color-primary-turquoise);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .value-card {
+            background: var(--color-white);
+            border: 3px solid #E8E8E8;
+            border-radius: var(--radius-medium);
+            padding: 20px;
+            cursor: move;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--color-primary-turquoise);
+        }
+
+        .value-card.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .value-icon {
+            font-size: 3em;
+            margin-bottom: 12px;
+        }
+
+        .value-name {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: var(--color-text-dark);
+            margin-bottom: 10px;
+        }
+
+        .value-example {
+            font-size: 0.85em;
+            color: var(--color-text-light);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* Drop Zones */
+        .drop-zone {
+            border: 3px dashed #D0D0D0;
+            border-radius: var(--radius-medium);
+            padding: 30px;
+            min-height: 200px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            background: var(--color-bg-light);
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--color-primary-turquoise);
+            background: #E8F4F8;
+            border-style: solid;
+        }
+
+        .zone-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            font-size: 1.3em;
+        }
+
+        .zone-hint {
+            color: var(--color-text-medium);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .zone-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .zone-essential {
+            border-color: var(--color-primary-red);
+            background: linear-gradient(135deg, #FFF5F5, #FFE8E8);
+        }
+
+        .zone-essential .zone-header {
+            color: var(--color-primary-red);
+        }
+
+        .zone-important {
+            border-color: var(--color-primary-yellow);
+            background: linear-gradient(135deg, #FFFDF0, #FFF8E6);
+        }
+
+        .zone-important .zone-header {
+            color: #E6A700;
+        }
+
+        .zone-secondary {
+            border-color: var(--color-primary-turquoise);
+            background: linear-gradient(135deg, #F0FFFC, #E8F9F5);
+        }
+
+        .zone-secondary .zone-header {
+            color: var(--color-primary-turquoise);
+        }
+
+        /* Results */
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+
+        .results-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--color-text-dark);
+            margin-bottom: 10px;
+        }
+
+        .results-subtitle {
+            font-size: 1.2em;
+            color: var(--color-text-medium);
+            font-weight: 500;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, #F8F9FA, #E8F4F8);
+            padding: 30px;
+            border-radius: var(--radius-medium);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .score-value {
+            font-size: 3.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-primary-turquoise), var(--color-primary-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .score-label {
+            font-size: 1em;
+            color: var(--color-text-medium);
+            font-weight: 600;
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, #FFF8E6, #FFE69C);
+            padding: 30px;
+            border-radius: var(--radius-medium);
+            margin: 30px 0;
+            border-left: 5px solid var(--color-primary-yellow);
+        }
+
+        .message-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--color-text-dark);
+        }
+
+        .tips-box {
+            background: white;
+            border: 3px solid var(--color-primary-turquoise);
+            padding: 30px;
+            border-radius: var(--radius-medium);
+            margin-top: 30px;
+        }
+
+        .tips-title {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: var(--color-primary-turquoise);
+            margin-bottom: 20px;
+        }
+
+        .tip-item {
+            padding: 20px;
+            margin-bottom: 15px;
+            background: var(--color-bg-light);
+            border-radius: var(--radius-medium);
+            display: flex;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .tip-icon {
+            font-size: 2em;
+            flex-shrink: 0;
+        }
+
+        .tip-text {
+            flex: 1;
+            line-height: 1.6;
+        }
+
+        .tip-text strong {
+            color: var(--color-primary-red);
+            font-weight: 700;
+        }
+
+        /* Value Results Cards */
+        .value-result-card {
+            background: white;
+            border-radius: var(--radius-medium);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .value-result-header {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .value-result-example {
+            font-size: 0.9em;
+            color: var(--color-text-light);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: var(--radius-medium);
+            padding: 25px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: var(--color-text-medium);
+            font-size: 0.9em;
+        }
+
+        .eu-flag {
+            width: 50px;
+            height: auto;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 15px;
+            }
+
+            .hero {
+                padding: 40px 25px;
+            }
+
+            .hero-title {
+                font-size: 2em;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
+
+            .card-title {
+                font-size: 1.6em;
+            }
+
+            .choice-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .choice-icon {
+                width: auto;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+
+            .zone-content {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
+            .score-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-large {
+                padding: 20px 40px;
+                font-size: 1.1em;
+            }
+        }
+
+        /* Puzzle Decoration */
+        .puzzle-decoration {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            opacity: 0.15;
+        }
+
+        /* Confetti Decoration */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .confetti-1 {
+            background: var(--color-primary-red);
+            top: 10%;
+            right: 15%;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .confetti-2 {
+            background: var(--color-primary-yellow);
+            top: 30%;
+            right: 8%;
+            animation: float 5s ease-in-out infinite 1s;
+        }
+
+        .confetti-3 {
+            background: var(--color-primary-turquoise);
+            top: 50%;
+            right: 12%;
+            animation: float 6s ease-in-out infinite 2s;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="Mission Locale Pays Basque" class="logo-mlpb">
+            <img src="https://www.lifeskills4you.eu/wp-content/uploads/2024/07/LS4YOU_Logo.png" alt="LS4YOU" class="logo-ls4you">
+        </nav>
 
-    <!-- Header Institutionnel -->
-    <header class="bg-white border-b px-12 py-6 flex justify-between items-center sticky top-0 z-50 no-print">
-        <div class="flex items-center gap-6">
-            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-10">
-            <div class="h-8 w-[2px] bg-slate-100"></div>
-            <div>
-                <h1 class="text-xl tracking-tighter uppercase leading-none text-slate-800">Ma Boussole de Valeurs</h1>
-                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-1 italic">Trier ses priorités pour ne plus subir</p>
+        <!-- Progress Section -->
+        <div class="progress-section hidden" id="progressSection">
+            <div class="progress-header">
+                <div class="progress-badge" id="progressBadge">Chapitre 1/8</div>
+                <div class="progress-score">⭐ <span id="scoreDisplay">0</span></div>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
             </div>
         </div>
-        <div class="flex items-center gap-8">
-            <div id="stat-counter" class="text-[10px] font-800 uppercase text-slate-400 bg-slate-50 px-4 py-2 rounded-full border">
-                Cartes triées : <span id="count" class="text-ls-red">0</span> / 32
+
+        <!-- Name Input Screen -->
+        <div class="hero active" id="nameScreen">
+            <div class="hero-content">
+                <div class="hero-emoji">👋</div>
+                <h1 class="hero-title">Commençons<br>par faire connaissance !</h1>
+                <p class="hero-subtitle">
+                    Pour personnaliser ton aventure vers l'emploi,<br>
+                    dis-nous comment tu t'appelles
+                </p>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="nameInput" 
+                        class="input-field" 
+                        placeholder="Entre ton prénom ici..."
+                        maxlength="20"
+                        autocomplete="given-name"
+                    >
+                </div>
+                <button class="btn btn-primary btn-large" id="nameSubmitBtn" onclick="submitName()" disabled>
+                    C'est parti ! 🚀
+                </button>
             </div>
-            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="Logo MLPB" class="h-8">
         </div>
-    </header>
 
-    <main class="flex-grow relative overflow-hidden flex flex-col no-print">
-        <div class="halo w-[600px] h-[600px] bg-[var(--ls-yellow)] -top-20 -right-20"></div>
-        <div class="halo w-[500px] h-[500px] bg-[var(--ls-turquoise)] -bottom-20 -left-20"></div>
+        <!-- Intro Screen -->
+        <div class="hero hidden" id="introScreen">
+            <div class="hero-content">
+                <div class="hero-emoji">🎯</div>
+                <h1 class="hero-title">Bienvenue<br><span id="userName"></span> !</h1>
+                <p class="hero-subtitle" style="text-align: left; max-width: 600px; margin: 20px auto;">
+                    Tu vas vivre une <strong>aventure en 2 parties</strong> :
+                </p>
+                <div style="background: linear-gradient(135deg, #F8F9FA, #E8F4F8); padding: 30px; border-radius: var(--radius-medium); margin: 25px auto; max-width: 600px; text-align: left;">
+                    <p style="margin-bottom: 20px; line-height: 1.7;">
+                        <strong style="color: var(--color-primary-red);">🎮 Partie 1 : L'Aventure Emploi</strong><br>
+                        8 situations concrètes pour apprendre les bons réflexes (15 min)
+                    </p>
+                    <p style="line-height: 1.7;">
+                        <strong style="color: var(--color-primary-turquoise);">🧭 Partie 2 : Ma Boussole</strong><br>
+                        Identifie tes valeurs essentielles pour faire les bons choix (10 min)
+                    </p>
+                </div>
+                <button class="btn btn-primary btn-large" onclick="startGame()">
+                    Commencer l'aventure →
+                </button>
+            </div>
+            <div class="confetti confetti-1"></div>
+            <div class="confetti confetti-2"></div>
+            <div class="confetti confetti-3"></div>
+        </div>
 
-        <div id="view-container" class="flex-grow flex flex-col p-8 gap-8 h-full">
-            <div id="sorting-view" class="grid grid-cols-12 gap-8 h-full">
-                
-                <!-- Colonne 1 : La Banque (32 Valeurs) -->
-                <div class="col-span-3 flex flex-col h-[calc(100vh-250px)]">
-                    <h3 class="text-sm font-800 uppercase mb-4 flex items-center gap-2">
-                        <i data-lucide="layers" class="w-4 h-4 text-ls-red"></i> Banque
-                    </h3>
-                    <div id="bank" class="flex-grow overflow-y-auto pr-2 space-y-3 custom-scrollbar" ondrop="app.onDrop(event, 'bank')" ondragover="app.onDragOver(event)">
-                        <!-- Valeurs injectées ici -->
-                    </div>
+        <!-- Game Scenes Container -->
+        <div id="gameScenes"></div>
+
+        <!-- Transition Screen -->
+        <div class="hero hidden" id="transitionScreen">
+            <div class="hero-content">
+                <div class="hero-emoji">🎯</div>
+                <h1 class="hero-title">Bravo<br><span id="transitionUserName"></span> !</h1>
+                <p class="hero-subtitle">
+                    Tu as terminé la partie Aventure avec<br>
+                    <strong style="color: var(--color-primary-red); font-size: 1.5em;" id="transitionScore"></strong> points
+                </p>
+                <div style="background: linear-gradient(135deg, #FFF8E6, #FFE69C); padding: 30px; border-radius: var(--radius-medium); margin: 30px auto; max-width: 600px; text-align: left; border-left: 5px solid var(--color-primary-yellow);">
+                    <h3 style="color: var(--color-text-dark); margin-bottom: 15px; font-weight: 800;">🧭 Maintenant, identifie tes valeurs</h3>
+                    <p style="line-height: 1.7; color: var(--color-text-dark);">
+                        Pour faire les <strong>bons choix</strong> et trouver un job où tu vas <strong>tenir sur la durée</strong>, 
+                        il faut connaître tes valeurs essentielles.
+                    </p>
+                    <p style="margin-top: 15px; font-weight: 700; color: var(--color-primary-red);">
+                        Ces valeurs vont devenir ta boussole pour dire OUI ou NON.
+                    </p>
+                </div>
+                <button class="btn btn-primary btn-large" onclick="startValuesActivity()">
+                    Identifier mes valeurs →
+                </button>
+            </div>
+        </div>
+
+        <!-- Values Activity Container -->
+        <div id="valuesContainer" class="hidden">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title">🧭 Ma Boussole de Valeurs</h1>
+                    <p class="hero-subtitle">Identifie tes 3 piliers non-négociables pour le travail</p>
                 </div>
 
-                <!-- Les 3 zones de dépôt -->
-                <div class="col-span-9 grid grid-cols-3 gap-6 h-[calc(100vh-250px)]">
-                    
-                    <div class="flex flex-col h-full overflow-hidden">
-                        <h3 class="text-xs font-800 uppercase mb-4 text-slate-400 px-4">⚪ Pas pour moi</h3>
-                        <div id="zone-ignore" class="drop-zone zone-ignore overflow-y-auto custom-scrollbar" ondrop="app.onDrop(event, 'ignore')" ondragover="app.onDragOver(event)"></div>
-                    </div>
-
-                    <div class="flex flex-col h-full overflow-hidden">
-                        <h3 class="text-xs font-800 uppercase mb-4 text-ls-yellow px-4">🟡 Important</h3>
-                        <div id="zone-important" class="drop-zone zone-important overflow-y-auto custom-scrollbar" ondrop="app.onDrop(event, 'important')" ondragover="app.onDragOver(event)"></div>
-                    </div>
-
-                    <div class="flex flex-col h-full overflow-hidden">
-                        <h3 class="text-xs font-800 uppercase mb-4 text-ls-red px-4">🔴 Essentiel (Top 3)</h3>
-                        <div id="zone-essential" class="drop-zone zone-essential overflow-y-auto custom-scrollbar" ondrop="app.onDrop(event, 'essential')" ondragover="app.onDragOver(event)"></div>
-                    </div>
-
+                <div class="values-counter" id="valuesCounter">
+                    Cartes triées : 0 / 24
                 </div>
+
+                <div class="values-grid" id="valueBank"></div>
+
+                <div class="drop-zone zone-essential" id="essentialZone" data-zone="essential">
+                    <div class="zone-header">
+                        🔴 Essentiel (exactement 3)
+                    </div>
+                    <div class="zone-hint">
+                        Tes 3 piliers non-négociables - ce qui est OBLIGATOIRE pour toi
+                    </div>
+                    <div class="zone-content" id="essentialContent"></div>
+                </div>
+
+                <div class="drop-zone zone-important" id="importantZone" data-zone="important">
+                    <div class="zone-header">
+                        🟡 Important
+                    </div>
+                    <div class="zone-hint">
+                        Ce qui améliore vraiment ta vie au travail - un gros plus
+                    </div>
+                    <div class="zone-content" id="importantContent"></div>
+                </div>
+
+                <div class="drop-zone zone-secondary" id="secondaryZone" data-zone="secondary">
+                    <div class="zone-header">
+                        ⚪ Pas pour moi
+                    </div>
+                    <div class="zone-hint">
+                        Secondaire ou pas important dans ton cas
+                    </div>
+                    <div class="zone-content" id="secondaryContent"></div>
+                </div>
+
+                <button class="btn btn-primary" id="valuesFinishBtn" onclick="finishValues()" disabled>
+                    Finaliser mon profil et voir mes résultats →
+                </button>
+
+                <svg class="puzzle-decoration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="#06D6A0"/>
+                </svg>
             </div>
         </div>
 
-        <div class="bg-white border-t p-6 flex justify-between items-center no-print">
-            <div class="flex flex-col">
-                <p class="text-xs text-slate-800 font-bold uppercase tracking-tight">Utilise les réglettes pour faire défiler tes choix</p>
-                <p class="text-[10px] text-slate-400 font-medium italic">Place tes 3 piliers non-négociables dans la zone rouge.</p>
-            </div>
-            <button id="btn-next" onclick="app.finishSorting()" class="btn-primary" disabled>Finaliser mon profil</button>
-        </div>
-    </main>
+        <!-- End Screen Container -->
+        <div id="endScreen" class="hidden"></div>
 
-    <div id="results-view" class="hidden flex-grow animate-fade overflow-y-auto p-12 bg-white flex flex-col items-center">
-        <!-- Contenu généré dynamiquement -->
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-content">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="UE" class="eu-flag">
+                <span>Co-financé par l'Union Européenne</span>
+                <span>© 2026 Projet LS4YOU</span>
+            </div>
+        </div>
     </div>
 
-    <footer class="no-print">
-        <div class="flex justify-between items-center opacity-70">
-            <div class="flex items-center gap-4 border border-white/20 p-2 rounded">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="EU" class="w-8">
-                <span class="font-bold text-[9px]">Co-financé par l'Union Européenne</span>
-            </div>
-            <div class="text-right text-[9px]">© 2026 Projet LS4YOU • Life Skills For Youth</div>
-        </div>
-    </footer>
-
     <script>
-        const VALUES_LIST = [
-            { label: "Argent", desc: "Gagner un salaire qui me permet de vivre bien." },
-            { label: "Respect", desc: "Être traité avec politesse et considération." },
-            { label: "Autonomie", desc: "Pouvoir organiser mon travail par moi-même." },
-            { label: "Ambiance", desc: "Avoir de bonnes relations avec mes collègues." },
-            { label: "Stabilité", desc: "Avoir un contrat sûr sur le long terme." },
-            { label: "Évolution", desc: "Avoir des chances de monter en responsabilités." },
-            { label: "Utilité", desc: "Sentir que mon travail aide vraiment les gens." },
-            { label: "Liberté", desc: "Avoir des horaires ou un cadre de travail souple." },
-            { label: "Sécurité", desc: "Travailler dans un environnement sans danger." },
-            { label: "Apprendre", desc: "Pouvoir me former et acquérir de nouveaux savoirs." },
-            { label: "Variété", desc: "Faire des tâches différentes pour ne pas m'ennuyer." },
-            { label: "Justice", desc: "Être traité de façon équitable par mon employeur." },
-            { label: "Créativité", desc: "Pouvoir proposer des idées originales." },
-            { label: "Équité", desc: "Que les efforts de chacun soient récompensés justement." },
-            { label: "Défi", desc: "Relever des challenges qui me font progresser." },
-            { label: "Calme", desc: "Travailler dans un environnement apaisé." },
-            { label: "Solidarité", desc: "S'entraider entre collègues pour réussir ensemble." },
-            { label: "Reconnaissance", desc: "Que mes efforts soient vus et appréciés." },
-            { label: "Écoute", desc: "Pouvoir exprimer mon avis et être entendu." },
-            { label: "Bienveillance", desc: "Travailler dans un climat de gentillesse." },
-            { label: "Honnêteté", desc: "Que la franchise soit la base des relations." },
-            { label: "Engagement", desc: "Participer à une cause qui me tient à cœur." },
-            { label: "Nature", desc: "Travailler en extérieur ou pour l'environnement." },
-            { label: "Partage", desc: "Transmettre mon savoir ou partager des ressources." },
-            { label: "Pouvoir", desc: "Avoir une influence sur les décisions importantes." },
-            { label: "Responsabilité", desc: "Être garant du succès d'une mission." },
-            { label: "Précision", desc: "Faire un travail méticuleux et de qualité." },
-            { label: "Innovation", desc: "Inventer les outils ou les méthodes de demain." },
-            { label: "Flexibilité", desc: "Pouvoir m'adapter aux changements facilement." },
-            { label: "Tradition", desc: "Respecter des savoir-faire transmis depuis longtemps." },
-            { label: "Transparence", desc: "Que les informations soient partagées avec franchise." },
-            { label: "Vitesse", desc: "Travailler dans un rythme rapide et dynamique." }
+        // DATA
+        const valuesData = [
+            { id: 1, name: 'Bon salaire', icon: '💰', example: 'Ex: Gagner assez pour être autonome et me faire plaisir' },
+            { id: 2, name: 'Horaires fixes', icon: '🕐', example: 'Ex: Finir à 17h tous les jours, pas de variables' },
+            { id: 3, name: 'Ambiance cool', icon: '😊', example: 'Ex: Pouvoir rigoler avec les collègues, pas de pression' },
+            { id: 4, name: 'Proche de chez moi', icon: '🏠', example: 'Ex: Max 20 min de trajet, pas 2h de bus' },
+            { id: 5, name: 'Être utile', icon: '💫', example: 'Ex: Aider les gens, sentir que mon job a du sens' },
+            { id: 6, name: 'Respect', icon: '🤝', example: 'Ex: Pas de mépris, être traité comme un adulte' },
+            { id: 7, name: 'CDI sécurisé', icon: '🛡️', example: 'Ex: Pas de CDD qui s\'enchaînent, de la stabilité' },
+            { id: 8, name: 'Temps libre', icon: '⏰', example: 'Ex: Pas d\'heures sup, garder du temps pour ma vie perso' },
+            { id: 9, name: 'Apprendre', icon: '📚', example: 'Ex: Développer des compétences, évoluer' },
+            { id: 10, name: 'Être autonome', icon: '🚀', example: 'Ex: Pas de micro-management, me débrouiller seul·e' },
+            { id: 11, name: 'Travailler en équipe', icon: '👥', example: 'Ex: Pas être isolé·e, avoir des collègues' },
+            { id: 12, name: 'Pas de stress', icon: '☮️', example: 'Ex: Pas de pression énorme, job tranquille' },
+            { id: 13, name: 'Me dépasser', icon: '🎯', example: 'Ex: Des challenges, des objectifs ambitieux' },
+            { id: 14, name: 'Horaires flexibles', icon: '🔄', example: 'Ex: Pouvoir adapter mes horaires selon mes besoins' },
+            { id: 15, name: 'Être reconnu·e', icon: '🏆', example: 'Ex: Qu\'on remarque mon travail, des encouragements' },
+            { id: 16, name: 'Aider la planète', icon: '🌱', example: 'Ex: Job écolo, entreprise responsable' },
+            { id: 17, name: 'Créer/innover', icon: '💡', example: 'Ex: Proposer mes idées, pas juste exécuter' },
+            { id: 18, name: 'Bon patron', icon: '👨‍💼', example: 'Ex: Un chef qui écoute, pas un tyran' },
+            { id: 19, name: 'Pas physique', icon: '🪑', example: 'Ex: Pas porter de lourdes charges, ménager mon corps' },
+            { id: 20, name: 'Contact clients', icon: '🗣️', example: 'Ex: Parler avec les gens, pas être dans un bureau' },
+            { id: 21, name: 'Avantages', icon: '🎁', example: 'Ex: Tickets resto, primes, mutuelle top' },
+            { id: 22, name: 'Variété', icon: '🎨', example: 'Ex: Pas la même chose tous les jours, du changement' },
+            { id: 23, name: 'Évolution possible', icon: '📈', example: 'Ex: Possibilité de monter en grade, pas bloqué·e' },
+            { id: 24, name: 'Pas de routine', icon: '🧭', example: 'Ex: Imprevu, aventure, pas du 9h-17h répétitif' }
         ];
 
-        let state = {
-            bank: [...VALUES_LIST],
-            ignore: [],
-            important: [],
-            essential: []
-        };
-
-        const app = {
-            init() {
-                this.renderBank();
-                lucide.createIcons();
+        const gameData = [
+            {
+                chapter: "Chapitre 1 : Élaborer ma stratégie",
+                emoji: "🎯",
+                title: "Le plan de bataille",
+                description: "Tu décides de te lancer sérieusement dans la recherche d'emploi. Tu as 3 semaines devant toi avant que tes allocations se terminent.",
+                context: "💡 Conseil : Une bonne stratégie vaut mieux que 100 candidatures hasardeuses.",
+                choices: [
+                    {
+                        icon: "🗺️",
+                        title: "Faire un état des lieux d'abord : mes compétences, mes valeurs, puis cibler",
+                        feedback: "🎯 EXCELLENT ! C'est la base. Définir ton projet avant de foncer = candidatures pertinentes + motivation durable + meilleur taux de réponses. Un projet clair, c'est 50% du travail.",
+                        correct: true,
+                        points: 20
+                    },
+                    {
+                        icon: "📱",
+                        title: "Postuler partout tout de suite, au moins 50 CV cette semaine",
+                        feedback: "❌ Piège classique ! Envoyer en masse sans ciblage = 0 impact. Les recruteurs le sentent. Mieux vaut 10 candidatures ciblées que 100 génériques. Résultat : démotivation + perte de temps.",
+                        correct: false,
+                        points: 5
+                    },
+                    {
+                        icon: "👥",
+                        title: "Activer mon réseau immédiatement pour dire que je cherche",
+                        feedback: "⚠️ PAS MAL mais prématuré. Contacter ton réseau sans savoir CE QUE tu cherches = tu parais perdu·e. D'abord définis ton projet, PUIS active ton réseau avec un message précis.",
+                        correct: false,
+                        points: 10
+                    }
+                ]
             },
-
-            renderBank() {
-                const bankEl = document.getElementById('bank');
-                bankEl.innerHTML = state.bank.map(v => this.createCardHtml(v)).join('');
+            {
+                chapter: "Chapitre 2 : La lettre de motivation",
+                emoji: "✉️",
+                title: "L'offre idéale",
+                description: "Tu trouves THE annonce : assistant·e commercial·e dans une PME locale. Salaire correct, mission intéressante. Il faut CV + lettre de motivation.",
+                context: "📌 L'annonce précise : 'Dynamisme, autonomie et esprit d'équipe recherchés'. La boîte vend du matériel de sport.",
+                choices: [
+                    {
+                        icon: "🎨",
+                        title: "Raconter mon parcours dans l'ordre chronologique depuis le collège",
+                        feedback: "❌ Erreur fréquente ! Le recruteur n'a pas le temps pour ton autobiographie. Il veut savoir POURQUOI tu postules et CE QUE TU APPORTES. Ta vie = pas son problème.",
+                        correct: false,
+                        points: 7
+                    },
+                    {
+                        icon: "💡",
+                        title: "Montrer que je connais l'entreprise et expliquer ce que j'apporte concrètement",
+                        feedback: "🎯 PARFAIT ! Structure gagnante : Vous (l'entreprise) + Moi (mes compétences) + Nous (ce qu'on fera ensemble). Bonus : cite un projet récent de l'entreprise pour montrer ton intérêt réel.",
+                        correct: true,
+                        points: 20
+                    },
+                    {
+                        icon: "📋",
+                        title: "Prendre un modèle internet et changer juste le nom de l'entreprise",
+                        feedback: "❌ GAME OVER ! Les recruteurs repèrent les lettres génériques en 3 secondes. Direction : poubelle. Personnalise ou n'envoie rien. 30 minutes d'effort = se démarquer de 90% des candidats.",
+                        correct: false,
+                        points: 3
+                    }
+                ]
             },
-
-            createCardHtml(v) {
-                return `
-                    <div id="card-${v.label}" class="value-card p-4 rounded-2xl shadow-sm border border-slate-100" 
-                         draggable="true" ondragstart="app.onDragStart(event, '${v.label}')">
-                        <div class="font-bold text-sm text-slate-800 mb-1">${v.label}</div>
-                        <div class="text-[10px] text-slate-400 leading-tight font-medium">${v.desc}</div>
-                    </div>
-                `;
+            {
+                chapter: "Chapitre 3 : Me présenter spontanément",
+                emoji: "🚪",
+                title: "Tenter le tout pour le tout",
+                description: "En passant devant un magasin de déco qui te plaît, tu remarques qu'il y a du monde mais pas de rush. Pas d'annonce visible. Et si tu tentais une candidature spontanée ?",
+                context: "⏰ C'est un mardi après-midi, 15h. L'heure creuse.",
+                choices: [
+                    {
+                        icon: "🚶",
+                        title: "Entrer direct, me présenter et demander s'ils recrutent",
+                        feedback: "⚠️ AUDACIEUX mais risqué ! Sans préparation, tu peux déranger. Mieux vaut : observer le moment calme, te présenter brièvement, laisser ton CV et demander le nom du responsable. Respect du temps des autres = pro.",
+                        correct: false,
+                        points: 12
+                    },
+                    {
+                        icon: "📞",
+                        title: "Appeler d'abord pour cibler la bonne personne et savoir s'ils recrutent",
+                        feedback: "🎯 TOP STRATÉGIE ! Tu montres organisation + professionnalisme. En appelant : tu obtiens le nom du responsable + tu poses des questions sur leurs besoins + ta candidature aura du poids. Ensuite, mail personnalisé OU visite en personne.",
+                        correct: true,
+                        points: 20
+                    },
+                    {
+                        icon: "📧",
+                        title: "Envoyer un mail avec mon CV à l'adresse générique sur leur site",
+                        feedback: "❌ Pas terrible. Les candidatures spontanées par mail se perdent dans la masse. Pour marquer les esprits en spontané : privilégie le contact humain (appel ou visite) après avoir repéré la bonne personne.",
+                        correct: false,
+                        points: 8
+                    }
+                ]
             },
-
-            onDragStart(e, label) {
-                e.dataTransfer.setData('text/plain', label);
-                e.target.classList.add('dragging');
+            {
+                chapter: "Chapitre 4 : Participer à un forum emploi",
+                emoji: "🎪",
+                title: "L'événement networking",
+                description: "Le forum emploi de ta ville : 40 stands d'entreprises, des ateliers CV, des speed-meetings. Tu as 3 heures sur place. Comment t'organises-tu ?",
+                context: "🎯 Objectif : maximiser ton impact, pas distribuer du papier.",
+                choices: [
+                    {
+                        icon: "🎓",
+                        title: "Assister d'abord aux ateliers pour me préparer (CV, pitch, etc.)",
+                        feedback: "⚠️ PAS MAL si c'est ta première fois, mais attention ! L'intérêt principal = rencontrer les recruteurs EN DIRECT. Solution : arrive tôt, fais MAX 1 atelier, puis file sur les stands ciblés. Priorités !",
+                        correct: false,
+                        points: 12
+                    },
+                    {
+                        icon: "🏃",
+                        title: "Faire le tour de tous les stands et déposer mon CV partout",
+                        feedback: "❌ PIRE STRATÉGIE ! Distribuer ton CV en masse = 0 impact. Les recruteurs ne se souviendront pas de toi. Règle d'or : Qualité > Quantité. 5 vraies conversations > 40 CV jetés.",
+                        correct: false,
+                        points: 5
+                    },
+                    {
+                        icon: "🎯",
+                        title: "Cibler 3-4 entreprises et préparer des questions précises pour chacune",
+                        feedback: "🎯 EXCELLENT ! Tu montres organisation + motivation. En préparant des questions, tu crées un vrai dialogue. Les recruteurs se souviendront de toi. Astuce : demande leur carte et fais un follow-up mail dans les 48h.",
+                        correct: true,
+                        points: 20
+                    }
+                ]
             },
-
-            onDragOver(e) {
-                e.preventDefault();
-                e.currentTarget.classList.add('over');
+            {
+                chapter: "Chapitre 5 : Rechercher une PMSMP",
+                emoji: "🔍",
+                title: "L'immersion professionnelle",
+                description: "Ton conseiller Mission Locale te propose une PMSMP (immersion) d'une semaine dans une entreprise qui t'intéresse. C'est l'occasion de tester le métier ET de te faire remarquer.",
+                context: "💼 Contexte : Beaucoup de PMSMP débouchent sur des embauches si tu joues bien.",
+                choices: [
+                    {
+                        icon: "⚡",
+                        title: "Proposer plein d'idées dès le 1er jour pour améliorer leur organisation",
+                        feedback: "❌ DANGER ! Arriver et vouloir tout changer en 2 jours = braquer tout le monde. Règle : d'abord OBSERVE et APPRENDS. Ensuite, si tu as des idées, partage-les humblement : 'J'ai remarqué que... Avez-vous déjà essayé... ?'",
+                        correct: false,
+                        points: 8
+                    },
+                    {
+                        icon: "🤝",
+                        title: "Être curieux·se, poser des questions et demander des responsabilités",
+                        feedback: "🎯 PARFAIT ! Attitude gagnante : motivation sans prétention. Montre que tu veux APPRENDRE. À la fin, demande un retour sur ton immersion + exprime clairement ton intérêt pour un poste. C'est comme ça qu'on transforme une PMSMP en CDI.",
+                        correct: true,
+                        points: 20
+                    },
+                    {
+                        icon: "👀",
+                        title: "Rester discret·e, observer et faire uniquement ce qu'on me demande",
+                        feedback: "❌ TROP PASSIF ! Une PMSMP ≠ stage d'observation. C'est ta chance de PROUVER ta motivation. Sois proactif·ve : pose des questions, propose ton aide, montre de l'intérêt. Objectif : qu'ils veuillent te recruter après.",
+                        correct: false,
+                        points: 10
+                    }
+                ]
             },
-
-            onDrop(e, zoneId) {
-                e.preventDefault();
-                document.querySelectorAll('.drop-zone, #bank').forEach(z => z.classList.remove('over'));
-                
-                const label = e.dataTransfer.getData('text/plain');
-                const card = document.getElementById(`card-${label}`);
-                if(!card) return;
-                card.classList.remove('dragging');
-
-                const valObj = VALUES_LIST.find(v => v.label === label);
-
-                // Retirer de tous les états
-                state.bank = state.bank.filter(v => v.label !== label);
-                state.ignore = state.ignore.filter(v => v.label !== label);
-                state.important = state.important.filter(v => v.label !== label);
-                state.essential = state.essential.filter(v => v.label !== label);
-
-                // Ajouter au nouvel état
-                if (zoneId === 'bank') state.bank.push(valObj);
-                else state[zoneId].push(valObj);
-                
-                // Déplacer visuellement
-                const target = zoneId === 'bank' ? document.getElementById('bank') : document.getElementById(`zone-${zoneId}`);
-                target.appendChild(card);
-
-                this.updateCounters();
+            {
+                chapter: "Chapitre 6 : L'entretien d'embauche",
+                emoji: "💼",
+                title: "Le jour J",
+                description: "Ça y est ! Tu as décroché un entretien pour le poste d'assistant·e commercial·e. Le recruteur démarre avec : 'Alors, parlez-moi de vous.'",
+                context: "🎤 Question PIÈGE classique. Comment réponds-tu ?",
+                choices: [
+                    {
+                        icon: "🏠",
+                        title: "Je parle de mes hobbies, ma famille, mes passions personnelles",
+                        feedback: "❌ HORS SUJET ! Le recruteur se fiche de ta vie perso (sauf si lien direct avec le job). Il veut savoir qui tu es PROFESSIONNELLEMENT. Garde tes hobbies pour la fin si on te pose la question.",
+                        correct: false,
+                        points: 6
+                    },
+                    {
+                        icon: "💬",
+                        title: "Je dis que je cherche un job depuis longtemps et que j'ai vraiment besoin",
+                        feedback: "❌ ERREUR ! Parler de tes difficultés + ton besoin = position de faiblesse. Le recruteur veut savoir CE QUE TU APPORTES, pas ce que tu attends. Montre ta valeur, pas ta galère.",
+                        correct: false,
+                        points: 5
+                    },
+                    {
+                        icon: "🎯",
+                        title: "Je résume mon parcours en lien avec le poste (formation + compétences + motivation)",
+                        feedback: "🎯 PARFAIT ! Structure gagnante : Qui je suis pro + Ce que j'ai fait + Pourquoi ce poste m'intéresse. Court (2-3 min max), pertinent, orienté VALEUR. C'est ton elevator pitch. Entraîne-toi avant !",
+                        correct: true,
+                        points: 20
+                    }
+                ]
             },
-
-            updateCounters() {
-                const totalSorted = state.ignore.length + state.important.length + state.essential.length;
-                document.getElementById('count').innerText = totalSorted;
-                document.getElementById('btn-next').disabled = state.essential.length < 3;
+            {
+                chapter: "Chapitre 7 : Gérer l'imprévu",
+                emoji: "⏰",
+                title: "Le retard",
+                description: "Catastrophe ! Le bus a eu 20 minutes de retard. Tu arrives à l'entretien avec 15 minutes de retard. Le recruteur t'attend dans la salle.",
+                context: "😰 Stress maximum. Comment gérer la situation ?",
+                choices: [
+                    {
+                        icon: "🏃",
+                        title: "J'entre sans rien dire, c'est pas ma faute, c'est les transports",
+                        feedback: "❌ CATASTROPHE ! Ignorer ton retard = impolitesse + immaturité. Même si c'est pas ta faute, c'est TA responsabilité de gérer. Prendre la responsabilité = maturité professionnelle. Là, tu viens de perdre le job.",
+                        correct: false,
+                        points: 0
+                    },
+                    {
+                        icon: "🙏",
+                        title: "Je m'excuse poliment, j'explique brièvement et je passe à l'entretien",
+                        feedback: "🎯 PARFAIT ! Excuse sincère + explication courte (pas de roman) + tu remercies pour la patience = tu montres du professionnalisme. Astuce : anticipe en appelant 10 min avant si tu vois que tu seras en retard.",
+                        correct: true,
+                        points: 20
+                    },
+                    {
+                        icon: "📖",
+                        title: "Je raconte toute mon histoire de transport en détail pour me justifier",
+                        feedback: "❌ MAUVAISE IDÉE ! Trop d'explications = tu te justifies comme un enfant. Sois adulte : excuse brève + reconnaissance de ton retard + focus sur l'entretien. Le recruteur n'a pas besoin de connaître ton trajet complet.",
+                        correct: false,
+                        points: 8
+                    }
+                ]
             },
-
-            finishSorting() {
-                document.querySelector('main').classList.add('hidden');
-                const resultsView = document.getElementById('results-view');
-                resultsView.classList.remove('hidden');
-
-                const top3 = state.essential.slice(0, 3);
-                
-                resultsView.innerHTML = `
-                    <div class="max-w-5xl w-full flex flex-col items-center">
-                        <div class="w-24 h-24 bg-ls-turquoise rounded-full flex items-center justify-center mb-6 text-white shadow-lg animate-pop">
-                            <i data-lucide="award" class="w-12 h-12"></i>
-                        </div>
-                        <h2 class="text-5xl tracking-tighter uppercase mb-2 text-center">Mes Piliers de <span class="text-ls-red">Réussite</span></h2>
-                        <p class="text-slate-500 text-lg font-medium mb-12 text-center">Voici les 3 valeurs essentielles qui guideront mes choix professionnels.</p>
-
-                        <div class="flex justify-center gap-6 mb-16 w-full">
-                            ${top3.map((v, i) => `
-                                <div class="ls-card p-10 flex-1 border-b-8 border-ls-red flex flex-col items-center text-center">
-                                    <span class="text-slate-100 font-800 text-5xl block mb-4">0${i+1}</span>
-                                    <h3 class="text-2xl font-bold uppercase tracking-tight text-slate-800 mb-4">${v.label}</h3>
-                                    <p class="text-sm text-slate-400 leading-relaxed font-medium italic">"${v.desc}"</p>
-                                </div>
-                            `).join('')}
-                        </div>
-
-                        <div class="ls-card p-10 bg-slate-900 text-white w-full flex gap-8 items-center border-l-[16px] border-ls-turquoise">
-                            <i data-lucide="megaphone" class="w-12 h-12 text-ls-turquoise opacity-50 shrink-0"></i>
-                            <div>
-                                <h4 class="text-xs font-800 uppercase text-ls-turquoise mb-2 tracking-widest">Ma posture en entretien</h4>
-                                <p class="text-xl italic font-medium leading-relaxed opacity-90">
-                                    "Je recherche un poste où le <b>${top3[0].label}</b> et le <b>${top3[1].label}</b> sont respectés, car ce sont les conditions de ma motivation et de mon efficacité."
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="mt-16 flex gap-4 no-print pb-10">
-                            <button onclick="window.print()" class="px-8 py-4 border-2 border-slate-200 rounded-full font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 hover:bg-slate-50 transition-all text-slate-400">
-                                <i data-lucide="download"></i> Sauvegarder ma fiche
-                            </button>
-                            <button onclick="location.reload()" class="btn-primary py-4 px-10 text-xs">Recommencer</button>
-                        </div>
-                    </div>
-                `;
-                lucide.createIcons();
+            {
+                chapter: "Chapitre 8 : La période d'essai",
+                emoji: "🎊",
+                title: "Les premiers jours",
+                description: "BRAVO ! Tu as le job ! Période d'essai de 2 mois. C'est tes 3 premières semaines. L'entreprise peut encore rompre sans préavis. Comment assurer ?",
+                context: "⚠️ La période d'essai = test permanent. Fais tes preuves !",
+                choices: [
+                    {
+                        icon: "🦸",
+                        title: "Montrer que je sais tout faire seul·e, ne jamais poser de questions",
+                        feedback: "❌ GROSSE ERREUR ! Ne pas poser de questions = faire des erreurs évitables. Les employeurs PRÉFÈRENT quelqu'un qui pose des questions intelligentes qu'un·e solo cowboy·girl. Poser des questions = intelligence + humilité.",
+                        correct: false,
+                        points: 5
+                    },
+                    {
+                        icon: "🎯",
+                        title: "Être à l'écoute, poser des questions et proposer mon aide à l'équipe",
+                        feedback: "🎯 EXACTEMENT ! Attitude gagnante : apprendre + s'intégrer + montrer sa motivation. Observe les codes, demande des conseils, propose ton aide. En fin de période d'essai, demande un retour constructif. C'est comme ça qu'on valide !",
+                        correct: true,
+                        points: 20
+                    },
+                    {
+                        icon: "📝",
+                        title: "Arriver 30 min avant, partir 30 min après, dire oui à tout",
+                        feedback: "⚠️ ATTENTION BURN-OUT ! Vouloir trop en faire = te fatiguer + fausser l'image. Mieux vaut être EFFICACE, ponctuel·le et disponible, sans te cramer. L'équilibre = tenir sur la durée. Marathon, pas sprint.",
+                        correct: false,
+                        points: 12
+                    }
+                ]
             }
-        };
+        ];
 
-        window.onload = () => app.init();
+        // STATE
+        let userName = '';
+        let currentScene = 0;
+        let totalScore = 0;
+        let correctCount = 0;
+        let choiceDisabled = false;
+        let userValues = { essential: [], important: [], secondary: [] };
+        let draggedElement = null;
+
+        // Continue with JavaScript implementation...
+        // (Due to length limits, I'll include the key functions)
+
+        document.getElementById('nameInput').addEventListener('input', function(e) {
+            document.getElementById('nameSubmitBtn').disabled = e.target.value.trim().length === 0;
+        });
+
+        document.getElementById('nameInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.value.trim().length > 0) {
+                submitName();
+            }
+        });
+
+        function submitName() {
+            const input = document.getElementById('nameInput').value.trim();
+            if (!input) return;
+            
+            userName = input;
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('transitionUserName').textContent = userName;
+            
+            document.getElementById('nameScreen').classList.add('hidden');
+            document.getElementById('introScreen').classList.remove('hidden');
+        }
+
+        function startGame() {
+            document.getElementById('introScreen').classList.add('hidden');
+            document.getElementById('progressSection').classList.remove('hidden');
+            loadScene(0);
+        }
+
+        function loadScene(sceneIndex) {
+            currentScene = sceneIndex;
+            const scene = gameData[sceneIndex];
+            
+            document.getElementById('progressBadge').textContent = `Partie 1/2 : Chapitre ${sceneIndex + 1}/8`;
+            const progress = ((sceneIndex + 1) / 8) * 50;
+            document.getElementById('progressBarFill').style.width = progress + '%';
+            
+            const sceneHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-chapter">${scene.chapter}</div>
+                        <div class="card-emoji">${scene.emoji}</div>
+                        <h2 class="card-title">${scene.title}</h2>
+                    </div>
+                    <div class="card-description">${scene.description}</div>
+                    ${scene.context ? `<div class="context-callout"><strong>⚠️ Contexte :</strong> ${scene.context}</div>` : ''}
+                    <div class="choices-grid">
+                        ${scene.choices.map((choice, i) => `
+                            <div class="choice-card" onclick="selectChoice(${i})">
+                                <div class="choice-icon">${choice.icon}</div>
+                                <div class="choice-text">${choice.title}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback-box" id="feedbackBox"></div>
+                    <button class="btn btn-primary" id="continueBtn" style="display: none;" onclick="nextScene()">
+                        ${sceneIndex < 7 ? 'Chapitre suivant →' : 'Terminer la partie 1 🎯'}
+                    </button>
+                    <svg class="puzzle-decoration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="#06D6A0"/>
+                    </svg>
+                </div>
+            `;
+            
+            document.getElementById('gameScenes').innerHTML = sceneHTML;
+            choiceDisabled = false;
+        }
+
+        function selectChoice(choiceIndex) {
+            if (choiceDisabled) return;
+            choiceDisabled = true;
+            
+            const scene = gameData[currentScene];
+            const choice = scene.choices[choiceIndex];
+            
+            const choices = document.querySelectorAll('.choice-card');
+            choices.forEach((el, idx) => {
+                el.classList.add('disabled');
+                if (idx === choiceIndex) {
+                    el.classList.add('selected');
+                    setTimeout(() => {
+                        el.classList.remove('selected');
+                        el.classList.add(choice.correct ? 'correct' : 'incorrect');
+                        if (choice.correct) {
+                            totalScore += choice.points;
+                            correctCount++;
+                        } else {
+                            totalScore += choice.points;
+                        }
+                        document.getElementById('scoreDisplay').textContent = totalScore;
+                        showFeedback(choice);
+                    }, 300);
+                }
+            });
+        }
+
+        function showFeedback(choice) {
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.className = 'feedback-box visible ' + (choice.correct ? 'success' : 'error');
+            feedbackBox.innerHTML = `
+                <div class="feedback-title">
+                    ${choice.correct ? '✅ Bonne décision !' : '❌ Pas optimal...'}
+                    <span>+${choice.points} pts</span>
+                </div>
+                <div class="feedback-text">${choice.feedback}</div>
+            `;
+            document.getElementById('continueBtn').style.display = 'block';
+        }
+
+        function nextScene() {
+            if (currentScene < 7) {
+                loadScene(currentScene + 1);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showTransitionScreen();
+            }
+        }
+
+        function showTransitionScreen() {
+            document.getElementById('gameScenes').innerHTML = '';
+            document.getElementById('progressSection').classList.add('hidden');
+            document.getElementById('transitionScore').textContent = totalScore;
+            document.getElementById('transitionScreen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startValuesActivity() {
+            document.getElementById('transitionScreen').classList.add('hidden');
+            document.getElementById('progressSection').classList.remove('hidden');
+            document.getElementById('valuesContainer').classList.remove('hidden');
+            document.getElementById('progressBadge').textContent = 'Partie 2/2 : Mes Valeurs';
+            document.getElementById('progressBarFill').style.width = '75%';
+            initializeValues();
+        }
+
+        function initializeValues() {
+            const bank = document.getElementById('valueBank');
+            bank.innerHTML = '';
+            valuesData.forEach(value => {
+                const card = document.createElement('div');
+                card.className = 'value-card';
+                card.draggable = true;
+                card.dataset.valueId = value.id;
+                card.innerHTML = `
+                    <div class="value-icon">${value.icon}</div>
+                    <div class="value-name">${value.name}</div>
+                    <div class="value-example">${value.example}</div>
+                `;
+                bank.appendChild(card);
+            });
+            setupDragAndDrop();
+        }
+
+        function setupDragAndDrop() {
+            const cards = document.querySelectorAll('.value-card');
+            const zones = document.querySelectorAll('.drop-zone');
+            
+            cards.forEach(card => {
+                card.addEventListener('dragstart', e => {
+                    draggedElement = e.target;
+                    e.target.classList.add('dragging');
+                });
+                card.addEventListener('dragend', e => {
+                    e.target.classList.remove('dragging');
+                });
+            });
+            
+            zones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                zone.addEventListener('dragleave', e => {
+                    if (e.currentTarget === e.target) {
+                        zone.classList.remove('drag-over');
+                    }
+                });
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    if (!draggedElement) return;
+                    
+                    const content = zone.querySelector('.zone-content');
+                    const zoneType = zone.dataset.zone;
+                    
+                    if (zoneType === 'essential' && content.children.length >= 3) {
+                        alert('⚠️ Tu ne peux placer que 3 valeurs maximum dans la zone Essentiel !');
+                        return;
+                    }
+                    
+                    content.appendChild(draggedElement);
+                    updateCounter();
+                    checkCompletion();
+                });
+            });
+        }
+
+        function updateCounter() {
+            const total = document.getElementById('essentialContent').children.length +
+                         document.getElementById('importantContent').children.length +
+                         document.getElementById('secondaryContent').children.length;
+            document.getElementById('valuesCounter').textContent = `Cartes triées : ${total} / 24`;
+        }
+
+        function checkCompletion() {
+            const essential = document.getElementById('essentialContent').children.length;
+            const total = document.getElementById('essentialContent').children.length +
+                         document.getElementById('importantContent').children.length +
+                         document.getElementById('secondaryContent').children.length;
+            
+            document.getElementById('valuesFinishBtn').disabled = !(total === 24 && essential === 3);
+        }
+
+        function finishValues() {
+            const essentialEl = document.getElementById('essentialContent').children;
+            const importantEl = document.getElementById('importantContent').children;
+            
+            userValues.essential = Array.from(essentialEl).map(el => {
+                const id = parseInt(el.dataset.valueId);
+                return valuesData.find(v => v.id === id);
+            });
+            
+            userValues.important = Array.from(importantEl).map(el => {
+                const id = parseInt(el.dataset.valueId);
+                return valuesData.find(v => v.id === id);
+            });
+            
+            showEndScreen();
+        }
+
+        function showEndScreen() {
+            document.getElementById('valuesContainer').classList.add('hidden');
+            document.getElementById('progressSection').classList.add('hidden');
+            
+            const percentage = Math.round((correctCount / 8) * 100);
+            
+            let performanceMsg = '';
+            let tips = '';
+            
+            if (percentage >= 75) {
+                performanceMsg = `<div class="message-title">🌟 Excellent ${userName} ! Tu es prêt·e !</div>
+                    <p>Tu maîtrises les techniques de recherche d'emploi ET tu connais tes valeurs. Combinaison gagnante !</p>`;
+                tips = `
+                    <div class="tip-item">
+                        <div class="tip-icon">🎯</div>
+                        <div class="tip-text"><strong>Prochaine étape :</strong> Utilise tes 3 piliers pour filtrer les offres.</div>
+                    </div>
+                `;
+            } else if (percentage >= 50) {
+                performanceMsg = `<div class="message-title">👍 Bien ${userName} !</div>
+                    <p>Tu as compris l'essentiel. Maintenant, utilise tes valeurs pour affiner tes choix.</p>`;
+                tips = `
+                    <div class="tip-item">
+                        <div class="tip-icon">🤝</div>
+                        <div class="tip-text"><strong>Avec ton conseiller :</strong> Montre-lui tes 3 valeurs essentielles.</div>
+                    </div>
+                `;
+            } else {
+                performanceMsg = `<div class="message-title">💪 ${userName}, prends le temps !</div>
+                    <p>La bonne nouvelle : tu connais maintenant tes valeurs !</p>`;
+                tips = `
+                    <div class="tip-item">
+                        <div class="tip-icon">👨‍🏫</div>
+                        <div class="tip-text"><strong>Mission Locale :</strong> Prends RDV pour travailler les techniques.</div>
+                    </div>
+                `;
+            }
+
+            const valuesHTML = userValues.essential.map(v => `
+                <div class="value-result-card">
+                    <div class="value-result-header">${v.icon} ${v.name}</div>
+                    <div class="value-result-example">${v.example}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('endScreen').innerHTML = `
+                <div class="card">
+                    <div class="results-header">
+                        <div class="results-emoji">🏆</div>
+                        <h1 class="results-title">Félicitations ${userName} !</h1>
+                        <p class="results-subtitle">Tu as terminé ton parcours emploi complet</p>
+                    </div>
+
+                    <div class="score-grid">
+                        <div class="score-card">
+                            <div class="score-value">${totalScore}</div>
+                            <div class="score-label">Points totaux</div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-value">${correctCount}/8</div>
+                            <div class="score-label">Bonnes décisions</div>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-value">${percentage}%</div>
+                            <div class="score-label">Taux de réussite</div>
+                        </div>
+                    </div>
+
+                    <div class="message-box">${performanceMsg}</div>
+
+                    <div style="background: linear-gradient(135deg, #FFE8E8, #FFDADA); padding: 30px; border-radius: var(--radius-medium); margin: 30px 0; border-left: 5px solid var(--color-primary-red);">
+                        <h3 style="font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                            <span>🔴</span> Tes 3 Piliers NON-NÉGOCIABLES
+                        </h3>
+                        ${valuesHTML}
+                        <p style="margin-top: 20px; font-weight: 700; color: var(--color-primary-red);">
+                            ⚠️ Si un job ne respecte pas ces 3 valeurs, REFUSE-LE.
+                        </p>
+                    </div>
+
+                    <div class="tips-box">
+                        <div class="tips-title">💡 Tes Actions</div>
+                        ${tips}
+                    </div>
+
+                    <button class="btn btn-primary" onclick="window.print()">
+                        📄 Imprimer mon profil
+                    </button>
+                    <button class="btn btn-secondary" onclick="location.reload()" style="width: 100%; margin-top: 15px;">
+                        🔄 Recommencer
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('endScreen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
