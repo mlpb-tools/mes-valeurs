@@ -3,454 +3,2037 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LS4YOU - La Boussole des Valeurs</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Valeurs en Priorité ABC - LS4YOU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --ls-red: #E63946;
-            --ls-yellow: #FFB703;
-            --ls-turquoise: #2EC4B6;
-            --ls-pink: #FF99AC;
-            --ls-dark: #1D3557;
-            --ls-white: #FFFFFF;
+            --turquoise: #5DD9C1;
+            --jaune: #FFD23F;
+            --rose: #FF8FA3;
+            --orange: #FFB84D;
+            --rouge: #E84855;
+            --bleu: #4A90E2;
+            --gris-clair: #F8F9FA;
+            --gris-fonce: #2C3E50;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--ls-white);
-            color: var(--ls-dark);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--gris-fonce);
+            line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 900; }
-
-        .dot-grid {
-            background-image: radial-gradient(var(--ls-dark) 1px, transparent 1px);
-            background-size: 16px 16px;
-            opacity: 0.08;
-        }
-
-        /* Style Carte "Compétences" */
-        .choice-card {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: 3px solid var(--ls-dark);
-            background: white;
-            position: relative;
-            box-shadow: 4px 4px 0px var(--ls-dark);
-        }
-        
-        .choice-card:hover { 
-            transform: translate(-2px, -2px); 
-            box-shadow: 8px 8px 0px var(--ls-red);
-            border-color: var(--ls-red);
-        }
-
-        .choice-card.selected {
-            background-color: var(--ls-red);
-            color: white;
-            border-color: var(--ls-dark);
-            box-shadow: 4px 4px 0px var(--ls-dark);
-            transform: translate(2px, 2px);
-        }
-
-        .btn-primary {
-            background-color: var(--ls-red);
-            color: white;
-            border: 3px solid var(--ls-dark);
-            padding: 1rem 2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 4px 4px 0px var(--ls-dark);
-            transition: all 0.2s;
-        }
-        .btn-primary:hover:not(:disabled) { 
-            transform: translate(-2px, -2px); 
-            box-shadow: 6px 6px 0px var(--ls-dark);
-        }
-        .btn-primary:active {
-            transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px var(--ls-dark);
-        }
-        .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
-
-        /* Progress Bar */
-        .progress-container {
-            height: 12px;
-            background: #F1F5F9;
-            border: 2px solid var(--ls-dark);
-        }
-
-        /* Formes Géométriques Résultats */
-        .shape-yellow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--ls-yellow);
-            border-radius: 50%;
-            top: -200px;
-            right: -200px;
+        .background-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(45deg, var(--turquoise) 0px, transparent 2px, transparent 10px),
+                repeating-linear-gradient(-45deg, var(--rose) 0px, transparent 2px, transparent 10px);
         }
 
-        .shape-red-circle {
-            width: 300px;
-            height: 300px;
-            background: var(--ls-red);
-            border: 4px solid var(--ls-dark);
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .logos-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .project-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .project-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .ml-logo {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .puzzle-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--turquoise) 0%, var(--rouge) 50%, var(--jaune) 100%);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .puzzle-icon::before,
+        .puzzle-icon::after {
+            content: '';
+            position: absolute;
+            background: rgba(255,255,255,0.3);
+            border-radius: 8px;
+        }
+
+        .puzzle-icon::before {
+            width: 30px;
+            height: 30px;
+            top: 10px;
+            left: 10px;
+        }
+
+        .puzzle-icon::after {
+            width: 25px;
+            height: 25px;
+            bottom: 12px;
+            right: 12px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--turquoise), var(--rouge), var(--jaune));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .exercice-tag {
+            display: inline-block;
+            background: var(--turquoise);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(93, 217, 193, 0.3);
+        }
+
+        .step-container {
+            background: white;
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .step-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--turquoise), var(--jaune), var(--rose));
+        }
+
+        .step-container.hidden {
+            display: none;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--turquoise);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(93, 217, 193, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gris-fonce);
+        }
+
+        .step-description {
+            background: var(--gris-clair);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--jaune);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
-            z-index: 10;
-            box-shadow: 15px 15px 0px var(--ls-turquoise);
+            overflow: hidden;
         }
 
-        .portrait-img {
-            width: 270px;
-            height: 270px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--turquoise), var(--jaune));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
         }
 
-        @media print { 
-            .no-print { display: none !important; }
-            body { background: white !important; }
-            #results-view { padding: 40px !important; }
+        .value-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        .animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .value-card.selected {
+            border-color: var(--turquoise);
+            box-shadow: 0 8px 25px rgba(93, 217, 193, 0.3);
+        }
+
+        .value-card.selected::before {
+            opacity: 0.05;
+        }
+
+        .value-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--gris-fonce);
+        }
+
+        .value-description {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .checkbox-custom {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 28px;
+            height: 28px;
+            border: 3px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .value-card.selected .checkbox-custom {
+            background: var(--turquoise);
+            border-color: var(--turquoise);
+        }
+
+        .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .value-card.selected .checkbox-custom::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .selected-values-summary {
+            background: linear-gradient(135deg, var(--turquoise), var(--bleu));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(93, 217, 193, 0.3);
+        }
+
+        .selected-values-summary h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .selected-values-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .selected-value-tag {
+            background: rgba(255,255,255,0.25);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .categories-section {
+            background: var(--gris-clair);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-color: var(--turquoise);
+        }
+
+        .category-card.selected {
+            border-color: var(--turquoise);
+            background: linear-gradient(135deg, rgba(93, 217, 193, 0.05), rgba(93, 217, 193, 0.1));
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .category-examples {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .objectives-smart-input {
+            margin-bottom: 1.5rem;
+        }
+
+        .smart-objective-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 3px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .smart-objective-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .smart-objective-card.has-category {
+            border-left: 6px solid var(--turquoise);
+        }
+
+        .objective-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .objective-number-badge {
+            background: linear-gradient(135deg, var(--turquoise), var(--bleu));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(93, 217, 193, 0.3);
+        }
+
+        .category-badge {
+            background: rgba(93, 217, 193, 0.1);
+            color: var(--turquoise);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 2px solid var(--turquoise);
+        }
+
+        .smart-section {
+            margin-bottom: 1.2rem;
+        }
+
+        .smart-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--gris-fonce);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .smart-letter {
+            background: linear-gradient(135deg, var(--jaune), var(--orange));
+            color: var(--gris-fonce);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(255, 210, 63, 0.3);
+        }
+
+        .smart-help {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-select-btn {
+            background: white;
+            border: 2px dashed var(--turquoise);
+            color: var(--turquoise);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .category-select-btn:hover {
+            background: var(--turquoise);
+            color: white;
+        }
+
+        .category-select-btn.selected {
+            background: var(--turquoise);
+            color: white;
+            border-style: solid;
+        }
+
+        .objectives-priority-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .priority-objective-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .priority-objective-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .priority-objective-summary {
+            background: var(--gris-clair);
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .priority-objective-title {
+            font-weight: 700;
+            color: var(--gris-fonce);
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .priority-objective-details {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .smart-recap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .smart-recap-item {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border-left: 3px solid var(--jaune);
+        }
+
+        .smart-recap-label {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .objectives-input {
+            margin-bottom: 1.5rem;
+        }
+
+        .objective-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .objective-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .objective-header {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .objective-label {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--turquoise);
+            box-shadow: 0 0 0 3px rgba(93, 217, 193, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .priority-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .priority-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .priority-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .priority-btn.selected {
+            border-width: 3px;
+        }
+
+        .priority-btn.priority-a {
+            border-color: var(--rouge);
+            color: var(--rouge);
+        }
+
+        .priority-btn.priority-a.selected {
+            background: var(--rouge);
+            color: white;
+        }
+
+        .priority-btn.priority-b {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .priority-btn.priority-b.selected {
+            background: var(--orange);
+            color: white;
+        }
+
+        .priority-btn.priority-c {
+            border-color: var(--jaune);
+            color: #d4a017;
+        }
+
+        .priority-btn.priority-c.selected {
+            background: var(--jaune);
+            color: var(--gris-fonce);
+        }
+
+        .priority-legend {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .priority-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .priority-badge {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .priority-badge.a { background: var(--rouge); }
+        .priority-badge.b { background: var(--orange); }
+        .priority-badge.c { background: var(--jaune); color: var(--gris-fonce); }
+
+        .action-input {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed #e9ecef;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--turquoise), var(--bleu));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gris-fonce);
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--rose), var(--rouge));
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .validation-message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        .synthesis-preview {
+            background: linear-gradient(135deg, #ffffff 0%, var(--gris-clair) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 3px solid var(--turquoise);
+        }
+
+        .synthesis-section {
+            margin-bottom: 2rem;
+        }
+
+        .synthesis-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .synthesis-section h3 {
+            color: var(--turquoise);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .value-explanation {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid var(--turquoise);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .value-explanation h4 {
+            color: var(--gris-fonce);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .value-explanation p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .objective-card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .objective-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .objective-priority-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .objective-title {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            flex: 1;
+        }
+
+        .objective-details {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .action-highlight {
+            background: var(--gris-clair);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 0.8rem;
+            border-left: 4px solid var(--jaune);
+        }
+
+        .action-highlight strong {
+            color: var(--rouge);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .step-container:nth-child(1) { animation-delay: 0s; }
+        .step-container:nth-child(2) { animation-delay: 0.1s; }
+        .step-container:nth-child(3) { animation-delay: 0.2s; }
+        .step-container:nth-child(4) { animation-delay: 0.3s; }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .step-container {
+                padding: 1.5rem;
+            }
+
+            .puzzle-icon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .info-callout {
+            background: linear-gradient(135deg, var(--bleu), var(--turquoise));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .info-callout h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .info-callout p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .ml-branding {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
     </style>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body>
+    <div class="background-decoration"></div>
+    
+    <div class="container">
+        <header>
+            <div class="exercice-tag">EXERCICE LS4YOU</div>
+            
+            <div class="logos-container">
+                <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" 
+                     alt="LS4YOU Logo" 
+                     class="project-logo">
+                <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" 
+                     alt="Mission Locale Pays Basque" 
+                     class="ml-logo">
+            </div>
 
-    <!-- Header -->
-    <header class="bg-white px-8 py-5 flex justify-between items-center border-b-4 border-ls-dark no-print sticky top-0 z-50">
-        <div class="flex items-center gap-6">
-            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-10">
-            <div class="hidden md:block h-8 w-[2px] bg-slate-200"></div>
-            <h1 class="hidden md:block text-xs font-900 uppercase tracking-widest text-slate-400">Atelier : La Boussole des Valeurs</h1>
-        </div>
-        <div class="flex items-center gap-3">
-            <div class="text-[10px] font-900 text-right leading-none uppercase">Cofinancé par<br>l'Union européenne</div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="UE" class="h-6 border border-slate-100">
-        </div>
-    </header>
-
-    <!-- Quiz View -->
-    <main id="game-view" class="flex-grow flex flex-col no-print p-6 lg:p-16 relative">
-        <div class="dot-grid absolute inset-0 pointer-events-none"></div>
-        
-        <div class="max-w-6xl mx-auto w-full relative z-10">
-            <!-- Title & Progress -->
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
+            <div class="logo-section">
+                <div class="puzzle-icon"></div>
                 <div>
-                    <h2 class="text-5xl lg:text-7xl leading-[0.85] text-ls-dark uppercase mb-6">
-                        Ma boussole<br><span class="text-ls-red">PRO</span>
-                    </h2>
-                    <div class="flex gap-3">
-                        <div class="w-24 h-3 bg-ls-turquoise border-2 border-ls-dark"></div>
-                        <div class="w-10 h-3 bg-ls-yellow border-2 border-ls-dark"></div>
-                        <div class="w-6 h-3 bg-ls-pink border-2 border-ls-dark"></div>
-                    </div>
-                </div>
-                
-                <div class="w-full md:w-80">
-                    <div class="flex justify-between text-xs font-900 uppercase mb-3">
-                        <span id="step-label" class="bg-ls-dark text-white px-3 py-1">Étape 1 / 10</span>
-                        <span id="step-percent" class="text-ls-dark">0%</span>
-                    </div>
-                    <div class="progress-container">
-                        <div id="progress-fill" class="h-full bg-ls-turquoise" style="width: 10%"></div>
-                    </div>
+                    <h1>Valeurs en Priorité ABC</h1>
+                    <p class="subtitle">Façonner votre identité personnelle</p>
                 </div>
             </div>
+        </header>
 
-            <!-- Quiz Content -->
-            <div id="quiz-container" class="min-h-[400px]">
-                <!-- Injecté par JS -->
+        <!-- ÉTAPE 1: IDENTIFIER -->
+        <div class="step-container" id="step1">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">Identifier mes valeurs</div>
             </div>
 
-            <div class="mt-12 flex justify-end">
-                <button id="btn-next" onclick="nextStep()" class="btn-primary" disabled>Continuer</button>
+            <div class="step-description">
+                <strong>📍 Consigne :</strong> Cochez 5 à 7 valeurs qui sont vraiment prioritaires pour vous. Ces valeurs guident vos choix et reflètent qui vous êtes.
+            </div>
+
+            <div class="info-callout">
+                <h3>💡 Qu'est-ce qu'une valeur ?</h3>
+                <p>Une valeur, c'est ce qui compte vraiment pour vous, ce qui guide vos décisions au quotidien. Par exemple, si la <strong>persévérance</strong> est importante pour vous, vous allez terminer ce que vous commencez malgré les obstacles.</p>
+            </div>
+
+            <div id="valuesGrid" class="values-grid"></div>
+
+            <div id="selectionSummary" class="selected-values-summary" style="display: none;">
+                <h3>✨ Mes valeurs sélectionnées (<span id="selectedCount">0</span>/7)</h3>
+                <div id="selectedValuesList" class="selected-values-list"></div>
+            </div>
+
+            <div id="validationMsg" class="validation-message" style="display: none;"></div>
+
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="goToStep2()" id="btnStep1">
+                    Continuer → Prioriser mes objectifs
+                </button>
             </div>
         </div>
-    </main>
 
-    <!-- Results View -->
-    <div id="results-view" class="hidden relative min-h-screen bg-white overflow-hidden p-10 lg:p-24 flex flex-col lg:flex-row items-center justify-between gap-16">
-        <div class="shape-yellow"></div>
-        <div class="dot-grid absolute inset-0 opacity-10"></div>
-        
-        <!-- Left Column -->
-        <div class="relative z-20 max-w-2xl animate-pop">
-            <div class="mb-12">
-                <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="Logo LS4YOU" class="h-12 mb-10 no-print">
-                <h2 class="text-6xl lg:text-8xl leading-[0.8] text-ls-dark uppercase mb-8">
-                    MA BOUSSOLE<br><span class="text-ls-red">DÉCRYPTÉE</span>
-                </h2>
-                <div class="flex gap-3 mb-10">
-                    <div class="w-32 h-5 bg-ls-turquoise border-3 border-ls-dark"></div>
-                    <div class="w-12 h-5 bg-ls-yellow border-3 border-ls-dark"></div>
+        <!-- ÉTAPE 2A: DÉFINIR MES OBJECTIFS (SMART) -->
+        <div class="step-container hidden" id="step2a">
+            <div class="step-header">
+                <div class="step-number">2A</div>
+                <div class="step-title">Définir mes objectifs (méthode SMART)</div>
+            </div>
+
+            <div class="step-description">
+                <strong>🎯 Consigne :</strong> Définissez 3 objectifs importants pour vous. Utilisez les catégories ci-dessous pour vous inspirer, puis précisez-les avec la méthode SMART.
+            </div>
+
+            <div class="info-callout">
+                <h3>💡 Qu'est-ce qu'un objectif SMART ?</h3>
+                <p><strong>S</strong>pécifique - <strong>M</strong>esurable - <strong>A</strong>tteignable - <strong>R</strong>éaliste - <strong>T</strong>emporel : un objectif bien défini qui précise QUOI faire, COMMENT le mesurer, et QUAND le faire.</p>
+            </div>
+
+            <div class="categories-section" id="categoriesSection">
+                <h3 style="color: var(--gris-fonce); margin-bottom: 1rem; font-size: 1.2rem;">📂 Catégories d'objectifs (pour vous inspirer)</h3>
+                <div class="categories-grid" id="categoriesGrid"></div>
+            </div>
+
+            <div class="objectives-smart-input" id="objectivesSmartContainer"></div>
+
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep1()">
+                    ← Retour aux valeurs
+                </button>
+                <button class="btn btn-primary" onclick="goToStep2b()" id="btnStep2a">
+                    Continuer → Prioriser mes objectifs
+                </button>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 2B: PRIORISER (ABC) -->
+        <div class="step-container hidden" id="step2b">
+            <div class="step-header">
+                <div class="step-number">2B</div>
+                <div class="step-title">Prioriser mes objectifs (méthode ABC)</div>
+            </div>
+
+            <div class="step-description">
+                <strong>📊 Consigne :</strong> Maintenant que vos objectifs sont bien définis, classez-les selon la méthode ABC pour identifier vos priorités.
+            </div>
+
+            <div class="priority-legend">
+                <div class="priority-legend-item">
+                    <div class="priority-badge a">A</div>
+                    <div><strong>Priorité A :</strong> Grave si pas fait (conséquences importantes)</div>
                 </div>
-                <p class="text-2xl font-bold text-slate-700 uppercase tracking-tighter leading-tight max-w-lg">
-                    Voici les 3 piliers qui guident mon épanouissement au travail.
-                </p>
+                <div class="priority-legend-item">
+                    <div class="priority-badge b">B</div>
+                    <div><strong>Priorité B :</strong> Important mais peut attendre (gêne légère)</div>
+                </div>
+                <div class="priority-legend-item">
+                    <div class="priority-badge c">C</div>
+                    <div><strong>Priorité C :</strong> Agréable à faire mais sans conséquence</div>
+                </div>
             </div>
 
-            <div id="top3-results" class="space-y-8 mb-16">
-                <!-- Injecté par JS -->
-            </div>
+            <div class="objectives-priority-container" id="objectivesPriorityContainer"></div>
 
-            <div class="bg-white border-4 border-ls-dark p-8 shadow-[10px_10px_0px_var(--ls-turquoise)]">
-                <p id="pitch-text" class="text-xl font-medium text-slate-800 leading-relaxed italic">
-                    <!-- Texte de pitch -->
-                </p>
-            </div>
-
-            <div class="mt-16 flex flex-wrap gap-6 no-print">
-                <button onclick="window.print()" class="btn-primary">Télécharger le bilan</button>
-                <button onclick="location.reload()" class="text-xs font-900 uppercase tracking-widest text-slate-400 hover:text-ls-dark transition-colors">Recommencer l'atelier</button>
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep2a()">
+                    ← Retour à la définition
+                </button>
+                <button class="btn btn-primary" onclick="goToStep3()" id="btnStep2b">
+                    Continuer → Plan d'action
+                </button>
             </div>
         </div>
 
-        <!-- Right Column (Geometric) -->
-        <div class="relative z-20 flex items-center justify-center animate-pop" style="animation-delay: 0.2s">
-            <div class="shape-red-circle">
-                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80" alt="Profil" class="portrait-img">
+        <!-- ÉTAPE 3: METTRE EN ŒUVRE -->
+        <div class="step-container hidden" id="step3">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">Mon plan d'action</div>
             </div>
-            
-            <!-- Floating Elements -->
-            <div class="absolute -top-12 -right-12 w-32 h-32 bg-ls-turquoise border-4 border-ls-dark -rotate-12 z-0"></div>
-            <div class="absolute -bottom-10 -left-10 w-24 h-24 dot-grid border-4 border-ls-dark z-0 opacity-40"></div>
-            
-            <svg class="puzzle-icon" style="position:absolute; bottom:-40px; right:-20px; width:120px; fill:var(--ls-yellow); filter: drop-shadow(4px 4px 0px var(--ls-dark));" viewBox="0 0 24 24">
-                <path d="M18.88 12.17c.56 0 1.12-.13 1.62-.4.43-.22.8-.52 1.1-.9.3-.37.52-.8.65-1.27.13-.47.15-.96.06-1.44-.1-.48-.3-.93-.6-1.33-.3-.4-.68-.72-1.13-.95-.45-.23-.94-.35-1.44-.35-.5 0-.99.12-1.44.35-.45.23-.83.55-1.13.95s-.5 0.85-.6 1.33c-0.09 0.48-0.07 0.97 0.06 1.44s0.35 0.9 0.65 1.27c0.3 0.38 0.67 0.68 1.1 0.9s1.06 0.4 1.62 0.4zM5 14h2v2h2v2h2v2h2v-2h2v-2h2v-2h2v-2h-2v-2h-2V8h-2V6h-2V4h-2v2H9v2H7v2H5v2H3v2h2z" />
-            </svg>
+
+            <div class="step-description">
+                <strong>🎯 Consigne :</strong> Choisissez une tâche priorité A alignée avec vos valeurs, puis définissez une micro-action concrète pour cette semaine.
+            </div>
+
+            <div id="actionPlanContainer"></div>
+
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep2()">
+                    ← Retour aux objectifs
+                </button>
+                <button class="btn btn-primary" onclick="goToStep4()" id="btnStep3">
+                    Voir ma synthèse →
+                </button>
+            </div>
         </div>
 
-        <!-- Footer Info -->
-        <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end border-t-2 border-slate-100 pt-8 no-print">
-            <div class="text-[10px] font-900 text-slate-300 uppercase tracking-[0.3em]">LS4YOU • Mission Locale Pays Basque • 2026</div>
-            <div class="flex gap-4">
-                <div class="w-10 h-3 bg-ls-red border-2 border-ls-dark"></div>
-                <div class="w-10 h-3 bg-ls-yellow border-2 border-ls-dark"></div>
-                <div class="w-10 h-3 bg-ls-turquoise border-2 border-ls-dark"></div>
+        <!-- ÉTAPE 4: SYNTHÈSE -->
+        <div class="step-container hidden" id="step4">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">Ma synthèse personnelle</div>
+            </div>
+
+            <div class="synthesis-preview" id="synthesisContent"></div>
+
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep3()">
+                    ← Modifier mon plan
+                </button>
+                <button class="btn btn-download" onclick="downloadSynthesis()">
+                    📥 Télécharger ma fiche synthèse (PDF)
+                </button>
             </div>
         </div>
+
+        <footer class="footer">
+            <p>Outil pédagogique LS4YOU - Cadre : Identifier, Mesurer, Mettre en œuvre</p>
+            <div class="ml-branding">
+                <span>Mission Locale Pays Basque</span>
+                <span style="color: var(--turquoise);">●</span>
+                <span>Projet Erasmus+ LS4YOU</span>
+            </div>
+        </footer>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        const VALS = {
-            respect: { label: "Respect", icon: "user-check", desc: "Être traité avec dignité par tous les membres de l'organisation." },
-            ambiance: { label: "Ambiance", icon: "smile", desc: "Le plaisir partagé et la convivialité au quotidien." },
-            securite: { label: "Sécurité", icon: "shield-check", desc: "Stabilité d'emploi et sérénité face à l'avenir financier." },
-            liberte: { label: "Liberté", icon: "wind", desc: "L'indépendance dans la gestion de ses propres missions." },
-            utilite: { label: "Utilité", icon: "heart", desc: "La conviction que mon travail apporte une valeur réelle à la société." },
-            justice: { label: "Justice", icon: "scale", desc: "Équité de traitement et respect strict des engagements." },
-            creativite: { label: "Créativité", icon: "palette", desc: "Liberté d'innover et d'apporter des solutions originales." },
-            evolution: { label: "Évolution", icon: "trending-up", desc: "Perspectives de montée en grade et en responsabilités." },
-            reconnaissance: { label: "Reconnaissance", icon: "award", desc: "Valorisation claire de l'investissement et des résultats." },
-            equilibre: { label: "Équilibre", icon: "life-buoy", desc: "Préservation stricte du temps de vie personnelle." },
-            solidarite: { label: "Solidarité", icon: "users", desc: "Entraide mutuelle et soutien inconditionnel de l'équipe." },
-            challenge: { label: "Challenge", icon: "trophy", desc: "Objectifs ambitieux qui poussent à se surpasser." },
-            autonomie: { label: "Autonomie", icon: "zap", desc: "Capacité à décider et agir sans supervision constante." },
-            apprentissage: { label: "Apprentissage", icon: "graduation-cap", desc: "Développement continu des savoir-faire." },
-            argent: { label: "Argent", icon: "banknote", desc: "Rémunération permettant un confort de vie satisfaisant." }
-        };
-
-        const SCENARIOS = [
-            {
-                context: "C'est ton premier jour. Ton nouveau bureau est prêt.",
-                question: "Qu'est-ce qui te fait le plus plaisir ?",
-                choices: [
-                    { text: "L'équipe t'accueille avec un déjeuner de bienvenue", values: ['ambiance', 'solidarite'], icon: "users" },
-                    { text: "On te confie les clés d'un projet dès la première heure", values: ['autonomie', 'creativite'], icon: "key" },
-                    { text: "Ton contrat est déjà signé et ton bureau est stable", values: ['securite', 'justice'], icon: "file-check" }
-                ]
+        // Catégories d'objectifs avec exemples
+        const categories = [
+            { 
+                id: 'emploi', 
+                icon: '💼', 
+                nom: 'Emploi & Formation',
+                exemples: 'CV, entretien, stage, diplôme...',
+                description: 'Objectifs liés à votre parcours professionnel et vos études'
             },
-            {
-                context: "Il y a une erreur dans un projet important.",
-                question: "Comment souhaites-tu que ce soit géré ?",
-                choices: [
-                    { text: "On cherche une solution ensemble sans blâmer personne", values: ['solidarite', 'respect'], icon: "help-circle" },
-                    { text: "Le manager est juste : chacun assume sa part d'erreur", values: ['justice', 'respect'], icon: "scale" },
-                    { text: "C'est un challenge pour apprendre de nouvelles méthodes", values: ['apprentissage', 'challenge'], icon: "lightbulb" }
-                ]
+            { 
+                id: 'mobilite', 
+                icon: '✈️', 
+                nom: 'Mobilité',
+                exemples: 'Permis, échange, voyage...',
+                description: 'Objectifs de déplacement, voyage, mobilité internationale'
             },
-            {
-                context: "On te propose une promotion exceptionnelle.",
-                question: "Qu'est-ce qui t'attire le plus ?",
-                choices: [
-                    { text: "Le nouveau salaire qui va avec", values: ['argent', 'securite'], icon: "banknote" },
-                    { text: "Le titre et le prestige de la fonction", values: ['reconnaissance', 'evolution'], icon: "award" },
-                    { text: "Le pouvoir de changer les choses en toute liberté", values: ['liberte', 'autonomie'], icon: "wind" }
-                ]
+            { 
+                id: 'logement', 
+                icon: '🏠', 
+                nom: 'Logement & Autonomie',
+                exemples: 'Appart, déménagement, vie seul...',
+                description: 'Objectifs d\'indépendance, logement, vie quotidienne'
             },
-            {
-                context: "Ton entreprise change ses horaires de travail.",
-                question: "Quelle option te conviendrait le mieux ?",
-                choices: [
-                    { text: "Horaires libres, tu gères ton temps comme tu veux", values: ['liberte', 'equilibre'], icon: "clock" },
-                    { text: "Horaires fixes et stables pour s'organiser sereinement", values: ['securite', 'equilibre'], icon: "calendar" },
-                    { text: "Horaires flexibles pour aider les collègues si besoin", values: ['solidarite', 'ambiance'], icon: "shuffle" }
-                ]
+            { 
+                id: 'social', 
+                icon: '👥', 
+                nom: 'Vie sociale & Famille',
+                exemples: 'Amis, relations, famille...',
+                description: 'Objectifs relationnels et de vie sociale'
             },
-            {
-                context: "Une tâche urgente arrive un vendredi soir à 16h30.",
-                question: "Que fais-tu ?",
-                choices: [
-                    { text: "Tu pars : ton week-end est sacré", values: ['equilibre', 'liberte'], icon: "home" },
-                    { text: "Tu restes pour boucler ça et montrer ton sérieux", values: ['reconnaissance', 'challenge'], icon: "check-circle" },
-                    { text: "Tu restes si les autres restent : on est une équipe", values: ['solidarite', 'respect'], icon: "users" }
-                ]
+            { 
+                id: 'sante', 
+                icon: '💪', 
+                nom: 'Santé & Bien-être',
+                exemples: 'Sport, sommeil, alimentation...',
+                description: 'Objectifs de santé physique et mentale'
             },
-            {
-                context: "Tu as fini tes tâches habituelles en avance.",
-                question: "Comment occupes-tu ton temps ?",
-                choices: [
-                    { text: "Tu lances un projet créatif de ton côté", values: ['creativite', 'autonomie'], icon: "palette" },
-                    { text: "Tu vas aider un collègue qui est débordé", values: ['solidarite', 'ambiance'], icon: "heart" },
-                    { text: "Tu demandes une formation pour monter en compétence", values: ['apprentissage', 'evolution'], icon: "graduation-cap" }
-                ]
+            { 
+                id: 'financier', 
+                icon: '💰', 
+                nom: 'Finance & Budget',
+                exemples: 'Épargne, dettes, budget...',
+                description: 'Objectifs financiers et gestion d\'argent'
             },
-            {
-                context: "Une entreprise concurrente te propose un job.",
-                question: "Qu'est-ce qui te ferait rester chez toi ?",
-                choices: [
-                    { text: "La peur de perdre ta stabilité actuelle", values: ['securite', 'justice'], icon: "shield" },
-                    { text: "Le lien fort que tu as avec tes collègues", values: ['ambiance', 'solidarite'], icon: "smile" },
-                    { text: "Le sentiment d'être indispensable à la mission", values: ['utilite', 'reconnaissance'], icon: "star" }
-                ]
+            { 
+                id: 'perso', 
+                icon: '🎯', 
+                nom: 'Développement personnel',
+                exemples: 'Confiance, compétences, loisirs...',
+                description: 'Objectifs de croissance personnelle et passions'
             },
-            {
-                context: "Ton bureau est réorganisé.",
-                question: "Quelle configuration préfères-tu ?",
-                choices: [
-                    { text: "Un bureau individuel fermé pour être au calme", values: ['autonomie', 'liberte'], icon: "user" },
-                    { text: "Un open-space dynamique pour échanger", values: ['ambiance', 'solidarite'], icon: "messages-square" },
-                    { text: "Un espace partagé où l'on gère ses projets librement", values: ['creativite', 'liberte'], icon: "layout" }
-                ]
+            { 
+                id: 'admin', 
+                icon: '📋', 
+                nom: 'Démarches administratives',
+                exemples: 'Papiers, allocations, banque...',
+                description: 'Objectifs administratifs et démarches officielles'
             },
-            {
-                context: "Le bilan annuel arrive.",
-                question: "Quel retour de ton patron te ferait le plus plaisir ?",
-                choices: [
-                    { text: "\"On te confie plus de responsabilités l'an prochain\"", values: ['evolution', 'challenge'], icon: "trending-up" },
-                    { text: "\"Ta présence fait du bien à l'ambiance du groupe\"", values: ['ambiance', 'respect'], icon: "sun" },
-                    { text: "\"Ton travail a vraiment un impact sur nos clients\"", values: ['utilite', 'reconnaissance'], icon: "target" }
-                ]
+            { 
+                id: 'numerique', 
+                icon: '💻', 
+                nom: 'Numérique & Technologie',
+                exemples: 'Ordi, réseau, compétences digitales...',
+                description: 'Objectifs liés aux outils numériques'
             },
-            {
-                context: "Demain, c'est ta journée de rêve au travail.",
-                question: "À quoi ressemble-t-elle ?",
-                choices: [
-                    { text: "Une journée où tu as appris plein de trucs", values: ['apprentissage', 'creativite'], icon: "book-open" },
-                    { text: "Une journée productive et bien payée", values: ['argent', 'securite'], icon: "dollar-sign" },
-                    { text: "Une journée où tu as été utile et respecté", values: ['utilite', 'respect'], icon: "shield-check" }
-                ]
+            { 
+                id: 'engagement', 
+                icon: '🤝', 
+                nom: 'Engagement citoyen',
+                exemples: 'Bénévolat, association, écologie...',
+                description: 'Objectifs d\'engagement et participation citoyenne'
             }
         ];
 
-        let currentStep = 0;
-        let scores = {};
-        Object.keys(VALS).forEach(k => scores[k] = 0);
-        let selectedChoice = null;
+        // État de l'application
+        let state = {
+            selectedValues: [],
+            objectives: [
+                { 
+                    id: 1, 
+                    category: null,
+                    specific: '',  // S - Quoi précisément ?
+                    measurable: '', // M - Comment savoir que c'est fait ?
+                    achievable: '', // A - Avec quelles ressources ?
+                    relevant: '',   // R - Pourquoi c'est important ?
+                    timebound: '',  // T - Quand / dans combien de temps ?
+                    priority: null,
+                    action: ''
+                },
+                { 
+                    id: 2, 
+                    category: null,
+                    specific: '',
+                    measurable: '',
+                    achievable: '',
+                    relevant: '',
+                    timebound: '',
+                    priority: null,
+                    action: ''
+                },
+                { 
+                    id: 3, 
+                    category: null,
+                    specific: '',
+                    measurable: '',
+                    achievable: '',
+                    relevant: '',
+                    timebound: '',
+                    priority: null,
+                    action: ''
+                }
+            ],
+            currentStep: 1,
+            currentObjectiveForCategory: null
+        };
 
-        function renderQuiz() {
-            const scenario = SCENARIOS[currentStep];
-            const container = document.getElementById('quiz-container');
-            
-            // Progress
-            const progress = ((currentStep + 1) / SCENARIOS.length) * 100;
-            document.getElementById('progress-fill').style.width = `${progress}%`;
-            document.getElementById('step-label').innerText = `Étape ${currentStep + 1} / ${SCENARIOS.length}`;
-            document.getElementById('step-percent').innerText = `${Math.round(progress)}%`;
-            
-            container.innerHTML = `
-                <div class="animate-pop">
-                    <div class="mb-12">
-                        <p class="text-ls-turquoise font-900 uppercase tracking-widest text-xs mb-4">Situation #${currentStep + 1}</p>
-                        <h3 class="text-2xl lg:text-4xl text-ls-dark mb-6 leading-tight max-w-4xl">${scenario.context}</h3>
-                        <div class="h-2 w-32 bg-ls-yellow border-2 border-ls-dark"></div>
+        // Initialisation
+        function init() {
+            renderValuesGrid();
+            renderCategoriesGrid();
+            renderObjectivesSmartForm();
+        }
+
+        // Afficher la grille de catégories
+        function renderCategoriesGrid() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-card" data-id="${cat.id}" onclick="selectCategoryInfo('${cat.id}')">
+                    <span class="category-icon">${cat.icon}</span>
+                    <div class="category-name">${cat.nom}</div>
+                    <div class="category-examples">${cat.exemples}</div>
+                </div>
+            `).join('');
+        }
+
+        // Sélectionner une catégorie (juste pour info/inspiration)
+        function selectCategoryInfo(categoryId) {
+            // Cette fonction est juste pour afficher visuellement la sélection
+            // Elle n'affecte pas l'état, c'est juste pour inspiration
+            document.querySelectorAll('.category-card').forEach(card => {
+                if (card.dataset.id === categoryId) {
+                    card.classList.toggle('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+        }
+
+        // Afficher le formulaire SMART pour les objectifs
+        function renderObjectivesSmartForm() {
+            const container = document.getElementById('objectivesSmartContainer');
+            container.innerHTML = state.objectives.map((obj, index) => {
+                const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                
+                return `
+                <div class="smart-objective-card ${category ? 'has-category' : ''}">
+                    <div class="objective-card-header">
+                        <div class="objective-number-badge">${index + 1}</div>
+                        ${category ? `<div class="category-badge">${category.icon} ${category.nom}</div>` : ''}
                     </div>
 
-                    <p class="font-900 text-slate-300 uppercase text-[11px] tracking-[0.3em] mb-10">Quelle est ta réaction ?</p>
+                    <button class="category-select-btn ${obj.category ? 'selected' : ''}" 
+                            onclick="openCategorySelector(${obj.id})">
+                        ${obj.category ? `${categories.find(c => c.id === obj.category).icon} ${categories.find(c => c.id === obj.category).nom}` : '📂 Choisir une catégorie (optionnel)'}
+                    </button>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        ${scenario.choices.map((c, i) => `
-                            <div class="choice-card p-10 flex flex-col items-center text-center gap-8 ${selectedChoice === i ? 'selected' : ''}" onclick="selectOption(${i})">
-                                <i data-lucide="${c.icon}" class="w-14 h-14 ${selectedChoice === i ? 'text-white' : 'text-ls-dark'}"></i>
-                                <p class="text-base font-900 leading-tight uppercase">${c.text}</p>
-                            </div>
-                        `).join('')}
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">S</span>
+                            Spécifique - Quel est mon objectif précis ?
+                        </div>
+                        <div class="smart-help">Ex: "Obtenir mon permis B" plutôt que "avoir le permis"</div>
+                        <input type="text" 
+                               id="obj-specific-${obj.id}"
+                               placeholder="Mon objectif précis..."
+                               value="${obj.specific}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'specific', this.value)">
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">M</span>
+                            Mesurable - Comment savoir que c'est réussi ?
+                        </div>
+                        <div class="smart-help">Ex: "J'ai le permis en main" ou "J'ai passé l'examen"</div>
+                        <input type="text" 
+                               id="obj-measurable-${obj.id}"
+                               placeholder="Je saurai que c'est fait quand..."
+                               value="${obj.measurable}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'measurable', this.value)">
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">A</span>
+                            Atteignable - Quelles ressources j'ai / je dois avoir ?
+                        </div>
+                        <div class="smart-help">Ex: "Auto-école payée, 20h de conduite prévues"</div>
+                        <input type="text" 
+                               id="obj-achievable-${obj.id}"
+                               placeholder="Ce dont j'ai besoin / ce que j'ai déjà..."
+                               value="${obj.achievable}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'achievable', this.value)">
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">R</span>
+                            Réaliste - Pourquoi c'est important pour moi ?
+                        </div>
+                        <div class="smart-help">Ex: "Pour trouver un emploi et être autonome"</div>
+                        <textarea id="obj-relevant-${obj.id}"
+                                  placeholder="Ce que ça va m'apporter..."
+                                  onchange="updateObjectiveSmart(${obj.id}, 'relevant', this.value)">${obj.relevant}</textarea>
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">T</span>
+                            Temporel - Quand ? Dans combien de temps ?
+                        </div>
+                        <div class="smart-help">Ex: "D'ici 3 mois" ou "Avant fin juin 2026"</div>
+                        <input type="text" 
+                               id="obj-timebound-${obj.id}"
+                               placeholder="Ma deadline..."
+                               value="${obj.timebound}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'timebound', this.value)">
                     </div>
                 </div>
-            `;
+            `}).join('');
+
+            validateStep2a();
+        }
+
+        // Ouvrir le sélecteur de catégorie
+        function openCategorySelector(objectiveId) {
+            const obj = state.objectives.find(o => o.id === objectiveId);
             
-            lucide.createIcons();
-            document.getElementById('btn-next').disabled = selectedChoice === null;
-        }
+            const categoryOptions = categories.map(cat => 
+                `<option value="${cat.id}" ${obj.category === cat.id ? 'selected' : ''}>${cat.icon} ${cat.nom}</option>`
+            ).join('');
 
-        function selectOption(index) {
-            selectedChoice = index;
-            renderQuiz();
-        }
+            const selected = prompt(
+                `Choisissez une catégorie pour cet objectif:\n\n${categories.map((c, i) => `${i + 1}. ${c.icon} ${c.nom}`).join('\n')}\n\nEntrez le numéro (ou 0 pour aucune):`
+            );
 
-        function nextStep() {
-            const choice = SCENARIOS[currentStep].choices[selectedChoice];
-            choice.values.forEach(v => scores[v]++);
-
-            if (currentStep < SCENARIOS.length - 1) {
-                currentStep++;
-                selectedChoice = null;
-                renderQuiz();
-            } else {
-                showResults();
+            if (selected !== null) {
+                const index = parseInt(selected) - 1;
+                if (index >= 0 && index < categories.length) {
+                    obj.category = categories[index].id;
+                } else if (selected === '0') {
+                    obj.category = null;
+                }
+                renderObjectivesSmartForm();
             }
         }
 
-        function showResults() {
-            document.getElementById('game-view').classList.add('hidden');
-            document.getElementById('results-view').classList.remove('hidden');
+        // Mettre à jour un champ SMART
+        function updateObjectiveSmart(id, field, value) {
+            const obj = state.objectives.find(o => o.id === id);
+            if (obj) {
+                obj[field] = value;
+                validateStep2a();
+            }
+        }
 
-            const sorted = Object.entries(scores)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 3)
-                .map(([id]) => VALS[id]);
+        // Valider l'étape 2a
+        function validateStep2a() {
+            const allComplete = state.objectives.every(obj => 
+                obj.specific.trim() !== '' &&
+                obj.measurable.trim() !== '' &&
+                obj.timebound.trim() !== ''
+            );
+            
+            const btnStep2a = document.getElementById('btnStep2a');
+            if (btnStep2a) {
+                btnStep2a.disabled = !allComplete;
+            }
+        }
 
-            const container = document.getElementById('top3-results');
-            container.innerHTML = sorted.map((v, i) => `
-                <div class="flex items-start gap-8 group">
-                    <span class="text-5xl lg:text-7xl font-900 text-slate-100 leading-none">0${i+1}</span>
-                    <div class="pt-2">
-                        <h4 class="text-3xl font-900 uppercase text-ls-dark flex items-center gap-4 mb-2">
-                            <span class="w-10 h-10 bg-ls-red text-white flex items-center justify-center border-2 border-ls-dark shadow-[4px_4px_0px_var(--ls-dark)]">
-                                <i data-lucide="${v.icon}" class="w-5 h-5"></i>
-                            </span>
-                            ${v.label}
-                        </h4>
-                        <p class="text-sm text-slate-500 font-bold uppercase tracking-tight max-w-md">${v.desc}</p>
+        // Afficher les objectifs pour priorisation
+        function renderObjectivesPriority() {
+            const container = document.getElementById('objectivesPriorityContainer');
+            container.innerHTML = state.objectives.map((obj, index) => {
+                const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                
+                return `
+                <div class="priority-objective-card">
+                    <div class="priority-objective-summary">
+                        <div class="priority-objective-title">
+                            ${category ? `${category.icon}` : '🎯'} ${obj.specific}
+                        </div>
+                        <div class="priority-objective-details">
+                            <strong>Pourquoi :</strong> ${obj.relevant || 'Non précisé'}<br>
+                            <strong>Deadline :</strong> ${obj.timebound}
+                        </div>
+                        <div class="smart-recap">
+                            <div class="smart-recap-item">
+                                <span class="smart-recap-label">📏 Mesure</span>
+                                ${obj.measurable}
+                            </div>
+                            ${obj.achievable ? `
+                            <div class="smart-recap-item">
+                                <span class="smart-recap-label">🔧 Ressources</span>
+                                ${obj.achievable}
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="priority-selector">
+                        <button class="priority-btn priority-a ${obj.priority === 'A' ? 'selected' : ''}"
+                                onclick="updateObjectivePriority(${obj.id}, 'A')">
+                            <strong>A</strong> - Grave si pas fait
+                        </button>
+                        <button class="priority-btn priority-b ${obj.priority === 'B' ? 'selected' : ''}"
+                                onclick="updateObjectivePriority(${obj.id}, 'B')">
+                            <strong>B</strong> - Important
+                        </button>
+                        <button class="priority-btn priority-c ${obj.priority === 'C' ? 'selected' : ''}"
+                                onclick="updateObjectivePriority(${obj.id}, 'C')">
+                            <strong>C</strong> - Agréable
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        // Mettre à jour la priorité
+        function updateObjectivePriority(id, priority) {
+            const obj = state.objectives.find(o => o.id === id);
+            if (obj) {
+                obj.priority = priority;
+                renderObjectivesPriority();
+                validateStep2b();
+            }
+        }
+
+        // Valider l'étape 2b
+        function validateStep2b() {
+            const hasAllPriorities = state.objectives.every(obj => obj.priority !== null);
+            const btnStep2b = document.getElementById('btnStep2b');
+            if (btnStep2b) {
+                btnStep2b.disabled = !hasAllPriorities;
+            }
+        }
+
+        // Données des valeurs (issues de FJET)
+        const valeurs = [
+            { id: 1, icon: "🎭", nom: "Être authentique", description: "Se montrer « vrai », être soi-même" },
+            { id: 2, icon: "📜", nom: "Respecter les règles", description: "Suivre les normes et cadres établis" },
+            { id: 3, icon: "🌈", nom: "Être ouvert d'esprit", description: "Ne pas juger, accepter la différence" },
+            { id: 4, icon: "🤝", nom: "Être loyal", description: "Digne de confiance, fidèle" },
+            { id: 5, icon: "🌍", nom: "Contribuer à la société", description: "Participer au bien commun" },
+            { id: 6, icon: "🔍", nom: "Être curieux", description: "Ouvert à la découverte, à l'apprentissage" },
+            { id: 7, icon: "👥", nom: "Coopérer", description: "Collaborer, travailler ensemble" },
+            { id: 8, icon: "🦁", nom: "Être courageux", description: "Oser affronter les défis" },
+            { id: 9, icon: "💎", nom: "Être honnête", description: "Dire la vérité, être transparent" },
+            { id: 10, icon: "✨", nom: "Apprécier la beauté", description: "Valoriser l'esthétique, l'harmonie" },
+            { id: 11, icon: "🎉", nom: "Avoir du plaisir", description: "Profiter, s'amuser" },
+            { id: 12, icon: "🎯", nom: "S'appliquer", description: "Faire les choses avec soin" },
+            { id: 13, icon: "📋", nom: "Être ordonné", description: "Bien organiser, structurer" },
+            { id: 14, icon: "🤲", nom: "Entraider", description: "Soutenir, aider les autres" },
+            { id: 15, icon: "📢", nom: "Influencer", description: "Inspirer, convaincre les autres" },
+            { id: 16, icon: "💕", nom: "Se sentir proche", description: "Connecté, lié aux autres" },
+            { id: 17, icon: "⚖️", nom: "Chercher l'équité", description: "Viser la justice, l'égalité" },
+            { id: 18, icon: "🕊️", nom: "Être libre", description: "Indépendant, autonome" },
+            { id: 19, icon: "🙏", nom: "Savoir pardonner", description: "À soi-même et aux autres" },
+            { id: 20, icon: "🎨", nom: "Cultiver la créativité", description: "Imaginer, innover" },
+            { id: 21, icon: "🌟", nom: "Se respecter", description: "Respecter soi et les autres" },
+            { id: 22, icon: "🎁", nom: "Être généreux", description: "Donner, partager" },
+            { id: 23, icon: "💪", nom: "Persévérer", description: "Continuer malgré les difficultés" },
+            { id: 24, icon: "🏔️", nom: "Goût du risque", description: "Aventure, défi, audace" }
+        ];
+
+        // Initialisation
+        function init() {
+            renderValuesGrid();
+            renderCategoriesGrid();
+            renderObjectivesSmartForm();
+        }
+
+        // Afficher la grille de valeurs
+        function renderValuesGrid() {
+            const grid = document.getElementById('valuesGrid');
+            grid.innerHTML = valeurs.map(v => `
+                <div class="value-card" data-id="${v.id}" onclick="toggleValue(${v.id})">
+                    <div class="checkbox-custom"></div>
+                    <div class="value-content">
+                        <div class="value-icon">${v.icon}</div>
+                        <div class="value-name">${v.nom}</div>
+                        <div class="value-description">${v.description}</div>
                     </div>
                 </div>
             `).join('');
-
-            document.getElementById('pitch-text').innerHTML = `
-                "Mon profil professionnel est guidé par des valeurs de <b>${sorted[0].label.toLowerCase()}</b> et de <b>${sorted[1].label.toLowerCase()}</b>. Pour m'épanouir, j'ai besoin d'un environnement qui respecte ces leviers de motivation."
-            `;
-            
-            lucide.createIcons();
-            window.scrollTo(0, 0);
         }
 
-        window.onload = renderQuiz;
+        // Sélectionner/désélectionner une valeur
+        function toggleValue(id) {
+            const index = state.selectedValues.indexOf(id);
+            
+            if (index === -1) {
+                if (state.selectedValues.length < 7) {
+                    state.selectedValues.push(id);
+                } else {
+                    showValidation("Vous avez déjà sélectionné 7 valeurs. Désélectionnez-en une pour en ajouter une autre.");
+                    return;
+                }
+            } else {
+                state.selectedValues.splice(index, 1);
+            }
+
+            updateValuesDisplay();
+        }
+
+        // Mettre à jour l'affichage des valeurs
+        function updateValuesDisplay() {
+            // Mise à jour des cartes
+            document.querySelectorAll('.value-card').forEach(card => {
+                const id = parseInt(card.dataset.id);
+                if (state.selectedValues.includes(id)) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+
+            // Mise à jour du résumé
+            const count = state.selectedValues.length;
+            const summary = document.getElementById('selectionSummary');
+            const countEl = document.getElementById('selectedCount');
+            const listEl = document.getElementById('selectedValuesList');
+            const btnStep1 = document.getElementById('btnStep1');
+
+            countEl.textContent = count;
+
+            if (count > 0) {
+                summary.style.display = 'block';
+                listEl.innerHTML = state.selectedValues
+                    .map(id => {
+                        const v = valeurs.find(val => val.id === id);
+                        return `<div class="selected-value-tag">${v.icon} ${v.nom}</div>`;
+                    })
+                    .join('');
+                
+                if (count >= 5) {
+                    btnStep1.disabled = false;
+                    hideValidation();
+                } else {
+                    btnStep1.disabled = true;
+                    showValidation(`Sélectionnez au moins 5 valeurs (${count}/5)`);
+                }
+            } else {
+                summary.style.display = 'none';
+                btnStep1.disabled = true;
+            }
+        }
+
+        // Afficher/masquer message de validation
+        function showValidation(message) {
+            const msg = document.getElementById('validationMsg');
+            msg.textContent = message;
+            msg.style.display = 'block';
+        }
+
+        function hideValidation() {
+            document.getElementById('validationMsg').style.display = 'none';
+        }
+
+
+        // Navigation entre étapes
+        function goToStep1() {
+            showStep(1);
+        }
+
+        function goToStep2a() {
+            if (state.selectedValues.length < 5) {
+                showValidation("Sélectionnez au moins 5 valeurs avant de continuer.");
+                return;
+            }
+            renderObjectivesSmartForm();
+            showStep('2a');
+        }
+
+        function goToStep2b() {
+            const allComplete = state.objectives.every(obj => 
+                obj.specific.trim() !== '' &&
+                obj.measurable.trim() !== '' &&
+                obj.timebound.trim() !== ''
+            );
+            
+            if (!allComplete) {
+                alert("Complétez au minimum les champs S (spécifique), M (mesurable) et T (temporel) pour chaque objectif.");
+                return;
+            }
+            
+            renderObjectivesPriority();
+            showStep('2b');
+        }
+
+        function goToStep3() {
+            const hasAllPriorities = state.objectives.every(obj => obj.priority !== null);
+            
+            if (!hasAllPriorities) {
+                alert("Classez tous vos objectifs selon la méthode ABC avant de continuer.");
+                return;
+            }
+            
+            renderActionPlan();
+            showStep(3);
+        }
+
+        function goToStep4() {
+            const hasAction = state.objectives.some(obj => obj.priority === 'A' && obj.action.trim() !== '');
+            if (!hasAction) {
+                alert("Définissez au moins une micro-action pour une tâche priorité A.");
+                return;
+            }
+            
+            renderSynthesis();
+            showStep(4);
+        }
+
+        function showStep(stepNumber) {
+            const steps = [1, '2a', '2b', 3, 4];
+            steps.forEach(s => {
+                const step = document.getElementById(`step${s}`);
+                if (step) {
+                    if (s === stepNumber) {
+                        step.classList.remove('hidden');
+                        step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        step.classList.add('hidden');
+                    }
+                }
+            });
+            state.currentStep = stepNumber;
+        }
+
+        // Afficher le plan d'action
+        function renderActionPlan() {
+            const container = document.getElementById('actionPlanContainer');
+            const priorityA = state.objectives.filter(obj => obj.priority === 'A');
+
+            if (priorityA.length === 0) {
+                container.innerHTML = `
+                    <div class="info-callout">
+                        <h3>ℹ️ Aucune tâche priorité A</h3>
+                        <p>Vous n'avez pas de tâche classée en priorité A. Retournez à l'étape précédente pour ajuster vos priorités.</p>
+                    </div>
+                `;
+                document.getElementById('btnStep3').disabled = true;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="info-callout">
+                    <h3>🎯 Choisissez votre objectif prioritaire</h3>
+                    <p>Sélectionnez une tâche priorité A qui correspond à vos valeurs, puis définissez une action concrète pour cette semaine.</p>
+                </div>
+
+                ${priorityA.map(obj => {
+                    const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                    return `
+                    <div class="objective-item">
+                        <div class="objective-header">
+                            <div class="priority-badge a">A</div>
+                            <div style="flex: 1;">
+                                <strong>${category ? `${category.icon} ` : ''}${obj.specific}</strong>
+                                <p style="color: #666; font-size: 0.9rem; margin-top: 0.3rem;">
+                                    <strong>Pourquoi :</strong> ${obj.relevant}<br>
+                                    <strong>Deadline :</strong> ${obj.timebound}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="action-input">
+                            <div class="objective-label">🚀 Ma micro-action cette semaine</div>
+                            <input type="text" 
+                                   id="action-${obj.id}"
+                                   placeholder="Ex: Faire une version de mon CV mardi, checker avec mon conseiller ML"
+                                   value="${obj.action}"
+                                   onchange="updateObjective(${obj.id}, 'action', this.value); validateStep3();">
+                        </div>
+                    </div>
+                `}).join('')}
+            `;
+
+            validateStep3();
+        }
+
+        // Mise à jour objectif (compatibilité)
+        function updateObjective(id, field, value) {
+            const obj = state.objectives.find(o => o.id === id);
+            if (obj) {
+                obj[field] = value;
+            }
+        }
+
+        // Valider l'étape 3
+        function validateStep3() {
+            const hasAction = state.objectives.some(obj => obj.priority === 'A' && obj.action.trim() !== '');
+            const btn = document.getElementById('btnStep3');
+            if (btn) btn.disabled = !hasAction;
+        }
+
+        // Générer la synthèse
+        function renderSynthesis() {
+            const container = document.getElementById('synthesisContent');
+            const selectedValeurs = state.selectedValues.map(id => valeurs.find(v => v.id === id));
+            const priorityAWithAction = state.objectives.filter(obj => obj.priority === 'A' && obj.action.trim() !== '');
+
+            container.innerHTML = `
+                <div class="synthesis-section">
+                    <h3>🌟 Mes valeurs prioritaires</h3>
+                    ${selectedValeurs.map(v => `
+                        <div class="value-explanation">
+                            <h4>${v.icon} ${v.nom}</h4>
+                            <p><strong>Ce que ça signifie :</strong> ${v.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="synthesis-section">
+                    <h3>📊 Mes objectifs SMART classés (ABC)</h3>
+                    ${state.objectives.sort((a, b) => {
+                        const order = { 'A': 1, 'B': 2, 'C': 3 };
+                        return order[a.priority] - order[b.priority];
+                    }).map(obj => {
+                        const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                        return `
+                        <div class="objective-card">
+                            <div class="objective-card-header">
+                                <div class="objective-priority-badge" style="background: ${
+                                    obj.priority === 'A' ? 'var(--rouge)' : 
+                                    obj.priority === 'B' ? 'var(--orange)' : 
+                                    'var(--jaune)'
+                                }; ${obj.priority === 'C' ? 'color: var(--gris-fonce)' : ''}">
+                                    ${obj.priority}
+                                </div>
+                                <div class="objective-title">
+                                    ${category ? `${category.icon} ` : ''}${obj.specific}
+                                </div>
+                            </div>
+                            <div class="objective-details">
+                                <strong>📏 Mesure de réussite :</strong> ${obj.measurable}<br>
+                                ${obj.achievable ? `<strong>🔧 Ressources :</strong> ${obj.achievable}<br>` : ''}
+                                <strong>💡 Pourquoi c'est important :</strong> ${obj.relevant}<br>
+                                <strong>⏰ Deadline :</strong> ${obj.timebound}
+                            </div>
+                            ${obj.action ? `
+                                <div class="action-highlight">
+                                    <strong>💪 Mon action cette semaine :</strong> ${obj.action}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `}).join('')}
+                </div>
+
+                <div class="synthesis-section">
+                    <h3>🎯 Mon engagement cette semaine</h3>
+                    ${priorityAWithAction.map(obj => {
+                        const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                        return `
+                        <div class="info-callout">
+                            <h3>${category ? `${category.icon} ` : ''}${obj.specific}</h3>
+                            <p><strong>🚀 Action concrète :</strong> ${obj.action}</p>
+                            <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.5rem;">
+                                <strong>Date limite :</strong> ${obj.timebound}
+                            </p>
+                        </div>
+                    `}).join('')}
+                </div>
+            `;
+        }
+
+        // Télécharger la synthèse en PDF
+        function downloadSynthesis() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Configuration
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 20;
+            const lineHeight = 7;
+            let yPos = margin;
+
+            // Couleurs LS4YOU
+            const turquoise = [93, 217, 193];
+            const rouge = [232, 72, 85];
+            const jaune = [255, 210, 63];
+
+            // En-tête avec logo symbolique
+            doc.setFillColor(...turquoise);
+            doc.rect(0, 0, pageWidth, 30, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('MA SYNTHÈSE PERSONNELLE', pageWidth / 2, 15, { align: 'center' });
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text('Valeurs en Priorité ABC - LS4YOU', pageWidth / 2, 22, { align: 'center' });
+
+            yPos = 40;
+
+            // Section 1: Mes valeurs
+            doc.setTextColor(93, 217, 193);
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('MES VALEURS PRIORITAIRES', margin, yPos);
+            yPos += 10;
+
+            const selectedValeurs = state.selectedValues.map(id => valeurs.find(v => v.id === id));
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            
+            selectedValeurs.forEach((v, index) => {
+                if (yPos > pageHeight - 40) {
+                    doc.addPage();
+                    yPos = margin;
+                }
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`${index + 1}. ${v.nom}`, margin + 5, yPos);
+                yPos += lineHeight;
+
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                const description = doc.splitTextToSize(`   ${v.description}`, pageWidth - 2 * margin - 10);
+                doc.text(description, margin + 5, yPos);
+                yPos += description.length * 5 + 3;
+                doc.setFontSize(10);
+            });
+
+            yPos += 5;
+
+            // Section 2: Mes objectifs SMART + ABC
+            if (yPos > pageHeight - 60) {
+                doc.addPage();
+                yPos = margin;
+            }
+
+            doc.setTextColor(232, 72, 85);
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text('MES OBJECTIFS SMART CLASSÉS (ABC)', margin, yPos);
+            yPos += 10;
+
+            const sortedObjectives = [...state.objectives].sort((a, b) => {
+                const order = { 'A': 1, 'B': 2, 'C': 3 };
+                return order[a.priority] - order[b.priority];
+            });
+
+            sortedObjectives.forEach(obj => {
+                if (yPos > pageHeight - 80) {
+                    doc.addPage();
+                    yPos = margin;
+                }
+
+                // Badge priorité
+                const priorityColors = {
+                    'A': rouge,
+                    'B': [255, 184, 77],
+                    'C': jaune
+                };
+                
+                doc.setFillColor(...priorityColors[obj.priority]);
+                doc.roundedRect(margin + 2, yPos - 4, 10, 8, 2, 2, 'F');
+                
+                doc.setTextColor(255, 255, 255);
+                if (obj.priority === 'C') doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.text(obj.priority, margin + 7, yPos + 1, { align: 'center' });
+
+                // Catégorie si présente
+                const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+
+                // Texte objectif (SMART - Spécifique)
+                doc.setTextColor(0, 0, 0);
+                doc.setFont(undefined, 'bold');
+                doc.text(`${category ? category.nom + ' - ' : ''}${obj.specific}`, margin + 15, yPos);
+                yPos += lineHeight;
+
+                // Détails SMART
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(8);
+
+                // Mesurable
+                if (obj.measurable) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Mesure:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    const measText = doc.splitTextToSize(obj.measurable, pageWidth - 2 * margin - 35);
+                    doc.text(measText, margin + 33, yPos);
+                    yPos += measText.length * 4 + 2;
+                }
+
+                // Atteignable (ressources)
+                if (obj.achievable) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Ressources:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    const achText = doc.splitTextToSize(obj.achievable, pageWidth - 2 * margin - 35);
+                    doc.text(achText, margin + 40, yPos);
+                    yPos += achText.length * 4 + 2;
+                }
+
+                // Réaliste (pourquoi)
+                if (obj.relevant) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Pourquoi:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    const relText = doc.splitTextToSize(obj.relevant, pageWidth - 2 * margin - 35);
+                    doc.text(relText, margin + 35, yPos);
+                    yPos += relText.length * 4 + 2;
+                }
+
+                // Temporel
+                if (obj.timebound) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Deadline:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(obj.timebound, margin + 35, yPos);
+                    yPos += 5;
+                }
+
+                doc.setFontSize(10);
+
+                // Action si présente
+                if (obj.action) {
+                    doc.setFillColor(248, 249, 250);
+                    doc.rect(margin + 15, yPos - 2, pageWidth - 2 * margin - 15, 12, 'F');
+                    
+                    doc.setFont(undefined, 'bold');
+                    doc.setFontSize(9);
+                    doc.setTextColor(232, 72, 85);
+                    doc.text('Action cette semaine:', margin + 18, yPos + 3);
+                    
+                    doc.setFont(undefined, 'normal');
+                    doc.setTextColor(0, 0, 0);
+                    const actionText = doc.splitTextToSize(obj.action, pageWidth - 2 * margin - 60);
+                    doc.text(actionText, margin + 55, yPos + 3);
+                    yPos += 15;
+                }
+
+                yPos += 4;
+                doc.setFontSize(10);
+            });
+
+            // Footer
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Mission Locale Pays Basque - Projet Erasmus+ LS4YOU', pageWidth / 2, pageHeight - 10, { align: 'center' });
+            doc.text(`Généré le ${new Date().toLocaleDateString('fr-FR')}`, pageWidth / 2, pageHeight - 5, { align: 'center' });
+
+            // Téléchargement
+            doc.save('Ma-Synthese-Valeurs-ABC-SMART.pdf');
+        }
+
+        // Initialisation au chargement
+        window.onload = init;
     </script>
 </body>
 </html>
