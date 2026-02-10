@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes valeurs & Mes objectifs - LS4YOU</title>
+    <title>Valeurs en Priorité ABC - LS4YOU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,1314 +13,2180 @@
         }
 
         :root {
-            --primary-blue: #0066CC;
-            --light-blue: #E8F4FF;
-            --dark-text: #1a1a1a;
-            --gray-text: #666;
-            --light-gray: #f5f5f5;
-            --border-gray: #ddd;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
+            --turquoise: #5DD9C1;
+            --jaune: #FFD23F;
+            --rose: #FF8FA3;
+            --orange: #FFB84D;
+            --rouge: #E84855;
+            --bleu: #4A90E2;
+            --gris-clair: #F8F9FA;
+            --gris-fonce: #2C3E50;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--light-blue) 0%, #ffffff 100%);
-            color: var(--dark-text);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--gris-fonce);
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .header {
-            background: white;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .header-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .header-logos img {
-            max-height: 60px;
-            width: auto;
-        }
-
-        .header h1 {
-            color: var(--primary-blue);
-            font-size: 2.2em;
-            margin-bottom: 5px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .step {
-            display: none;
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.1);
-            margin-bottom: 30px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .step.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .step-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid var(--light-blue);
-        }
-
-        .step-number {
-            background: var(--primary-blue);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .step-title h2 {
-            color: var(--primary-blue);
-            font-size: 1.8em;
-            margin-bottom: 5px;
-        }
-
-        .consigne {
-            background: var(--light-blue);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--primary-blue);
-        }
-
-        .consigne strong {
-            color: var(--primary-blue);
-        }
-
-        .info-box {
-            background: #fff9e6;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--warning);
-        }
-
-        .info-box h3 {
-            color: var(--warning);
-            margin-bottom: 10px;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .value-card {
-            background: var(--light-gray);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            position: relative;
-        }
-
-        .value-card:hover {
-            border-color: var(--primary-blue);
-            background: white;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
-        }
-
-        .value-card.selected {
-            background: var(--light-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .value-card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-blue);
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .selected-values {
-            background: var(--light-blue);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-
-        .selected-values h3 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .value-tag {
-            display: inline-block;
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            border: 1px solid var(--primary-blue);
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 15px;
-        }
-
-        button {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.05em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0052a3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
-        }
-
-        .btn-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: var(--light-gray);
-            color: var(--dark-text);
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .category-card {
-            background: var(--light-gray);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .category-card:hover {
-            border-color: var(--primary-blue);
-            background: white;
-            transform: translateY(-3px);
-        }
-
-        .category-card.selected {
-            background: var(--light-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .category-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .category-title {
-            font-weight: 600;
-            color: var(--dark-text);
-            margin-bottom: 5px;
-        }
-
-        .category-description {
-            font-size: 0.9em;
-            color: var(--gray-text);<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes valeurs & Mes objectifs - LS4YOU</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-blue: #0066CC;
-            --light-blue: #E8F4FF;
-            --dark-text: #1a1a1a;
-            --gray-text: #666;
-            --light-gray: #f5f5f5;
-            --border-gray: #ddd;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--light-blue) 0%, #ffffff 100%);
-            color: var(--dark-text);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: white;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .header-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .header-logos img {
-            max-height: 60px;
-            width: auto;
-        }
-
-        .header h1 {
-            color: var(--primary-blue);
-            font-size: 2.2em;
-            margin-bottom: 5px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .step {
-            display: none;
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.1);
-            margin-bottom: 30px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .step.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .step-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid var(--light-blue);
-        }
-
-        .step-number {
-            background: var(--primary-blue);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .step-title h2 {
-            color: var(--primary-blue);
-            font-size: 1.8em;
-            margin-bottom: 5px;
-        }
-
-        .consigne {
-            background: var(--light-blue);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--primary-blue);
-        }
-
-        .consigne strong {
-            color: var(--primary-blue);
-        }
-
-        .info-box {
-            background: #fff9e6;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border-left: 5px solid var(--warning);
-        }
-
-        .info-box h3 {
-            color: var(--warning);
-            margin-bottom: 10px;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .value-card {
-            background: var(--light-gray);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            position: relative;
-        }
-
-        .value-card:hover {
-            border-color: var(--primary-blue);
-            background: white;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
-        }
-
-        .value-card.selected {
-            background: var(--light-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .value-card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-blue);
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .selected-values {
-            background: var(--light-blue);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-
-        .selected-values h3 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .value-tag {
-            display: inline-block;
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin: 5px;
-            border: 1px solid var(--primary-blue);
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 15px;
-        }
-
-        button {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.05em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0052a3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
-        }
-
-        .btn-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: var(--light-gray);
-            color: var(--dark-text);
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .category-card {
-            background: var(--light-gray);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .category-card:hover {
-            border-color: var(--primary-blue);
-            background: white;
-            transform: translateY(-3px);
-        }
-
-        .category-card.selected {
-            background: var(--light-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .category-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .category-title {
-            font-weight: 600;
-            color: var(--dark-text);
-            margin-bottom: 5px;
-        }
-
-        .category-description {
-            font-size: 0.9em;
-            color: var(--gray-text);
-        }
-
-        .objective-input {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            border: 2px solid var(--border-gray);
-            margin-bottom: 25px;
-        }
-
-        .objective-input h4 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-gray);
-            border-radius: 6px;
-            font-size: 1em;
-            font-family: inherit;
-            margin-top: 8px;
-        }
-
-        textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        input[type="text"]:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-        }
-
-        .smart-fields {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .smart-field label {
-            display: block;
-            font-weight: 600;
-            color: var(--gray-text);
-            margin-bottom: 5px;
-            font-size: 0.9em;
-        }
-
-        .priority-selector {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .priority-option {
-            flex: 1;
-            min-width: 200px;
-            background: var(--light-gray);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .priority-option:hover {
-            border-color: var(--primary-blue);
-            background: white;
-        }
-
-        .priority-option.selected {
-            background: var(--light-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .priority-label {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .priority-a { color: var(--danger); }
-        .priority-b { color: var(--warning); }
-        .priority-c { color: var(--success); }
-
-        .synthesis-section {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary-blue);
-            margin-bottom: 25px;
-        }
-
-        .synthesis-section h3 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .synthesis-item {
-            background: var(--light-gray);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .modal {
-            display: none;
+        .background-decoration {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(45deg, var(--turquoise) 0px, transparent 2px, transparent 10px),
+                repeating-linear-gradient(-45deg, var(--rose) 0px, transparent 2px, transparent 10px);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo-section {
+            display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .logos-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
             justify-content: center;
         }
 
-        .modal.active {
-            display: flex;
+        .project-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
 
-        .modal-content {
+        .project-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .ml-logo {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .puzzle-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--turquoise) 0%, var(--rouge) 50%, var(--jaune) 100%);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .puzzle-icon::before,
+        .puzzle-icon::after {
+            content: '';
+            position: absolute;
+            background: rgba(255,255,255,0.3);
+            border-radius: 8px;
+        }
+
+        .puzzle-icon::before {
+            width: 30px;
+            height: 30px;
+            top: 10px;
+            left: 10px;
+        }
+
+        .puzzle-icon::after {
+            width: 25px;
+            height: 25px;
+            bottom: 12px;
+            right: 12px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--turquoise), var(--rouge), var(--jaune));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .exercice-tag {
+            display: inline-block;
+            background: var(--turquoise);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(93, 217, 193, 0.3);
+        }
+
+        .step-container {
             background: white;
-            padding: 30px;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
         }
 
-        .modal-header {
+        .step-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--turquoise), var(--jaune), var(--rose));
+        }
+
+        .step-container.hidden {
+            display: none;
+        }
+
+        .step-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .modal-header h3 {
-            color: var(--primary-blue);
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--turquoise);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(93, 217, 193, 0.3);
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5em;
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gris-fonce);
+        }
+
+        .step-description {
+            background: var(--gris-clair);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--jaune);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid transparent;
             cursor: pointer;
-            padding: 0;
-            color: var(--gray-text);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: var(--gray-text);
-            font-size: 0.9em;
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--turquoise), var(--jaune));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
         }
+
+        .value-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .value-card.selected {
+            border-color: var(--turquoise);
+            box-shadow: 0 8px 25px rgba(93, 217, 193, 0.3);
+        }
+
+        .value-card.selected::before {
+            opacity: 0.05;
+        }
+
+        .value-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--gris-fonce);
+        }
+
+        .value-description {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .checkbox-custom {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 28px;
+            height: 28px;
+            border: 3px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .value-card.selected .checkbox-custom {
+            background: var(--turquoise);
+            border-color: var(--turquoise);
+        }
+
+        .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .value-card.selected .checkbox-custom::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .selected-values-summary {
+            background: linear-gradient(135deg, var(--turquoise), var(--bleu));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(93, 217, 193, 0.3);
+        }
+
+        .selected-values-summary h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .selected-values-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .selected-value-tag {
+            background: rgba(255,255,255,0.25);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .categories-section {
+            background: var(--gris-clair);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border-color: var(--turquoise);
+        }
+
+        .category-card.selected {
+            border-color: var(--turquoise);
+            background: linear-gradient(135deg, rgba(93, 217, 193, 0.05), rgba(93, 217, 193, 0.1));
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .category-examples {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .objectives-smart-input {
+            margin-bottom: 1.5rem;
+        }
+
+        .smart-objective-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 3px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .smart-objective-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .smart-objective-card.has-category {
+            border-left: 6px solid var(--turquoise);
+        }
+
+        .objective-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .objective-number-badge {
+            background: linear-gradient(135deg, var(--turquoise), var(--bleu));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(93, 217, 193, 0.3);
+        }
+
+        .category-badge {
+            background: rgba(93, 217, 193, 0.1);
+            color: var(--turquoise);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 2px solid var(--turquoise);
+        }
+
+        .smart-section {
+            margin-bottom: 1.2rem;
+        }
+
+        .smart-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--gris-fonce);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .smart-letter {
+            background: linear-gradient(135deg, var(--jaune), var(--orange));
+            color: var(--gris-fonce);
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(255, 210, 63, 0.3);
+        }
+
+        .smart-help {
+            font-size: 0.8rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-select-btn {
+            background: white;
+            border: 2px dashed var(--turquoise);
+            color: var(--turquoise);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .category-select-btn:hover {
+            background: var(--turquoise);
+            color: white;
+        }
+
+        .category-select-btn.selected {
+            background: var(--turquoise);
+            color: white;
+            border-style: solid;
+        }
+
+        .objectives-priority-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .priority-objective-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 15px;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .priority-objective-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .priority-objective-summary {
+            background: var(--gris-clair);
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .priority-objective-title {
+            font-weight: 700;
+            color: var(--gris-fonce);
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .priority-objective-details {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .smart-recap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .smart-recap-item {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border-left: 3px solid var(--jaune);
+        }
+
+        .smart-recap-label {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .objectives-input {
+            margin-bottom: 1.5rem;
+        }
+
+        .objective-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .objective-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .objective-header {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .objective-label {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--turquoise);
+            box-shadow: 0 0 0 3px rgba(93, 217, 193, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .priority-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .priority-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .priority-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .priority-btn.selected {
+            border-width: 3px;
+        }
+
+        .priority-btn.priority-a {
+            border-color: var(--rouge);
+            color: var(--rouge);
+        }
+
+        .priority-btn.priority-a.selected {
+            background: var(--rouge);
+            color: white;
+        }
+
+        .priority-btn.priority-b {
+            border-color: var(--orange);
+            color: var(--orange);
+        }
+
+        .priority-btn.priority-b.selected {
+            background: var(--orange);
+            color: white;
+        }
+
+        .priority-btn.priority-c {
+            border-color: var(--jaune);
+            color: #d4a017;
+        }
+
+        .priority-btn.priority-c.selected {
+            background: var(--jaune);
+            color: var(--gris-fonce);
+        }
+
+        .priority-legend {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .priority-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .priority-legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .priority-badge {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .priority-badge.a { background: var(--rouge); }
+        .priority-badge.b { background: var(--orange); }
+        .priority-badge.c { background: var(--jaune); color: var(--gris-fonce); }
+
+        .action-input {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed #e9ecef;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--turquoise), var(--bleu));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gris-fonce);
+            border: 2px solid #e9ecef;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--rose), var(--rouge));
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .validation-message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        .synthesis-preview {
+            background: linear-gradient(135deg, #ffffff 0%, var(--gris-clair) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 3px solid var(--turquoise);
+        }
+
+        .synthesis-section {
+            margin-bottom: 2rem;
+        }
+
+        .synthesis-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .synthesis-section h3 {
+            color: var(--turquoise);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .value-explanation {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid var(--turquoise);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .value-explanation h4 {
+            color: var(--gris-fonce);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .value-explanation p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .objective-card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .objective-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .objective-priority-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .objective-title {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            flex: 1;
+        }
+
+        .objective-details {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .action-highlight {
+            background: var(--gris-clair);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 0.8rem;
+            border-left: 4px solid var(--jaune);
+        }
+
+        .action-highlight strong {
+            color: var(--rouge);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .step-container:nth-child(1) { animation-delay: 0s; }
+        .step-container:nth-child(2) { animation-delay: 0.1s; }
+        .step-container:nth-child(3) { animation-delay: 0.2s; }
+        .step-container:nth-child(4) { animation-delay: 0.3s; }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.6em;
+            h1 {
+                font-size: 2rem;
             }
 
-            .step {
-                padding: 25px;
+            .subtitle {
+                font-size: 1rem;
             }
 
             .values-grid {
                 grid-template-columns: 1fr;
             }
 
-            .navigation-buttons {
+            .btn-container {
                 flex-direction: column;
             }
 
-            button {
-                width: 100%;
+            .step-container {
+                padding: 1.5rem;
             }
 
-            .header-logos {
-                flex-direction: column;
-                gap: 15px;
+            .puzzle-icon {
+                width: 60px;
+                height: 60px;
             }
+        }
+
+        .info-callout {
+            background: linear-gradient(135deg, var(--bleu), var(--turquoise));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+        }
+
+        .info-callout h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .info-callout p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .ml-branding {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        /* Modal de sélection de catégorie */
+        .category-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-modal.active {
+            display: flex;
+        }
+
+        .category-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .category-modal-header h3 {
+            color: var(--gris-fonce);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-modal-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .category-modal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-modal-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category-modal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--turquoise);
+        }
+
+        .category-modal-card.selected {
+            border-color: var(--turquoise);
+            background: linear-gradient(135deg, rgba(93, 217, 193, 0.1), rgba(93, 217, 193, 0.15));
+            box-shadow: 0 4px 15px rgba(93, 217, 193, 0.3);
+        }
+
+        .category-modal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .category-modal-name {
+            font-weight: 600;
+            color: var(--gris-fonce);
+            font-size: 0.9rem;
+        }
+
+        .category-modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .category-modal-buttons .btn {
+            flex: 1;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-logos">
-            <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" alt="LS4YOU Logo">
-            <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" alt="Mission Locale Pays Basque">
-        </div>
-        <h1>Mes valeurs & Mes objectifs</h1>
-    </div>
+    <div class="background-decoration"></div>
 
+    <!-- Modal de sélection de catégorie -->
+    <div class="category-modal" id="categoryModal">
+        <div class="category-modal-content">
+            <div class="category-modal-header">
+                <h3>Choisir une catégorie</h3>
+                <p>Sélectionnez la catégorie qui correspond le mieux à votre objectif</p>
+            </div>
+            <div class="category-modal-grid" id="categoryModalGrid"></div>
+            <div class="category-modal-buttons">
+                <button class="btn btn-secondary" onclick="closeCategoryModal()">Annuler</button>
+                <button class="btn btn-primary" onclick="confirmCategorySelection()">Valider</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
-        <!-- STEP 1: Identifier mes valeurs -->
-        <div class="step active" id="step1">
-            <div class="step-header">
-                <div class="step-number">1</div>
-                <div class="step-title">
-                    <h2>Identifier mes valeurs</h2>
+        <header>
+            <div class="exercice-tag">EXERCICE LS4YOU</div>
+            
+            <div class="logos-container">
+                <img src="https://www.lifeskills4youth.eu/wp-content/uploads/2024/07/LS4YOU_Logo_whiteback.jpg" 
+                     alt="LS4YOU Logo" 
+                     class="project-logo">
+                <img src="https://static.wixstatic.com/media/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif/v1/fill/w_224,h_60,al_c,q_80,enc_avif,quality_auto/dd5dab_47743b1c86024865ba19e623a3db327f~mv2.avif" 
+                     alt="Mission Locale Pays Basque" 
+                     class="ml-logo">
+            </div>
+
+            <div class="logo-section">
+                <div class="puzzle-icon"></div>
+                <div>
+                    <h1>Valeurs en Priorité ABC</h1>
+                    <p class="subtitle">Façonner votre identité personnelle</p>
                 </div>
             </div>
+        </header>
 
-            <div class="consigne">
-                <p><strong>📍 Consigne :</strong> Cochez 5 à 7 valeurs qui sont vraiment prioritaires pour vous. Ces valeurs guident vos choix et reflètent qui vous êtes.</p>
+        <!-- ÉTAPE 1: IDENTIFIER -->
+        <div class="step-container" id="step1">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">Identifier mes valeurs</div>
             </div>
 
-            <div class="info-box">
+            <div class="step-description">
+                <strong>📍 Consigne :</strong> Cochez 5 à 7 valeurs qui sont vraiment prioritaires pour vous. Ces valeurs guident vos choix et reflètent qui vous êtes.
+            </div>
+
+            <div class="info-callout">
                 <h3>💡 Qu'est-ce qu'une valeur ?</h3>
                 <p>Une valeur, c'est ce qui compte vraiment pour vous, ce qui guide vos décisions au quotidien. Par exemple, si la <strong>persévérance</strong> est importante pour vous, vous allez terminer ce que vous commencez malgré les obstacles.</p>
             </div>
 
-            <div class="selected-values">
-                <h3>✨ Mes valeurs sélectionnées (<span id="valueCount">0</span>/7)</h3>
-                <div id="selectedValuesDisplay"></div>
+            <div id="valuesGrid" class="values-grid"></div>
+
+            <div id="selectionSummary" class="selected-values-summary" style="display: none;">
+                <h3>✨ Mes valeurs sélectionnées (<span id="selectedCount">0</span>/7)</h3>
+                <div id="selectedValuesList" class="selected-values-list"></div>
             </div>
 
-            <div class="values-grid" id="valuesGrid"></div>
+            <div id="validationMsg" class="validation-message" style="display: none;"></div>
 
-            <div class="navigation-buttons">
-                <button class="btn-secondary" disabled>← Retour</button>
-                <button class="btn-primary" id="step1Next" disabled>Continuer → Définir mes objectifs</button>
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="goToStep2a()" id="btnStep1">
+                    Continuer → Définir mes objectifs
+                </button>
             </div>
         </div>
 
-        <!-- STEP 2A: Définir mes objectifs -->
-        <div class="step" id="step2a">
+        <!-- ÉTAPE 2A: DÉFINIR MES OBJECTIFS (SMART) -->
+        <div class="step-container hidden" id="step2a">
             <div class="step-header">
                 <div class="step-number">2A</div>
-                <div class="step-title">
-                    <h2>Définir mes objectifs (méthode SMART)</h2>
-                </div>
+                <div class="step-title">Définir mes objectifs (méthode SMART)</div>
             </div>
 
-            <div class="consigne">
-                <p><strong>🎯 Consigne :</strong> Définissez 3 objectifs importants pour vous. Utilisez les catégories ci-dessous pour vous inspirer, puis précisez-les avec la méthode SMART.</p>
+            <div class="step-description">
+                <strong>🎯 Consigne :</strong> Définissez 3 objectifs importants pour vous. Utilisez les catégories ci-dessous pour vous inspirer, puis précisez-les avec la méthode SMART.
             </div>
 
-            <div class="info-box">
+            <div class="info-callout">
                 <h3>💡 Qu'est-ce qu'un objectif SMART ?</h3>
                 <p><strong>S</strong>pécifique - <strong>M</strong>esurable - <strong>A</strong>tteignable - <strong>R</strong>éaliste - <strong>T</strong>emporel : un objectif bien défini qui précise QUOI faire, COMMENT le mesurer, et QUAND le faire.</p>
             </div>
 
-            <h3 style="margin-bottom: 15px; color: var(--primary-blue);">📂 Catégories d'objectifs (pour vous inspirer)</h3>
-            <div class="category-grid" id="categoryGrid"></div>
+            <div class="categories-section" id="categoriesSection">
+                <h3 style="color: var(--gris-fonce); margin-bottom: 1rem; font-size: 1.2rem;">📂 Catégories d'objectifs (pour vous inspirer)</h3>
+                <div class="categories-grid" id="categoriesGrid"></div>
+            </div>
 
-            <div id="objectivesContainer"></div>
+            <div class="objectives-smart-input" id="objectivesSmartContainer"></div>
 
-            <div class="navigation-buttons">
-                <button class="btn-secondary" onclick="goToStep(1)">← Retour aux valeurs</button>
-                <button class="btn-primary" id="step2aNext" disabled>Continuer → Prioriser mes objectifs</button>
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep1()">
+                    ← Retour aux valeurs
+                </button>
+                <button class="btn btn-primary" onclick="goToStep2b()" id="btnStep2a">
+                    Continuer → Prioriser mes objectifs
+                </button>
             </div>
         </div>
 
-        <!-- STEP 2B: Prioriser (ABC) -->
-        <div class="step" id="step2b">
+        <!-- ÉTAPE 2B: PRIORISER (ABC) -->
+        <div class="step-container hidden" id="step2b">
             <div class="step-header">
                 <div class="step-number">2B</div>
-                <div class="step-title">
-                    <h2>Prioriser mes objectifs (méthode ABC)</h2>
+                <div class="step-title">Prioriser mes objectifs (méthode ABC)</div>
+            </div>
+
+            <div class="step-description">
+                <strong>📊 Consigne :</strong> Maintenant que vos objectifs sont bien définis, classez-les selon la méthode ABC pour identifier vos priorités.
+            </div>
+
+            <div class="priority-legend">
+                <div class="priority-legend-item">
+                    <div class="priority-badge a">A</div>
+                    <div><strong>Priorité A :</strong> Grave si pas fait (conséquences importantes)</div>
+                </div>
+                <div class="priority-legend-item">
+                    <div class="priority-badge b">B</div>
+                    <div><strong>Priorité B :</strong> Important mais peut attendre (gêne légère)</div>
+                </div>
+                <div class="priority-legend-item">
+                    <div class="priority-badge c">C</div>
+                    <div><strong>Priorité C :</strong> Agréable à faire mais sans conséquence</div>
                 </div>
             </div>
 
-            <div class="consigne">
-                <p><strong>📊 Consigne :</strong> Maintenant que vos objectifs sont bien définis, classez-les selon la méthode ABC pour identifier vos priorités.</p>
-            </div>
+            <div class="objectives-priority-container" id="objectivesPriorityContainer"></div>
 
-            <div class="info-box">
-                <h3>💡 Méthode ABC</h3>
-                <p><strong class="priority-a">A :</strong> Grave si pas fait (conséquences importantes)<br>
-                <strong class="priority-b">B :</strong> Important mais peut attendre (gêne légère)<br>
-                <strong class="priority-c">C :</strong> Agréable à faire mais sans conséquence</p>
-            </div>
-
-            <div id="prioritizationContainer"></div>
-
-            <div class="navigation-buttons">
-                <button class="btn-secondary" onclick="goToStep(2)">← Retour à la définition</button>
-                <button class="btn-primary" id="step2bNext" disabled>Continuer → Plan d'action</button>
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep2a()">
+                    ← Retour à la définition
+                </button>
+                <button class="btn btn-primary" onclick="goToStep3()" id="btnStep2b">
+                    Continuer → Plan d'action
+                </button>
             </div>
         </div>
 
-        <!-- STEP 3: Plan d'action -->
-        <div class="step" id="step3">
+        <!-- ÉTAPE 3: METTRE EN ŒUVRE -->
+        <div class="step-container hidden" id="step3">
             <div class="step-header">
                 <div class="step-number">3</div>
-                <div class="step-title">
-                    <h2>Mon plan d'action</h2>
-                </div>
+                <div class="step-title">Mon plan d'action</div>
             </div>
 
-            <div class="consigne">
-                <p><strong>🎯 Consigne :</strong> Choisissez une tâche priorité A alignée avec vos valeurs, puis définissez une micro-action concrète pour cette semaine.</p>
+            <div class="step-description">
+                <strong>🎯 Consigne :</strong> Choisissez une tâche priorité A alignée avec vos valeurs, puis définissez une micro-action concrète pour cette semaine.
             </div>
 
             <div id="actionPlanContainer"></div>
 
-            <div class="navigation-buttons">
-                <button class="btn-secondary" onclick="goToStep(2.5)">← Retour à la priorisation</button>
-                <button class="btn-primary" id="step3Next" disabled>Voir ma synthèse →</button>
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep2b()">
+                    ← Retour à la priorisation
+                </button>
+                <button class="btn btn-primary" onclick="goToStep4()" id="btnStep3">
+                    Voir ma synthèse →
+                </button>
             </div>
         </div>
 
-        <!-- STEP 4: Synthèse -->
-        <div class="step" id="step4">
+        <!-- ÉTAPE 4: SYNTHÈSE -->
+        <div class="step-container hidden" id="step4">
             <div class="step-header">
                 <div class="step-number">4</div>
-                <div class="step-title">
-                    <h2>Ma synthèse personnelle</h2>
-                </div>
+                <div class="step-title">Ma synthèse personnelle</div>
             </div>
 
-            <div id="synthesisContainer"></div>
+            <div class="synthesis-preview" id="synthesisContent"></div>
 
-            <div class="navigation-buttons">
-                <button class="btn-secondary" onclick="goToStep(3)">← Modifier mon plan</button>
-                <button class="btn-primary" onclick="downloadPDF()">📥 Télécharger ma fiche synthèse (PDF)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal pour catégories -->
-    <div class="modal" id="categoryModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Choisir une catégorie</h3>
-                <button class="close-modal" onclick="closeModal()">×</button>
-            </div>
-            <p>Sélectionnez la catégorie qui correspond le mieux à votre objectif</p>
-            <div id="modalCategoryGrid" style="margin-top: 20px;"></div>
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn-secondary" onclick="closeModal()" style="flex: 1;">Annuler</button>
-                <button class="btn-primary" id="validateCategory" style="flex: 1;">Valider</button>
+            <div class="btn-container">
+                <button class="btn btn-secondary" onclick="goToStep3()">
+                    ← Modifier mon plan
+                </button>
+                <button class="btn btn-download" onclick="downloadSynthesis()">
+                    📥 Télécharger ma fiche synthèse (PDF)
+                </button>
             </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <p><strong>Outil pédagogique LS4YOU</strong> - Cadre : Identifier, Mesurer, Mettre en œuvre</p>
-        <p>Mission Locale Pays Basque • Projet Erasmus+ LS4YOU</p>
+        <footer class="footer">
+            <p>Outil pédagogique LS4YOU - Cadre : Identifier, Mesurer, Mettre en œuvre</p>
+            <div class="ml-branding">
+                <span>Mission Locale Pays Basque</span>
+                <span style="color: var(--turquoise);">●</span>
+                <span>Projet Erasmus+ LS4YOU</span>
+            </div>
+        </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // DONNÉES DES VALEURS
-        const valeurs = [
-            { nom: "Authenticité", emoji: "🎭" },
-            { nom: "Autonomie", emoji: "🦅" },
-            { nom: "Bienveillance", emoji: "💝" },
-            { nom: "Courage", emoji: "💪" },
-            { nom: "Créativité", emoji: "🎨" },
-            { nom: "Curiosité", emoji: "🔍" },
-            { nom: "Engagement", emoji: "🤝" },
-            { nom: "Équilibre", emoji: "⚖️" },
-            { nom: "Famille", emoji: "👨‍👩‍👧‍👦" },
-            { nom: "Générosité", emoji: "🎁" },
-            { nom: "Honnêteté", emoji: "✨" },
-            { nom: "Humilité", emoji: "🙏" },
-            { nom: "Humour", emoji: "😄" },
-            { nom: "Justice", emoji: "⚖️" },
-            { nom: "Liberté", emoji: "🕊️" },
-            { nom: "Loyauté", emoji: "🤜🤛" },
-            { nom: "Partage", emoji: "🤲" },
-            { nom: "Patience", emoji: "⏳" },
-            { nom: "Persévérance", emoji: "🎯" },
-            { nom: "Respect", emoji: "🙌" },
-            { nom: "Responsabilité", emoji: "📋" },
-            { nom: "Sécurité", emoji: "🛡️" },
-            { nom: "Solidarité", emoji: "🤝" },
-            { nom: "Tolérance", emoji: "🌈" }
-        ];
-
-        // CATÉGORIES D'OBJECTIFS
+        // Catégories d'objectifs avec exemples
         const categories = [
-            { id: "formation", nom: "Formation & Apprentissage", icon: "🎓", description: "Acquérir de nouvelles compétences" },
-            { id: "emploi", nom: "Emploi & Carrière", icon: "💼", description: "Développer ma vie professionnelle" },
-            { id: "sante", nom: "Santé & Bien-être", icon: "🏃", description: "Prendre soin de moi" },
-            { id: "social", nom: "Relations & Social", icon: "👥", description: "Développer mes relations" },
-            { id: "finance", nom: "Finance & Logement", icon: "💰", description: "Gérer mon budget et logement" },
-            { id: "loisirs", nom: "Loisirs & Passions", icon: "🎸", description: "M'épanouir personnellement" },
-            { id: "mobilite", nom: "Mobilité & Voyages", icon: "✈️", description: "Explorer et me déplacer" },
-            { id: "engagement", nom: "Engagement & Valeurs", icon: "🌍", description: "Contribuer à des causes" }
+            { 
+                id: 'emploi', 
+                icon: '💼', 
+                nom: 'Emploi & Formation',
+                exemples: 'CV, entretien, stage, diplôme...',
+                description: 'Objectifs liés à votre parcours professionnel et vos études'
+            },
+            { 
+                id: 'mobilite', 
+                icon: '✈️', 
+                nom: 'Mobilité',
+                exemples: 'Permis, échange, voyage...',
+                description: 'Objectifs de déplacement, voyage, mobilité internationale'
+            },
+            { 
+                id: 'logement', 
+                icon: '🏠', 
+                nom: 'Logement & Autonomie',
+                exemples: 'Appart, déménagement, vie seul...',
+                description: 'Objectifs d\'indépendance, logement, vie quotidienne'
+            },
+            { 
+                id: 'social', 
+                icon: '👥', 
+                nom: 'Vie sociale & Famille',
+                exemples: 'Amis, relations, famille...',
+                description: 'Objectifs relationnels et de vie sociale'
+            },
+            { 
+                id: 'sante', 
+                icon: '💪', 
+                nom: 'Santé & Bien-être',
+                exemples: 'Sport, sommeil, alimentation...',
+                description: 'Objectifs de santé physique et mentale'
+            },
+            { 
+                id: 'financier', 
+                icon: '💰', 
+                nom: 'Finance & Budget',
+                exemples: 'Épargne, dettes, budget...',
+                description: 'Objectifs financiers et gestion d\'argent'
+            },
+            { 
+                id: 'perso', 
+                icon: '🎯', 
+                nom: 'Développement personnel',
+                exemples: 'Confiance, compétences, loisirs...',
+                description: 'Objectifs de croissance personnelle et passions'
+            },
+            { 
+                id: 'admin', 
+                icon: '📋', 
+                nom: 'Démarches administratives',
+                exemples: 'Papiers, allocations, banque...',
+                description: 'Objectifs administratifs et démarches officielles'
+            },
+            { 
+                id: 'numerique', 
+                icon: '💻', 
+                nom: 'Numérique & Technologie',
+                exemples: 'Ordi, réseau, compétences digitales...',
+                description: 'Objectifs liés aux outils numériques'
+            },
+            { 
+                id: 'engagement', 
+                icon: '🤝', 
+                nom: 'Engagement citoyen',
+                exemples: 'Bénévolat, association, écologie...',
+                description: 'Objectifs d\'engagement et participation citoyenne'
+            }
         ];
 
-        // ÉTAT DE L'APPLICATION
-        let selectedValues = [];
-        let objectives = [{}, {}, {}];
-        let currentObjectiveForCategory = null;
-        let currentStep = 1;
+        // État de l'application
+        let state = {
+            selectedValues: [],
+            objectives: [
+                { 
+                    id: 1, 
+                    category: null,
+                    specific: '',  // S - Quoi précisément ?
+                    measurable: '', // M - Comment savoir que c'est fait ?
+                    achievable: '', // A - Avec quelles ressources ?
+                    relevant: '',   // R - Pourquoi c'est important ?
+                    timebound: '',  // T - Quand / dans combien de temps ?
+                    priority: null,
+                    action: ''
+                },
+                { 
+                    id: 2, 
+                    category: null,
+                    specific: '',
+                    measurable: '',
+                    achievable: '',
+                    relevant: '',
+                    timebound: '',
+                    priority: null,
+                    action: ''
+                },
+                { 
+                    id: 3, 
+                    category: null,
+                    specific: '',
+                    measurable: '',
+                    achievable: '',
+                    relevant: '',
+                    timebound: '',
+                    priority: null,
+                    action: ''
+                }
+            ],
+            currentStep: 1,
+            currentObjectiveForCategory: null
+        };
 
-        // INITIALISATION
-        document.addEventListener('DOMContentLoaded', () => {
-            renderValues();
-            renderCategories();
-            setupEventListeners();
-        });
+        // Initialisation
+        function init() {
+            renderValuesGrid();
+            renderCategoriesGrid();
+            renderObjectivesSmartForm();
+        }
 
-        function renderValues() {
-            const grid = document.getElementById('valuesGrid');
-            grid.innerHTML = valeurs.map(v => `
-                <div class="value-card" onclick="toggleValue('${v.nom}')">
-                    <div style="font-size: 2em; margin-bottom: 8px;">${v.emoji}</div>
-                    <div style="font-weight: 600;">${v.nom}</div>
+        // Afficher la grille de catégories
+        function renderCategoriesGrid() {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-card" data-id="${cat.id}" onclick="selectCategoryInfo('${cat.id}')">
+                    <span class="category-icon">${cat.icon}</span>
+                    <div class="category-name">${cat.nom}</div>
+                    <div class="category-examples">${cat.exemples}</div>
                 </div>
             `).join('');
         }
 
-        function toggleValue(nom) {
-            const index = selectedValues.indexOf(nom);
-            if (index > -1) {
-                selectedValues.splice(index, 1);
-            } else {
-                if (selectedValues.length < 7) {
-                    selectedValues.push(nom);
+        // Sélectionner une catégorie (juste pour info/inspiration)
+        function selectCategoryInfo(categoryId) {
+            // Cette fonction est juste pour afficher visuellement la sélection
+            // Elle n'affecte pas l'état, c'est juste pour inspiration
+            document.querySelectorAll('.category-card').forEach(card => {
+                if (card.dataset.id === categoryId) {
+                    card.classList.toggle('selected');
                 } else {
-                    alert("Vous pouvez sélectionner maximum 7 valeurs");
-                    return;
+                    card.classList.remove('selected');
+                }
+            });
+        }
+
+        // Afficher le formulaire SMART pour les objectifs
+        function renderObjectivesSmartForm() {
+            const container = document.getElementById('objectivesSmartContainer');
+            container.innerHTML = state.objectives.map((obj, index) => {
+                const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                
+                return `
+                <div class="smart-objective-card ${category ? 'has-category' : ''}">
+                    <div class="objective-card-header">
+                        <div class="objective-number-badge">${index + 1}</div>
+                        ${category ? `<div class="category-badge">${category.icon} ${category.nom}</div>` : ''}
+                    </div>
+
+                    <button class="category-select-btn ${obj.category ? 'selected' : ''}" 
+                            onclick="openCategorySelector(${obj.id})">
+                        ${obj.category ? `${categories.find(c => c.id === obj.category).icon} ${categories.find(c => c.id === obj.category).nom}` : '📂 Choisir une catégorie (optionnel)'}
+                    </button>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">S</span>
+                            Spécifique - Quel est mon objectif précis ?
+                        </div>
+                        <div class="smart-help">Ex: "Obtenir mon permis B" plutôt que "avoir le permis"</div>
+                        <input type="text" 
+                               id="obj-specific-${obj.id}"
+                               placeholder="Mon objectif précis..."
+                               value="${obj.specific}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'specific', this.value)">
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">M</span>
+                            Mesurable - Comment savoir que c'est réussi ?
+                        </div>
+                        <div class="smart-help">Ex: "J'ai le permis en main" ou "J'ai passé l'examen"</div>
+                        <input type="text" 
+                               id="obj-measurable-${obj.id}"
+                               placeholder="Je saurai que c'est fait quand..."
+                               value="${obj.measurable}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'measurable', this.value)">
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">A</span>
+                            Atteignable - Quelles ressources j'ai / je dois avoir ?
+                        </div>
+                        <div class="smart-help">Ex: "Auto-école payée, 20h de conduite prévues"</div>
+                        <input type="text" 
+                               id="obj-achievable-${obj.id}"
+                               placeholder="Ce dont j'ai besoin / ce que j'ai déjà..."
+                               value="${obj.achievable}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'achievable', this.value)">
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">R</span>
+                            Réaliste - Pourquoi c'est important pour moi ?
+                        </div>
+                        <div class="smart-help">Ex: "Pour trouver un emploi et être autonome"</div>
+                        <textarea id="obj-relevant-${obj.id}"
+                                  placeholder="Ce que ça va m'apporter..."
+                                  onchange="updateObjectiveSmart(${obj.id}, 'relevant', this.value)">${obj.relevant}</textarea>
+                    </div>
+
+                    <div class="smart-section">
+                        <div class="smart-label">
+                            <span class="smart-letter">T</span>
+                            Temporel - Quand ? Dans combien de temps ?
+                        </div>
+                        <div class="smart-help">Ex: "D'ici 3 mois" ou "Avant fin juin 2026"</div>
+                        <input type="text" 
+                               id="obj-timebound-${obj.id}"
+                               placeholder="Ma deadline..."
+                               value="${obj.timebound}"
+                               onchange="updateObjectiveSmart(${obj.id}, 'timebound', this.value)">
+                    </div>
+                </div>
+            `}).join('');
+
+            validateStep2a();
+        }
+
+        // Ouvrir le sélecteur de catégorie
+        // Sélection de catégorie avec modal
+        let selectedCategoryTemp = null;
+        let currentObjectiveIdForCategory = null;
+
+        function openCategorySelector(objectiveId) {
+            const obj = state.objectives.find(o => o.id === objectiveId);
+            currentObjectiveIdForCategory = objectiveId;
+            selectedCategoryTemp = obj.category;
+
+            // Remplir le modal
+            const grid = document.getElementById('categoryModalGrid');
+            grid.innerHTML = categories.map(cat => `
+                <div class="category-modal-card ${obj.category === cat.id ? 'selected' : ''}" 
+                     data-category="${cat.id}"
+                     onclick="selectCategoryInModal('${cat.id}')">
+                    <span class="category-modal-icon">${cat.icon}</span>
+                    <div class="category-modal-name">${cat.nom}</div>
+                </div>
+            `).join('');
+
+            // Afficher le modal
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function selectCategoryInModal(categoryId) {
+            selectedCategoryTemp = categoryId;
+            
+            // Mettre à jour la sélection visuelle
+            document.querySelectorAll('.category-modal-card').forEach(card => {
+                if (card.dataset.category === categoryId) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+        }
+
+        function confirmCategorySelection() {
+            if (currentObjectiveIdForCategory !== null) {
+                const obj = state.objectives.find(o => o.id === currentObjectiveIdForCategory);
+                if (obj) {
+                    obj.category = selectedCategoryTemp;
+                    renderObjectivesSmartForm();
                 }
             }
+            closeCategoryModal();
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            selectedCategoryTemp = null;
+            currentObjectiveIdForCategory = null;
+        }
+
+        // Mettre à jour un champ SMART
+        function updateObjectiveSmart(id, field, value) {
+            const obj = state.objectives.find(o => o.id === id);
+            if (obj) {
+                obj[field] = value;
+                validateStep2a();
+            }
+        }
+
+        // Valider l'étape 2a
+        function validateStep2a() {
+            const allComplete = state.objectives.every(obj => 
+                obj.specific.trim() !== '' &&
+                obj.measurable.trim() !== '' &&
+                obj.timebound.trim() !== ''
+            );
+            
+            const btnStep2a = document.getElementById('btnStep2a');
+            if (btnStep2a) {
+                btnStep2a.disabled = !allComplete;
+            }
+        }
+
+        // Afficher les objectifs pour priorisation
+        function renderObjectivesPriority() {
+            const container = document.getElementById('objectivesPriorityContainer');
+            container.innerHTML = state.objectives.map((obj, index) => {
+                const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                
+                return `
+                <div class="priority-objective-card">
+                    <div class="priority-objective-summary">
+                        <div class="priority-objective-title">
+                            ${category ? `${category.icon}` : '🎯'} ${obj.specific}
+                        </div>
+                        <div class="priority-objective-details">
+                            <strong>Pourquoi :</strong> ${obj.relevant || 'Non précisé'}<br>
+                            <strong>Deadline :</strong> ${obj.timebound}
+                        </div>
+                        <div class="smart-recap">
+                            <div class="smart-recap-item">
+                                <span class="smart-recap-label">📏 Mesure</span>
+                                ${obj.measurable}
+                            </div>
+                            ${obj.achievable ? `
+                            <div class="smart-recap-item">
+                                <span class="smart-recap-label">🔧 Ressources</span>
+                                ${obj.achievable}
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="priority-selector">
+                        <button class="priority-btn priority-a ${obj.priority === 'A' ? 'selected' : ''}"
+                                onclick="updateObjectivePriority(${obj.id}, 'A')">
+                            <strong>A</strong> - Grave si pas fait
+                        </button>
+                        <button class="priority-btn priority-b ${obj.priority === 'B' ? 'selected' : ''}"
+                                onclick="updateObjectivePriority(${obj.id}, 'B')">
+                            <strong>B</strong> - Important
+                        </button>
+                        <button class="priority-btn priority-c ${obj.priority === 'C' ? 'selected' : ''}"
+                                onclick="updateObjectivePriority(${obj.id}, 'C')">
+                            <strong>C</strong> - Agréable
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        // Mettre à jour la priorité
+        function updateObjectivePriority(id, priority) {
+            const obj = state.objectives.find(o => o.id === id);
+            if (obj) {
+                obj.priority = priority;
+                renderObjectivesPriority();
+                validateStep2b();
+            }
+        }
+
+        // Valider l'étape 2b
+        function validateStep2b() {
+            const hasAllPriorities = state.objectives.every(obj => obj.priority !== null);
+            const btnStep2b = document.getElementById('btnStep2b');
+            if (btnStep2b) {
+                btnStep2b.disabled = !hasAllPriorities;
+            }
+        }
+
+        // Données des valeurs (issues de FJET)
+        const valeurs = [
+            { id: 1, icon: "🎭", nom: "Être authentique", description: "Se montrer « vrai », être soi-même" },
+            { id: 2, icon: "📜", nom: "Respecter les règles", description: "Suivre les normes et cadres établis" },
+            { id: 3, icon: "🌈", nom: "Être ouvert d'esprit", description: "Ne pas juger, accepter la différence" },
+            { id: 4, icon: "🤝", nom: "Être loyal", description: "Digne de confiance, fidèle" },
+            { id: 5, icon: "🌍", nom: "Contribuer à la société", description: "Participer au bien commun" },
+            { id: 6, icon: "🔍", nom: "Être curieux", description: "Ouvert à la découverte, à l'apprentissage" },
+            { id: 7, icon: "👥", nom: "Coopérer", description: "Collaborer, travailler ensemble" },
+            { id: 8, icon: "🦁", nom: "Être courageux", description: "Oser affronter les défis" },
+            { id: 9, icon: "💎", nom: "Être honnête", description: "Dire la vérité, être transparent" },
+            { id: 10, icon: "✨", nom: "Apprécier la beauté", description: "Valoriser l'esthétique, l'harmonie" },
+            { id: 11, icon: "🎉", nom: "Avoir du plaisir", description: "Profiter, s'amuser" },
+            { id: 12, icon: "🎯", nom: "S'appliquer", description: "Faire les choses avec soin" },
+            { id: 13, icon: "📋", nom: "Être ordonné", description: "Bien organiser, structurer" },
+            { id: 14, icon: "🤲", nom: "Entraider", description: "Soutenir, aider les autres" },
+            { id: 15, icon: "📢", nom: "Influencer", description: "Inspirer, convaincre les autres" },
+            { id: 16, icon: "💕", nom: "Se sentir proche", description: "Connecté, lié aux autres" },
+            { id: 17, icon: "⚖️", nom: "Chercher l'équité", description: "Viser la justice, l'égalité" },
+            { id: 18, icon: "🕊️", nom: "Être libre", description: "Indépendant, autonome" },
+            { id: 19, icon: "🙏", nom: "Savoir pardonner", description: "À soi-même et aux autres" },
+            { id: 20, icon: "🎨", nom: "Cultiver la créativité", description: "Imaginer, innover" },
+            { id: 21, icon: "🌟", nom: "Se respecter", description: "Respecter soi et les autres" },
+            { id: 22, icon: "🎁", nom: "Être généreux", description: "Donner, partager" },
+            { id: 23, icon: "💪", nom: "Persévérer", description: "Continuer malgré les difficultés" },
+            { id: 24, icon: "🏔️", nom: "Goût du risque", description: "Aventure, défi, audace" }
+        ];
+
+        // Initialisation
+        function init() {
+            renderValuesGrid();
+            renderCategoriesGrid();
+            renderObjectivesSmartForm();
+        }
+
+        // Afficher la grille de valeurs
+        function renderValuesGrid() {
+            const grid = document.getElementById('valuesGrid');
+            grid.innerHTML = valeurs.map(v => `
+                <div class="value-card" data-id="${v.id}" onclick="toggleValue(${v.id})">
+                    <div class="checkbox-custom"></div>
+                    <div class="value-content">
+                        <div class="value-icon">${v.icon}</div>
+                        <div class="value-name">${v.nom}</div>
+                        <div class="value-description">${v.description}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Sélectionner/désélectionner une valeur
+        function toggleValue(id) {
+            const index = state.selectedValues.indexOf(id);
+            
+            if (index === -1) {
+                if (state.selectedValues.length < 7) {
+                    state.selectedValues.push(id);
+                } else {
+                    showValidation("Vous avez déjà sélectionné 7 valeurs. Désélectionnez-en une pour en ajouter une autre.");
+                    return;
+                }
+            } else {
+                state.selectedValues.splice(index, 1);
+            }
+
             updateValuesDisplay();
         }
 
+        // Mettre à jour l'affichage des valeurs
         function updateValuesDisplay() {
-            document.getElementById('valueCount').textContent = selectedValues.length;
-            
-            const display = document.getElementById('selectedValuesDisplay');
-            display.innerHTML = selectedValues.map(v => `<span class="value-tag">${v}</span>`).join('');
-
-            // Update cards
+            // Mise à jour des cartes
             document.querySelectorAll('.value-card').forEach(card => {
-                const nom = card.querySelector('div:last-child').textContent;
-                card.classList.toggle('selected', selectedValues.includes(nom));
+                const id = parseInt(card.dataset.id);
+                if (state.selectedValues.includes(id)) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
             });
 
-            // Enable/disable next button
-            document.getElementById('step1Next').disabled = selectedValues.length < 5;
-        }
+            // Mise à jour du résumé
+            const count = state.selectedValues.length;
+            const summary = document.getElementById('selectionSummary');
+            const countEl = document.getElementById('selectedCount');
+            const listEl = document.getElementById('selectedValuesList');
+            const btnStep1 = document.getElementById('btnStep1');
 
-        function renderCategories() {
-            const grid = document.getElementById('categoryGrid');
-            grid.innerHTML = categories.map(c => `
-                <div class="category-card" onclick="openCategoryModal(${c.id})">
-                    <div class="category-icon">${c.icon}</div>
-                    <div class="category-title">${c.nom}</div>
-                    <div class="category-description">${c.description}</div>
-                </div>
-            `).join('');
+            countEl.textContent = count;
 
-            renderObjectiveInputs();
-        }
-
-        function renderObjectiveInputs() {
-            const container = document.getElementById('objectivesContainer');
-            container.innerHTML = objectives.map((obj, i) => `
-                <div class="objective-input">
-                    <h4>🎯 Objectif ${i + 1}</h4>
-                    <div style="margin-bottom: 15px;">
-                        <button class="btn-secondary" onclick="openCategoryModal(${i})" style="width: 100%;">
-                            ${obj.category ? `${categories.find(c => c.id === obj.category).icon} ${categories.find(c => c.id === obj.category).nom}` : '📂 Choisir une catégorie'}
-                        </button>
-                    </div>
-                    <textarea id="obj${i}" placeholder="Décrivez votre objectif..." oninput="updateObjective(${i})">${obj.description || ''}</textarea>
-                    <div class="smart-fields">
-                        <div class="smart-field">
-                            <label>📅 Échéance</label>
-                            <input type="text" id="obj${i}_when" placeholder="Ex: Dans 3 mois" value="${obj.when || ''}" oninput="updateObjective(${i})">
-                        </div>
-                        <div class="smart-field">
-                            <label>📊 Comment mesurer ?</label>
-                            <input type="text" id="obj${i}_measure" placeholder="Ex: CV envoyés" value="${obj.measure || ''}" oninput="updateObjective(${i})">
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            updateStep2aButton();
-        }
-
-        function openCategoryModal(objIndex) {
-            currentObjectiveForCategory = objIndex;
-            const modal = document.getElementById('categoryModal');
-            const grid = document.getElementById('modalCategoryGrid');
-            
-            grid.innerHTML = categories.map(c => `
-                <div class="category-card ${objectives[objIndex]?.category === c.id ? 'selected' : ''}" 
-                     onclick="selectCategoryInModal('${c.id}')">
-                    <div class="category-icon">${c.icon}</div>
-                    <div class="category-title">${c.nom}</div>
-                </div>
-            `).join('');
-            
-            modal.classList.add('active');
-        }
-
-        let selectedCategoryInModal = null;
-
-        function selectCategoryInModal(catId) {
-            selectedCategoryInModal = catId;
-            document.querySelectorAll('#modalCategoryGrid .category-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-        }
-
-        function closeModal() {
-            document.getElementById('categoryModal').classList.remove('active');
-            selectedCategoryInModal = null;
-        }
-
-        document.getElementById('validateCategory').addEventListener('click', () => {
-            if (selectedCategoryInModal && currentObjectiveForCategory !== null) {
-                objectives[currentObjectiveForCategory].category = selectedCategoryInModal;
-                renderObjectiveInputs();
-                closeModal();
+            if (count > 0) {
+                summary.style.display = 'block';
+                listEl.innerHTML = state.selectedValues
+                    .map(id => {
+                        const v = valeurs.find(val => val.id === id);
+                        return `<div class="selected-value-tag">${v.icon} ${v.nom}</div>`;
+                    })
+                    .join('');
+                
+                if (count >= 5) {
+                    btnStep1.disabled = false;
+                    hideValidation();
+                } else {
+                    btnStep1.disabled = true;
+                    showValidation(`Sélectionnez au moins 5 valeurs (${count}/5)`);
+                }
+            } else {
+                summary.style.display = 'none';
+                btnStep1.disabled = true;
             }
-        });
-
-        function updateObjective(index) {
-            objectives[index].description = document.getElementById(`obj${index}`).value;
-            objectives[index].when = document.getElementById(`obj${index}_when`).value;
-            objectives[index].measure = document.getElementById(`obj${index}_measure`).value;
-            updateStep2aButton();
         }
 
-        function updateStep2aButton() {
-            const allFilled = objectives.every(obj => 
-                obj.category && obj.description && obj.when && obj.measure
+        // Afficher/masquer message de validation
+        function showValidation(message) {
+            const msg = document.getElementById('validationMsg');
+            msg.textContent = message;
+            msg.style.display = 'block';
+        }
+
+        function hideValidation() {
+            document.getElementById('validationMsg').style.display = 'none';
+        }
+
+
+        // Navigation entre étapes
+        function goToStep1() {
+            showStep(1);
+        }
+
+        function goToStep2a() {
+            if (state.selectedValues.length < 5) {
+                showValidation("Sélectionnez au moins 5 valeurs avant de continuer.");
+                return;
+            }
+            renderObjectivesSmartForm();
+            showStep('2a');
+        }
+
+        function goToStep2b() {
+            const allComplete = state.objectives.every(obj => 
+                obj.specific.trim() !== '' &&
+                obj.measurable.trim() !== '' &&
+                obj.timebound.trim() !== ''
             );
-            document.getElementById('step2aNext').disabled = !allFilled;
-        }
-
-        function goToStep(step) {
-            currentStep = step;
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             
-            if (step === 1) {
-                document.getElementById('step1').classList.add('active');
-            } else if (step === 2) {
-                document.getElementById('step2a').classList.add('active');
-            } else if (step === 2.5) {
-                renderPrioritization();
-                document.getElementById('step2b').classList.add('active');
-            } else if (step === 3) {
-                renderActionPlan();
-                document.getElementById('step3').classList.add('active');
-            } else if (step === 4) {
-                renderSynthesis();
-                document.getElementById('step4').classList.add('active');
+            if (!allComplete) {
+                alert("Complétez au minimum les champs S (spécifique), M (mesurable) et T (temporel) pour chaque objectif.");
+                return;
             }
             
-            window.scrollTo(0, 0);
+            renderObjectivesPriority();
+            showStep('2b');
         }
 
-        function renderPrioritization() {
-            const container = document.getElementById('prioritizationContainer');
-            container.innerHTML = objectives.map((obj, i) => `
-                <div class="objective-input">
-                    <h4>${categories.find(c => c.id === obj.category).icon} ${obj.description}</h4>
-                    <div class="priority-selector">
-                        <div class="priority-option ${obj.priority === 'A' ? 'selected' : ''}" onclick="setPriority(${i}, 'A')">
-                            <div class="priority-label priority-a">A</div>
-                            <div><strong>Priorité A :</strong> Grave si pas fait</div>
-                        </div>
-                        <div class="priority-option ${obj.priority === 'B' ? 'selected' : ''}" onclick="setPriority(${i}, 'B')">
-                            <div class="priority-label priority-b">B</div>
-                            <div><strong>Priorité B :</strong> Important mais peut attendre</div>
-                        </div>
-                        <div class="priority-option ${obj.priority === 'C' ? 'selected' : ''}" onclick="setPriority(${i}, 'C')">
-                            <div class="priority-label priority-c">C</div>
-                            <div><strong>Priorité C :</strong> Agréable à faire</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            updateStep2bButton();
+        function goToStep3() {
+            const hasAllPriorities = state.objectives.every(obj => obj.priority !== null);
+            
+            if (!hasAllPriorities) {
+                alert("Classez tous vos objectifs selon la méthode ABC avant de continuer.");
+                return;
+            }
+            
+            renderActionPlan();
+            showStep(3);
         }
 
-        function setPriority(index, priority) {
-            objectives[index].priority = priority;
-            renderPrioritization();
+        function goToStep4() {
+            const hasAction = state.objectives.some(obj => obj.priority === 'A' && obj.action.trim() !== '');
+            if (!hasAction) {
+                alert("Définissez au moins une micro-action pour une tâche priorité A.");
+                return;
+            }
+            
+            renderSynthesis();
+            showStep(4);
         }
 
-        function updateStep2bButton() {
-            const allPrioritized = objectives.every(obj => obj.priority);
-            document.getElementById('step2bNext').disabled = !allPrioritized;
+        function showStep(stepNumber) {
+            const steps = [1, '2a', '2b', 3, 4];
+            steps.forEach(s => {
+                const step = document.getElementById(`step${s}`);
+                if (step) {
+                    if (s === stepNumber) {
+                        step.classList.remove('hidden');
+                        step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        step.classList.add('hidden');
+                    }
+                }
+            });
+            state.currentStep = stepNumber;
         }
 
+        // Afficher le plan d'action
         function renderActionPlan() {
-            const priorityA = objectives.filter(obj => obj.priority === 'A');
             const container = document.getElementById('actionPlanContainer');
-            
+            const priorityA = state.objectives.filter(obj => obj.priority === 'A');
+
+            if (priorityA.length === 0) {
+                container.innerHTML = `
+                    <div class="info-callout">
+                        <h3>ℹ️ Aucune tâche priorité A</h3>
+                        <p>Vous n'avez pas de tâche classée en priorité A. Retournez à l'étape précédente pour ajuster vos priorités.</p>
+                    </div>
+                `;
+                document.getElementById('btnStep3').disabled = true;
+                return;
+            }
+
             container.innerHTML = `
-                <div class="info-box">
-                    <h3>🎯 Vos objectifs priorité A</h3>
-                    ${priorityA.map((obj, i) => `
-                        <div class="synthesis-item">
-                            ${categories.find(c => c.id === obj.category).icon} <strong>${obj.description}</strong>
-                        </div>
-                    `).join('')}
+                <div class="info-callout">
+                    <h3>🎯 Choisissez votre objectif prioritaire</h3>
+                    <p>Sélectionnez une tâche priorité A qui correspond à vos valeurs, puis définissez une action concrète pour cette semaine.</p>
                 </div>
 
-                <div class="objective-input">
-                    <h4>✅ Définir ma micro-action de la semaine</h4>
-                    <label>Quelle première action concrète je peux faire cette semaine ?</label>
-                    <textarea id="microAction" placeholder="Ex: Appeler 3 entreprises pour un stage..." oninput="updateActionPlan()"></textarea>
-                    
-                    <div class="smart-fields" style="margin-top: 15px;">
-                        <div class="smart-field">
-                            <label>📅 Quel jour ?</label>
-                            <input type="text" id="actionDay" placeholder="Ex: Mercredi" oninput="updateActionPlan()">
+                ${priorityA.map(obj => {
+                    const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                    return `
+                    <div class="objective-item">
+                        <div class="objective-header">
+                            <div class="priority-badge a">A</div>
+                            <div style="flex: 1;">
+                                <strong>${category ? `${category.icon} ` : ''}${obj.specific}</strong>
+                                <p style="color: #666; font-size: 0.9rem; margin-top: 0.3rem;">
+                                    <strong>Pourquoi :</strong> ${obj.relevant}<br>
+                                    <strong>Deadline :</strong> ${obj.timebound}
+                                </p>
+                            </div>
                         </div>
-                        <div class="smart-field">
-                            <label>⏰ Combien de temps ?</label>
-                            <input type="text" id="actionTime" placeholder="Ex: 1 heure" oninput="updateActionPlan()">
+                        
+                        <div class="action-input">
+                            <div class="objective-label">🚀 Ma micro-action cette semaine</div>
+                            <input type="text" 
+                                   id="action-${obj.id}"
+                                   placeholder="Ex: Faire une version de mon CV mardi, checker avec mon conseiller ML"
+                                   value="${obj.action}"
+                                   onchange="updateObjective(${obj.id}, 'action', this.value); validateStep3();">
                         </div>
                     </div>
-                </div>
+                `}).join('')}
             `;
+
+            validateStep3();
         }
 
-        function updateActionPlan() {
-            const action = document.getElementById('microAction').value;
-            const day = document.getElementById('actionDay').value;
-            const time = document.getElementById('actionTime').value;
-            
-            document.getElementById('step3Next').disabled = !(action && day && time);
+        // Mise à jour objectif (compatibilité)
+        function updateObjective(id, field, value) {
+            const obj = state.objectives.find(o => o.id === id);
+            if (obj) {
+                obj[field] = value;
+            }
         }
 
+        // Valider l'étape 3
+        function validateStep3() {
+            const hasAction = state.objectives.some(obj => obj.priority === 'A' && obj.action.trim() !== '');
+            const btn = document.getElementById('btnStep3');
+            if (btn) btn.disabled = !hasAction;
+        }
+
+        // Générer la synthèse
         function renderSynthesis() {
-            const container = document.getElementById('synthesisContainer');
-            const priorityA = objectives.filter(obj => obj.priority === 'A');
-            
+            const container = document.getElementById('synthesisContent');
+            const selectedValeurs = state.selectedValues.map(id => valeurs.find(v => v.id === id));
+            const priorityAWithAction = state.objectives.filter(obj => obj.priority === 'A' && obj.action.trim() !== '');
+
             container.innerHTML = `
                 <div class="synthesis-section">
-                    <h3>✨ Mes valeurs</h3>
-                    ${selectedValues.map(v => `<span class="value-tag">${v}</span>`).join('')}
-                </div>
-
-                <div class="synthesis-section">
-                    <h3>🎯 Mes objectifs prioritaires (A)</h3>
-                    ${priorityA.map(obj => `
-                        <div class="synthesis-item">
-                            <strong>${categories.find(c => c.id === obj.category).icon} ${obj.description}</strong><br>
-                            📅 ${obj.when} | 📊 ${obj.measure}
+                    <h3>🌟 Mes valeurs prioritaires</h3>
+                    ${selectedValeurs.map(v => `
+                        <div class="value-explanation">
+                            <h4>${v.icon} ${v.nom}</h4>
+                            <p><strong>Ce que ça signifie :</strong> ${v.description}</p>
                         </div>
                     `).join('')}
                 </div>
 
                 <div class="synthesis-section">
-                    <h3>✅ Ma micro-action cette semaine</h3>
-                    <div class="synthesis-item">
-                        <strong>${document.getElementById('microAction').value}</strong><br>
-                        📅 ${document.getElementById('actionDay').value} | ⏰ ${document.getElementById('actionTime').value}
-                    </div>
+                    <h3>📊 Mes objectifs SMART classés (ABC)</h3>
+                    ${state.objectives.sort((a, b) => {
+                        const order = { 'A': 1, 'B': 2, 'C': 3 };
+                        return order[a.priority] - order[b.priority];
+                    }).map(obj => {
+                        const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                        return `
+                        <div class="objective-card">
+                            <div class="objective-card-header">
+                                <div class="objective-priority-badge" style="background: ${
+                                    obj.priority === 'A' ? 'var(--rouge)' : 
+                                    obj.priority === 'B' ? 'var(--orange)' : 
+                                    'var(--jaune)'
+                                }; ${obj.priority === 'C' ? 'color: var(--gris-fonce)' : ''}">
+                                    ${obj.priority}
+                                </div>
+                                <div class="objective-title">
+                                    ${category ? `${category.icon} ` : ''}${obj.specific}
+                                </div>
+                            </div>
+                            <div class="objective-details">
+                                <strong>📏 Mesure de réussite :</strong> ${obj.measurable}<br>
+                                ${obj.achievable ? `<strong>🔧 Ressources :</strong> ${obj.achievable}<br>` : ''}
+                                <strong>💡 Pourquoi c'est important :</strong> ${obj.relevant}<br>
+                                <strong>⏰ Deadline :</strong> ${obj.timebound}
+                            </div>
+                            ${obj.action ? `
+                                <div class="action-highlight">
+                                    <strong>💪 Mon action cette semaine :</strong> ${obj.action}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `}).join('')}
+                </div>
+
+                <div class="synthesis-section">
+                    <h3>🎯 Mon engagement cette semaine</h3>
+                    ${priorityAWithAction.map(obj => {
+                        const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+                        return `
+                        <div class="info-callout">
+                            <h3>${category ? `${category.icon} ` : ''}${obj.specific}</h3>
+                            <p><strong>🚀 Action concrète :</strong> ${obj.action}</p>
+                            <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.5rem;">
+                                <strong>Date limite :</strong> ${obj.timebound}
+                            </p>
+                        </div>
+                    `}).join('')}
                 </div>
             `;
         }
 
-        function setupEventListeners() {
-            document.getElementById('step1Next').addEventListener('click', () => goToStep(2));
-            document.getElementById('step2aNext').addEventListener('click', () => goToStep(2.5));
-            document.getElementById('step2bNext').addEventListener('click', () => goToStep(3));
-            document.getElementById('step3Next').addEventListener('click', () => goToStep(4));
-        }
-
-        function downloadPDF() {
+        // Télécharger la synthèse en PDF
+        function downloadSynthesis() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Titre
-            doc.setFontSize(18);
-            doc.setTextColor(0, 102, 204);
-            doc.text("Ma synthèse personnelle", 20, 20);
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text("Mes valeurs & Mes objectifs - LS4YOU", 20, 28);
+            // Configuration
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 20;
+            const lineHeight = 7;
+            let yPos = margin;
+
+            // Couleurs LS4YOU
+            const turquoise = [93, 217, 193];
+            const rouge = [232, 72, 85];
+            const jaune = [255, 210, 63];
+
+            // En-tête avec logo symbolique
+            doc.setFillColor(...turquoise);
+            doc.rect(0, 0, pageWidth, 30, 'F');
             
-            let y = 45;
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('MA SYNTHÈSE PERSONNELLE', pageWidth / 2, 15, { align: 'center' });
             
-            // Valeurs
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text('Valeurs en Priorité ABC - LS4YOU', pageWidth / 2, 22, { align: 'center' });
+
+            yPos = 40;
+
+            // Section 1: Mes valeurs
+            doc.setTextColor(93, 217, 193);
             doc.setFontSize(14);
-            doc.setTextColor(0, 102, 204);
-            doc.text("Mes valeurs", 20, y);
-            y += 8;
-            doc.setFontSize(11);
-            doc.setTextColor(0);
-            selectedValues.forEach(v => {
-                doc.text(`• ${v}`, 25, y);
-                y += 6;
-            });
+            doc.setFont(undefined, 'bold');
+            doc.text('MES VALEURS PRIORITAIRES', margin, yPos);
+            yPos += 10;
+
+            const selectedValeurs = state.selectedValues.map(id => valeurs.find(v => v.id === id));
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
             
-            y += 5;
-            
-            // Objectifs
-            doc.setFontSize(14);
-            doc.setTextColor(0, 102, 204);
-            doc.text("Mes objectifs prioritaires", 20, y);
-            y += 8;
-            doc.setFontSize(11);
-            doc.setTextColor(0);
-            objectives.filter(obj => obj.priority === 'A').forEach(obj => {
-                const catName = categories.find(c => c.id === obj.category).nom;
-                doc.text(`• ${catName}: ${obj.description}`, 25, y);
-                y += 6;
+            selectedValeurs.forEach((v, index) => {
+                if (yPos > pageHeight - 40) {
+                    doc.addPage();
+                    yPos = margin;
+                }
+
+                doc.setFont(undefined, 'bold');
+                doc.text(`${index + 1}. ${v.nom}`, margin + 5, yPos);
+                yPos += lineHeight;
+
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(9);
+                const description = doc.splitTextToSize(`   ${v.description}`, pageWidth - 2 * margin - 10);
+                doc.text(description, margin + 5, yPos);
+                yPos += description.length * 5 + 3;
                 doc.setFontSize(10);
-                doc.setTextColor(100);
-                doc.text(`  Échéance: ${obj.when} | Mesure: ${obj.measure}`, 25, y);
-                y += 8;
-                doc.setFontSize(11);
-                doc.setTextColor(0);
             });
-            
-            y += 5;
-            
-            // Micro-action
+
+            yPos += 5;
+
+            // Section 2: Mes objectifs SMART + ABC
+            if (yPos > pageHeight - 60) {
+                doc.addPage();
+                yPos = margin;
+            }
+
+            doc.setTextColor(232, 72, 85);
             doc.setFontSize(14);
-            doc.setTextColor(0, 102, 204);
-            doc.text("Ma micro-action cette semaine", 20, y);
-            y += 8;
-            doc.setFontSize(11);
-            doc.setTextColor(0);
-            doc.text(`Action: ${document.getElementById('microAction').value}`, 25, y);
-            y += 6;
-            doc.text(`Quand: ${document.getElementById('actionDay').value}`, 25, y);
-            y += 6;
-            doc.text(`Durée: ${document.getElementById('actionTime').value}`, 25, y);
-            
+            doc.setFont(undefined, 'bold');
+            doc.text('MES OBJECTIFS SMART CLASSÉS (ABC)', margin, yPos);
+            yPos += 10;
+
+            const sortedObjectives = [...state.objectives].sort((a, b) => {
+                const order = { 'A': 1, 'B': 2, 'C': 3 };
+                return order[a.priority] - order[b.priority];
+            });
+
+            sortedObjectives.forEach(obj => {
+                if (yPos > pageHeight - 80) {
+                    doc.addPage();
+                    yPos = margin;
+                }
+
+                // Badge priorité
+                const priorityColors = {
+                    'A': rouge,
+                    'B': [255, 184, 77],
+                    'C': jaune
+                };
+                
+                doc.setFillColor(...priorityColors[obj.priority]);
+                doc.roundedRect(margin + 2, yPos - 4, 10, 8, 2, 2, 'F');
+                
+                doc.setTextColor(255, 255, 255);
+                if (obj.priority === 'C') doc.setTextColor(0, 0, 0);
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.text(obj.priority, margin + 7, yPos + 1, { align: 'center' });
+
+                // Catégorie si présente
+                const category = obj.category ? categories.find(c => c.id === obj.category) : null;
+
+                // Texte objectif (SMART - Spécifique)
+                doc.setTextColor(0, 0, 0);
+                doc.setFont(undefined, 'bold');
+                doc.text(`${category ? category.nom + ' - ' : ''}${obj.specific}`, margin + 15, yPos);
+                yPos += lineHeight;
+
+                // Détails SMART
+                doc.setFont(undefined, 'normal');
+                doc.setFontSize(8);
+
+                // Mesurable
+                if (obj.measurable) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Mesure:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    const measText = doc.splitTextToSize(obj.measurable, pageWidth - 2 * margin - 35);
+                    doc.text(measText, margin + 33, yPos);
+                    yPos += measText.length * 4 + 2;
+                }
+
+                // Atteignable (ressources)
+                if (obj.achievable) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Ressources:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    const achText = doc.splitTextToSize(obj.achievable, pageWidth - 2 * margin - 35);
+                    doc.text(achText, margin + 40, yPos);
+                    yPos += achText.length * 4 + 2;
+                }
+
+                // Réaliste (pourquoi)
+                if (obj.relevant) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Pourquoi:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    const relText = doc.splitTextToSize(obj.relevant, pageWidth - 2 * margin - 35);
+                    doc.text(relText, margin + 35, yPos);
+                    yPos += relText.length * 4 + 2;
+                }
+
+                // Temporel
+                if (obj.timebound) {
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Deadline:', margin + 15, yPos);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(obj.timebound, margin + 35, yPos);
+                    yPos += 5;
+                }
+
+                doc.setFontSize(10);
+
+                // Action si présente
+                if (obj.action) {
+                    doc.setFillColor(248, 249, 250);
+                    doc.rect(margin + 15, yPos - 2, pageWidth - 2 * margin - 15, 12, 'F');
+                    
+                    doc.setFont(undefined, 'bold');
+                    doc.setFontSize(9);
+                    doc.setTextColor(232, 72, 85);
+                    doc.text('Action cette semaine:', margin + 18, yPos + 3);
+                    
+                    doc.setFont(undefined, 'normal');
+                    doc.setTextColor(0, 0, 0);
+                    const actionText = doc.splitTextToSize(obj.action, pageWidth - 2 * margin - 60);
+                    doc.text(actionText, margin + 55, yPos + 3);
+                    yPos += 15;
+                }
+
+                yPos += 4;
+                doc.setFontSize(10);
+            });
+
             // Footer
-            doc.setFontSize(9);
-            doc.setTextColor(150);
-            doc.text("Mission Locale Pays Basque - Projet Erasmus+ LS4YOU", 20, 280);
-            
-            doc.save('ma-synthese-LS4YOU.pdf');
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text('Mission Locale Pays Basque - Projet Erasmus+ LS4YOU', pageWidth / 2, pageHeight - 10, { align: 'center' });
+            doc.text(`Généré le ${new Date().toLocaleDateString('fr-FR')}`, pageWidth / 2, pageHeight - 5, { align: 'center' });
+
+            // Téléchargement
+            doc.save('Ma-Synthese-Valeurs-ABC-SMART.pdf');
         }
+
+        // Initialisation au chargement
+        window.onload = init;
     </script>
 </body>
 </html>
